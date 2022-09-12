@@ -3,17 +3,17 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import BankAccountWidget from "./bankAccountWidget";
 
-function Home({ token }) {
+function Home({ authenticatedCredentials }) {
     const navigate = useNavigate();
     const [bankAccounts, setBankAccounts] = useState([]);
 
     useEffect(() => {
-        if (token == null || token === '') {
+        if (authenticatedCredentials == null) {
             navigate('/login');
         } else {
             axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
                 headers: {
-                    'Authorization': `token ${token}`,
+                    'Authorization': `token ${authenticatedCredentials.token}`,
                 },
             })
                 .then(response => {
@@ -23,7 +23,7 @@ function Home({ token }) {
                     console.error(error.message);
                 });
         }
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>

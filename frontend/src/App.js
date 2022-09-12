@@ -4,33 +4,49 @@ import {useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom"
 import Home from "./components/home";
 import BankAccount from "./components/bankAccount";
+import Sidebar from "./components/sidebar";
+import TopBar from "./components/topBar";
 
 function App() {
-    const [token, setToken] = useState('');
+    const [authenticatedCredentials, setAuthenticatedCredentials] = useState(null);
 
     return (
         <div className="App">
             <Router>
+                {authenticatedCredentials != null ? (
+                    <>
+                        <TopBar
+                            setAuthenticatedCredentials={setAuthenticatedCredentials}
+                        />
+                        <Sidebar />
+                    </>
+                ) : null}
                 <Routes>
                     <Route
                         path="/"
                         element={
-                            token != null && token !== '' ? <Navigate to="/home" /> : <Navigate to="/login" />
+                            authenticatedCredentials != null ? <Navigate to="/home" /> : <Navigate to="/login" />
                         }
                     />
                     <Route
                         path="/login"
                         element={
                             <Login
-                                setToken={setToken}
+                                setAuthenticatedCredentials={setAuthenticatedCredentials}
                             />
+                        }
+                    />
+                    <Route
+                        path="/settings"
+                        element={
+                            <div></div>
                         }
                     />
                     <Route
                         path="/home"
                         element={
                             <Home
-                                token={token}
+                                authenticatedCredentials={authenticatedCredentials}
                             />
                         }
                     />
@@ -38,7 +54,7 @@ function App() {
                         path="/bank_account/:id"
                         element={
                             <BankAccount
-                                token={token}
+                                authenticatedCredentials={authenticatedCredentials}
                             />
                         }
                     />
