@@ -17,7 +17,9 @@ function Login({ setToken }) {
                 setToken(response.data.token);
                 navigate('/home');
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                console.error(error.message)
+            });
     }
 
     const inputChanged = event => {

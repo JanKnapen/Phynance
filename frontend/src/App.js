@@ -3,6 +3,7 @@ import Login from "./components/login";
 import {useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom"
 import Home from "./components/home";
+import BankAccount from "./components/bankAccount";
 
 function App() {
     const [token, setToken] = useState('');
@@ -29,6 +30,14 @@ function App() {
                         path="/home"
                         element={
                             <Home
+                                token={token}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/bank_account/:id"
+                        element={
+                            <BankAccount
                                 token={token}
                             />
                         }

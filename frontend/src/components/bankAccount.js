@@ -1,23 +1,23 @@
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import BankAccountWidget from "./bankAccountWidget";
 
-function Home({ token }) {
+function BankAccount({ token }) {
     const navigate = useNavigate();
-    const [bankAccounts, setBankAccounts] = useState([]);
+    const { id } = useParams();
+    const [bankAccount, setBankAccount] = useState({});
 
     useEffect(() => {
         if (token == null || token === '') {
             navigate('/login');
         } else {
-            axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
+            axios.get('http://localhost:8000/bank_portfolio/bank_accounts/' + id, {
                 headers: {
                     'Authorization': `token ${token}`,
                 },
             })
                 .then(response => {
-                    setBankAccounts(response.data);
+                    setBankAccount(response.data);
                 })
                 .catch(error => {
                     console.error(error.message);
@@ -27,15 +27,11 @@ function Home({ token }) {
 
     return (
         <div>
-            <h1>Home Page</h1>
-            {bankAccounts.map(({ id, name }) => (
-                <BankAccountWidget
-                    id={id}
-                    name={name}
-                />
-            ))}
+            <h1>{bankAccount.name}</h1>
+            <p>Description: {bankAccount.description}</p>
+            <p>IBAN: {bankAccount.IBAN}</p>
         </div>
     );
 }
 
-export default Home;
+export default BankAccount;
