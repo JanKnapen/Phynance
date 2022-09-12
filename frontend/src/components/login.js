@@ -1,69 +1,70 @@
-import {Component} from "react";
+import {useState} from "react";
 import {Button, TextField} from "@mui/material";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-//TODO: change component to function with react hooks
-class Login extends Component {
+function Login({ setToken }) {
+    const navigate = useNavigate();
 
-    state = {
-        credentials: {
-            username: '',
-            password: '',
-        },
-    }
+    const [credentials, setCredentials] = useState({
+        username: '',
+        password: '',
+    });
 
-    login = event => {
-        axios.post('http://localhost:8000/auth/login/', this.state.credentials)
-            .then(response => console.log(response.data.token))
+    const login = event => {
+        axios.post('http://localhost:8000/auth/login/', credentials)
+            .then(response => {
+                setToken(response.data.token);
+                navigate('/home');
+            })
             .catch(error => console.error(error));
     }
 
-    inputChanged = event => {
-        const cred = this.state.credentials;
-        cred[event.target.name] = event.target.value;
-        this.setState({credentials: cred});
+    const inputChanged = event => {
+        setCredentials(prevState => ({
+            ...prevState,
+            [event.target.name]: event.target.value,
+        }));
     }
 
-    keyPress = event => {
+    const keyPress = event => {
         if (event.keyCode === 13) {
-            this.login(event);
+            login(event);
         }
     }
 
-    render() {
-        return (
-            <div className="App">
-                <h1>Login Page</h1>
-                <TextField
-                    id="username-textfield"
-                    label="Username"
-                    name="username"
-                    variant="standard"
-                    required={true}
-                    onChange={this.inputChanged}
-                    onKeyDown={this.keyPress}
-                />
-                <br/>
-                <br/>
-                <TextField
-                    id="password-textfield"
-                    label="Password"
-                    name="password"
-                    type="password"
-                    variant="standard"
-                    required={true}
-                    onChange={this.inputChanged}
-                    onKeyDown={this.keyPress}
-                />
-                <br/>
-                <br/>
-                <Button
-                    variant="contained"
-                    onClick={this.login}
-                >Login</Button>
-            </div>
-        );
-    }
+    return (
+        <div className="App">
+            <h1>Login Page</h1>
+            <TextField
+                id="username-textfield"
+                label="Username"
+                name="username"
+                variant="standard"
+                required={true}
+                onChange={inputChanged}
+                onKeyDown={keyPress}
+            />
+            <br/>
+            <br/>
+            <TextField
+                id="password-textfield"
+                label="Password"
+                name="password"
+                type="password"
+                variant="standard"
+                required={true}
+                onChange={inputChanged}
+                onKeyDown={keyPress}
+            />
+            <br/>
+            <br/>
+            <Button
+                variant="contained"
+                onClick={login}
+            >Login</Button>
+        </div>
+    );
 }
 
 export default Login;
