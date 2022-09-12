@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from rest_framework.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -41,5 +42,9 @@ class BankTransaction(models.Model):
     description = models.TextField()
     category = models.ForeignKey(BankTransactionCategory, on_delete=models.PROTECT)
 
+    def clean(self):
+        if self.bank_account.owner != self.category.owner:
+            raise ValidationError('Category owner is not equal to the bank account owner')
+
     def __str__(self):
-        return self.bank_account.owner.username + ', ' + self.bank_account.name + ': ' + self.date
+        return self.bank_account.owner.username + ', ' + self.bank_account.name + ': ' + str(self.date)
