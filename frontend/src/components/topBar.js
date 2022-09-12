@@ -1,5 +1,5 @@
 import {Button, Container, Switch} from "@mui/material";
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import SavingsIcon from '@mui/icons-material/Savings';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import AppBar from '@mui/material/AppBar';
@@ -32,10 +32,10 @@ function TopBar({ setAuthenticatedCredentials }) {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Container maxWidth="x1">
                 <Toolbar disableGutters>
-                    <AccountBalanceIcon
+                    <SavingsIcon
                         sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
                         onClick={(event) => navigate('/home')}
                         style={{cursor: 'pointer'}}

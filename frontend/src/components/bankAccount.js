@@ -23,7 +23,7 @@ function BankAccount({ authenticatedCredentials }) {
                     console.error(error.message);
                 });
         }
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>

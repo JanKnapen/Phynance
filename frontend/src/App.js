@@ -6,6 +6,8 @@ import Home from "./components/home";
 import BankAccount from "./components/bankAccount";
 import Sidebar from "./components/sidebar";
 import TopBar from "./components/topBar";
+import {Box} from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
 
 function App() {
     const [authenticatedCredentials, setAuthenticatedCredentials] = useState(null);
@@ -14,13 +16,16 @@ function App() {
         <div className="App">
             <Router>
                 {authenticatedCredentials != null ? (
-                    <>
+                    <Box sx={{ display: 'flex' }}>
                         <TopBar
                             setAuthenticatedCredentials={setAuthenticatedCredentials}
                         />
-                        <Sidebar />
-                    </>
+                        <Sidebar
+                            authenticatedCredentials={authenticatedCredentials}
+                        />
+                    </Box>
                 ) : null}
+                <Toolbar />
                 <Routes>
                     <Route
                         path="/"
@@ -45,9 +50,7 @@ function App() {
                     <Route
                         path="/home"
                         element={
-                            <Home
-                                authenticatedCredentials={authenticatedCredentials}
-                            />
+                            <Home />
                         }
                     />
                     <Route
