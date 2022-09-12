@@ -2,18 +2,18 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-function BankAccount({ token }) {
+function BankAccount({ authenticatedCredentials }) {
     const navigate = useNavigate();
     const { id } = useParams();
     const [bankAccount, setBankAccount] = useState({});
 
     useEffect(() => {
-        if (token == null || token === '') {
+        if (authenticatedCredentials == null) {
             navigate('/login');
         } else {
             axios.get('http://localhost:8000/bank_portfolio/bank_accounts/' + id, {
                 headers: {
-                    'Authorization': `token ${token}`,
+                    'Authorization': `token ${authenticatedCredentials.token}`,
                 },
             })
                 .then(response => {
@@ -23,7 +23,7 @@ function BankAccount({ token }) {
                     console.error(error.message);
                 });
         }
-    }, [])
+    }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>

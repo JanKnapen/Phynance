@@ -4,41 +4,60 @@ import {useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom"
 import Home from "./components/home";
 import BankAccount from "./components/bankAccount";
+import Sidebar from "./components/sidebar";
+import TopBar from "./components/topBar";
+import {Box} from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
 
 function App() {
-    const [token, setToken] = useState('');
+    const [authenticatedCredentials, setAuthenticatedCredentials] = useState(null);
 
     return (
         <div className="App">
             <Router>
+                {authenticatedCredentials != null ? (
+                    <Box sx={{ display: 'flex' }}>
+                        <TopBar
+                            setAuthenticatedCredentials={setAuthenticatedCredentials}
+                        />
+                        <Sidebar
+                            authenticatedCredentials={authenticatedCredentials}
+                        />
+                    </Box>
+                ) : null}
+                <Toolbar />
                 <Routes>
                     <Route
                         path="/"
                         element={
-                            token != null && token !== '' ? <Navigate to="/home" /> : <Navigate to="/login" />
+                            authenticatedCredentials != null ? <Navigate to="/home" /> : <Navigate to="/login" />
                         }
                     />
                     <Route
                         path="/login"
                         element={
                             <Login
-                                setToken={setToken}
+                                setAuthenticatedCredentials={setAuthenticatedCredentials}
                             />
+                        }
+                    />
+                    <Route
+                        path="/settings"
+                        element={
+                            <div></div>
                         }
                     />
                     <Route
                         path="/home"
                         element={
-                            <Home
-                                token={token}
-                            />
+                            <Home />
                         }
                     />
                     <Route
                         path="/bank_account/:id"
                         element={
                             <BankAccount
-                                token={token}
+                                authenticatedCredentials={authenticatedCredentials}
                             />
                         }
                     />

@@ -3,7 +3,7 @@ import {Button, TextField} from "@mui/material";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-function Login({ setToken }) {
+function Login({ setAuthenticatedCredentials }) {
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({
@@ -14,7 +14,10 @@ function Login({ setToken }) {
     const login = event => {
         axios.post('http://localhost:8000/auth/login/', credentials)
             .then(response => {
-                setToken(response.data.token);
+                setAuthenticatedCredentials({
+                    ...credentials,
+                    token: response.data.token,
+                });
                 navigate('/home');
             })
             .catch(error => {
