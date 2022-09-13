@@ -5,6 +5,7 @@ import Home from "./components/home";
 import BankAccount from "./components/bankAccount";
 import {AuthProvider} from "./contexts/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
+import Register from "./components/register";
 
 function App() {
     return (
@@ -22,6 +23,12 @@ function App() {
                             path="/login"
                             element={
                                 <Login />
+                            }
+                        />
+                        <Route
+                            path="/register"
+                            element={
+                                <Register />
                             }
                         />
                         <Route
