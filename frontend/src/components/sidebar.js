@@ -25,7 +25,7 @@ function Sidebar() {
             .catch(error => {
                 console.error(error.message);
             });
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Drawer
