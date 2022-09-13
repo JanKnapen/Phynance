@@ -1,10 +1,9 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Button, TextField} from "@mui/material";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
-function Login({ setAuthenticatedCredentials }) {
-    const navigate = useNavigate();
+function Login() {
+    const { loginUser } = useContext(AuthContext);
 
     const [credentials, setCredentials] = useState({
         username: '',
@@ -12,17 +11,7 @@ function Login({ setAuthenticatedCredentials }) {
     });
 
     const login = event => {
-        axios.post('http://localhost:8000/auth/login/', credentials)
-            .then(response => {
-                setAuthenticatedCredentials({
-                    ...credentials,
-                    token: response.data.token,
-                });
-                navigate('/home');
-            })
-            .catch(error => {
-                console.error(error.message)
-            });
+        loginUser(credentials.username, credentials.password);
     }
 
     const inputChanged = event => {

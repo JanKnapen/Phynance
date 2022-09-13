@@ -1,67 +1,54 @@
 import './App.css';
 import Login from "./components/login";
-import {useState} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom"
 import Home from "./components/home";
 import BankAccount from "./components/bankAccount";
-import Sidebar from "./components/sidebar";
-import TopBar from "./components/topBar";
-import {Box} from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
+import {AuthProvider} from "./contexts/AuthContext";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
-    const [authenticatedCredentials, setAuthenticatedCredentials] = useState(null);
-
     return (
         <div className="App">
             <Router>
-                {authenticatedCredentials != null ? (
-                    <Box sx={{ display: 'flex' }}>
-                        <TopBar
-                            setAuthenticatedCredentials={setAuthenticatedCredentials}
+                <AuthProvider>
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <Navigate to="/home" />
+                            }
                         />
-                        <Sidebar
-                            authenticatedCredentials={authenticatedCredentials}
+                        <Route
+                            path="/login"
+                            element={
+                                <Login />
+                            }
                         />
-                    </Box>
-                ) : null}
-                <Toolbar />
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            authenticatedCredentials != null ? <Navigate to="/home" /> : <Navigate to="/login" />
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={
-                            <Login
-                                setAuthenticatedCredentials={setAuthenticatedCredentials}
-                            />
-                        }
-                    />
-                    <Route
-                        path="/settings"
-                        element={
-                            <div></div>
-                        }
-                    />
-                    <Route
-                        path="/home"
-                        element={
-                            <Home />
-                        }
-                    />
-                    <Route
-                        path="/bank_account/:id"
-                        element={
-                            <BankAccount
-                                authenticatedCredentials={authenticatedCredentials}
-                            />
-                        }
-                    />
-                </Routes>
+                        <Route
+                            path="/settings"
+                            element={
+                                <PrivateRoute>
+                                    <div></div>
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/home"
+                            element={
+                                <PrivateRoute>
+                                    <Home />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/bank_account/:id"
+                            element={
+                                <PrivateRoute><BankAccount />
+                                </PrivateRoute>
+                            }
+                        />
+                    </Routes>
+                </AuthProvider>
             </Router>
         </div>
     );

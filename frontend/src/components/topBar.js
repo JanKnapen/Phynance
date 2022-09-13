@@ -7,10 +7,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
-function TopBar({ setAuthenticatedCredentials }) {
+function TopBar() {
+    const { logoutUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -27,8 +29,7 @@ function TopBar({ setAuthenticatedCredentials }) {
     }
 
     const logOut = (event) => {
-        setAuthenticatedCredentials(null);
-        navigate('/login');
+        logoutUser();
     }
 
     return (
