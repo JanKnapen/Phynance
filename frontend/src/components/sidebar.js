@@ -2,6 +2,7 @@ import {Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, List
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import HomeIcon from '@mui/icons-material/Home';
 import Toolbar from "@mui/material/Toolbar";
 import {useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
@@ -38,6 +39,20 @@ function Sidebar() {
         >
             <Toolbar />
             <Box sx={{ overflow: 'auto' }} style={{backgroundColor: 'lightgray'}}>
+                <List>
+                    <ListItem key="Home" disablePadding>
+                        <ListItemButton
+                            onClick={event => {
+                                navigate('/home');
+                            }}
+                        >
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
                 <List>
                     <ListItem key="Overview" disablePadding>
                         <ListItemButton>

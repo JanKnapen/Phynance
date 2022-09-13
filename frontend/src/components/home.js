@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import BankAccountsWidget from "./bankAccountsWidget";
+import BankAccountsWidget from "./addBankAccountWidget/bankAccountsWidget";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import AuthContext from "../contexts/AuthContext";
@@ -26,9 +26,6 @@ function Home() {
         <Grid container spacing={3} pl={30} pt={5} pr={5}>
             <Grid item xs={6}>
                 <BankAccountsWidget bankAccounts={bankAccounts}/>
-            </Grid>
-            <Grid item xs={6}>
-                <BankAccountsWidget bankAccounts={[]}/>
             </Grid>
         </Grid>
     );

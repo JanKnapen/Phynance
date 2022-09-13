@@ -1,4 +1,4 @@
-import {Button, Container, Switch} from "@mui/material";
+import {Container, Switch} from "@mui/material";
 import SavingsIcon from '@mui/icons-material/Savings';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
@@ -61,14 +61,7 @@ function TopBar() {
                     >
                         Phynance
                     </Typography>
-                    <div style={{width: "80vw"}}></div>
-                    <Button
-                        key="Home"
-                        onClick={(event) => navigate('/home')}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                        Home
-                    </Button>
+                    <div style={{width: "90vw"}}></div>
                     <div>
                         <IconButton
                             size="large"
