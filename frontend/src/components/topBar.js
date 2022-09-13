@@ -37,7 +37,7 @@ function TopBar() {
             <Container maxWidth="x1">
                 <Toolbar disableGutters>
                     <SavingsIcon
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 3 }}
                         onClick={(event) => navigate('/home')}
                         style={{cursor: 'pointer'}}
                     />
@@ -52,7 +52,7 @@ function TopBar() {
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            letterSpacing: '.2rem',
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
@@ -61,10 +61,11 @@ function TopBar() {
                     >
                         Phynance
                     </Typography>
+                    <div style={{width: "80vw"}}></div>
                     <Button
                         key="Home"
                         onClick={(event) => navigate('/home')}
-                        sx={{ flexGrow: 1, mr: 270, my: 2, color: 'white', display: 'block' }}
+                        sx={{ my: 2, color: 'white', display: 'block' }}
                     >
                         Home
                     </Button>
