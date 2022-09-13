@@ -8,6 +8,10 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Register from "./components/register";
 
 function App() {
+    window.onbeforeunload = () => {
+        localStorage.clear();
+    }
+
     return (
         <div className="App">
             <Router>

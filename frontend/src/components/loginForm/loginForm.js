@@ -1,10 +1,10 @@
-import {Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
 import {useContext, useState} from "react";
 import AuthContext from "../../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
 
 function LoginForm() {
-    const { loginUser } = useContext(AuthContext);
+    const { loginUser, alert, alertMessage, alertSeverity } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({
@@ -77,10 +77,12 @@ function LoginForm() {
                         >
                           Sign In
                         </Button>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                        }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                            }}
+                        >
                             <div>
                                 New to Phynance?
                             </div>
@@ -95,8 +97,15 @@ function LoginForm() {
                                 Create an account
                             </div>
                         </div>
-                      </Box>
                     </Box>
+                    {alert ?
+                        <Alert variant="outlined" severity={alertSeverity} style={{width: '100%'}}>
+                            {alertMessage}
+                        </Alert>
+                        :
+                        <></>
+                    }
+                </Box>
             </Container>
         </>
     );

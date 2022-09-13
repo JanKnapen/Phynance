@@ -17,6 +17,9 @@ export const AuthProvider = ({children}) => {
             ? JSON.parse(localStorage.getItem("user"))
             : null
     );
+    const [alert, setAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertSeverity, setAlertSeverity] = useState('error');
 
     const navigate = useNavigate();
 
@@ -40,9 +43,35 @@ export const AuthProvider = ({children}) => {
                 navigate("/home");
             })
             .catch(error => {
-                console.error(error.message)
+                setAlert(true);
+                setAlertMessage("Combination of username & password doesn't exist");
+                setAlertSeverity('error');
+                setTimeout(() => setAlert(false), 2500);
             });
     };
+
+    const registerUser = async (username, password) => {
+        const userCredentials = {
+            username: username,
+            password: password,
+        }
+        axios.post('http://localhost:8000/auth/users/', userCredentials)
+            .then(response => {
+                setAlert(true);
+                setAlertMessage('Successfully created account!');
+                setAlertSeverity('success');
+                setTimeout(() => setAlert(false), 2500);
+                navigate("/login");
+            })
+            .catch(error => {
+                if (error.response.status === 400) {
+                    setAlert(true);
+                    setAlertMessage('Username already exists');
+                    setAlertSeverity('error');
+                    setTimeout(() => setAlert(false), 2500);
+                }
+            });
+    }
 
     const logoutUser = () => {
         setAuthTokens(null);
@@ -57,7 +86,14 @@ export const AuthProvider = ({children}) => {
         user,
         setAuthTokens,
         loginUser,
-        logoutUser
+        logoutUser,
+        registerUser,
+        alert,
+        alertMessage,
+        alertSeverity,
+        setAlert,
+        setAlertMessage,
+        setAlertSeverity,
     };
 
     return (

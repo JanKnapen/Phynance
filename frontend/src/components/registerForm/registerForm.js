@@ -1,8 +1,18 @@
-import {Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
-import { useState} from "react";
+import {Alert, Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import AuthContext from "../../contexts/AuthContext";
 
 function RegisterForm() {
+    const {
+        registerUser,
+        alert,
+        alertMessage,
+        alertSeverity,
+        setAlert,
+        setAlertMessage,
+        setAlertSeverity,
+    } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({
@@ -12,8 +22,14 @@ function RegisterForm() {
     });
 
     const register = event => {
-        //TODO: register
-        navigate('/login');
+        if (credentials.password === credentials.confirmPassword) {
+            registerUser(credentials.username, credentials.password)
+        } else {
+            setAlert(true);
+            setAlertMessage('Passwords do not match');
+            setAlertSeverity('error');
+            setTimeout(() => setAlert(false), 2500);
+        }
     }
 
     const inputChanged = event => {
@@ -87,10 +103,12 @@ function RegisterForm() {
                         >
                           Create Account
                         </Button>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                        }}>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                            }}
+                        >
                             <div>
                                 Already have an account?
                             </div>
@@ -105,8 +123,15 @@ function RegisterForm() {
                                 Sing in
                             </div>
                         </div>
-                      </Box>
                     </Box>
+                    {alert ?
+                        <Alert variant="outlined" severity={alertSeverity} style={{width: '100%'}}>
+                            {alertMessage}
+                        </Alert>
+                        :
+                        <></>
+                    }
+                </Box>
             </Container>
         </>
     );
