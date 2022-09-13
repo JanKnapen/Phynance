@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
-import LoginForm from "./loginForm/loginForm";
+import RegisterForm from "./registerForm/registerForm";
 
-function Login() {
+function Register() {
     return (
         <Grid
             container
@@ -12,10 +12,10 @@ function Login() {
             style={{ minHeight: '70vh' }}
         >
             <Grid item xs={3}>
-                <LoginForm />
+                <RegisterForm />
             </Grid>
         </Grid>
     );
 }
 
-export default Login;
+export default Register;

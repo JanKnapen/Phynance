@@ -1,4 +1,4 @@
-import {Button, Container, Switch} from "@mui/material";
+import {Container, Switch} from "@mui/material";
 import SavingsIcon from '@mui/icons-material/Savings';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
@@ -7,10 +7,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
-function TopBar({ setAuthenticatedCredentials }) {
+function TopBar() {
+    const { logoutUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -27,8 +29,7 @@ function TopBar({ setAuthenticatedCredentials }) {
     }
 
     const logOut = (event) => {
-        setAuthenticatedCredentials(null);
-        navigate('/login');
+        logoutUser();
     }
 
     return (
@@ -36,7 +37,7 @@ function TopBar({ setAuthenticatedCredentials }) {
             <Container maxWidth="x1">
                 <Toolbar disableGutters>
                     <SavingsIcon
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 3 }}
                         onClick={(event) => navigate('/home')}
                         style={{cursor: 'pointer'}}
                     />
@@ -51,7 +52,7 @@ function TopBar({ setAuthenticatedCredentials }) {
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            letterSpacing: '.2rem',
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
@@ -60,13 +61,7 @@ function TopBar({ setAuthenticatedCredentials }) {
                     >
                         Phynance
                     </Typography>
-                    <Button
-                        key="Home"
-                        onClick={(event) => navigate('/home')}
-                        sx={{ flexGrow: 1, mr: 270, my: 2, color: 'white', display: 'block' }}
-                    >
-                        Home
-                    </Button>
+                    <div style={{width: "90vw"}}></div>
                     <div>
                         <IconButton
                             size="large"

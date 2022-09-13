@@ -1,28 +1,25 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
+import AuthContext from "../contexts/AuthContext";
 
-function BankAccount({ authenticatedCredentials }) {
-    const navigate = useNavigate();
+function BankAccount() {
+    const { authTokens } = useContext(AuthContext);
     const { id } = useParams();
     const [bankAccount, setBankAccount] = useState({});
 
     useEffect(() => {
-        if (authenticatedCredentials == null) {
-            navigate('/login');
-        } else {
-            axios.get('http://localhost:8000/bank_portfolio/bank_accounts/' + id, {
-                headers: {
-                    'Authorization': `token ${authenticatedCredentials.token}`,
-                },
+        axios.get('http://localhost:8000/bank_portfolio/bank_accounts/' + id, {
+            headers: {
+                'Authorization': `token ${authTokens.token}`,
+            },
+        })
+            .then(response => {
+                setBankAccount(response.data);
             })
-                .then(response => {
-                    setBankAccount(response.data);
-                })
-                .catch(error => {
-                    console.error(error.message);
-                });
-        }
+            .catch(error => {
+                console.error(error.message);
+            });
     }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (

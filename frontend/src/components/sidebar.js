@@ -2,32 +2,31 @@ import {Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, List
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import HomeIcon from '@mui/icons-material/Home';
 import Toolbar from "@mui/material/Toolbar";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
+import AuthContext from "../contexts/AuthContext";
 
-function Sidebar({ authenticatedCredentials }) {
+function Sidebar() {
+    const { authTokens } = useContext(AuthContext);
     const navigate = useNavigate();
     const [bankAccounts, setBankAccounts] = useState([]);
 
     useEffect(() => {
-        if (authenticatedCredentials == null) {
-            navigate('/login');
-        } else {
-            axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
-                headers: {
-                    'Authorization': `token ${authenticatedCredentials.token}`,
-                },
+        axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
+            headers: {
+                'Authorization': `token ${authTokens.token}`,
+            },
+        })
+            .then(response => {
+                setBankAccounts(response.data);
             })
-                .then(response => {
-                    setBankAccounts(response.data);
-                })
-                .catch(error => {
-                    console.error(error.message);
-                });
-        }
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+            .catch(error => {
+                console.error(error.message);
+            });
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Drawer
@@ -40,6 +39,20 @@ function Sidebar({ authenticatedCredentials }) {
         >
             <Toolbar />
             <Box sx={{ overflow: 'auto' }} style={{backgroundColor: 'lightgray'}}>
+                <List>
+                    <ListItem key="Home" disablePadding>
+                        <ListItemButton
+                            onClick={event => {
+                                navigate('/home');
+                            }}
+                        >
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
                 <List>
                     <ListItem key="Overview" disablePadding>
                         <ListItemButton>
