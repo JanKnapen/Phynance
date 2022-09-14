@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import BankAccount, BankTransactionCategory, BankTransaction
+from .models import BankAccount, BankCategory, BankTransaction
 
 admin.site.register(BankAccount)
-admin.site.register(BankTransactionCategory)
+admin.site.register(BankCategory)
 admin.site.register(BankTransaction)

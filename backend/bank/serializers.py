@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import BankAccount, BankTransactionCategory, BankTransaction
+from .models import BankAccount, BankCategory, BankTransaction
 
 
 class BankAccountSerializer(ModelSerializer):
@@ -9,9 +9,9 @@ class BankAccountSerializer(ModelSerializer):
         fields = ['id', 'owner', 'name', 'description', 'IBAN']
 
 
-class BankTransactionCategorySerializer(ModelSerializer):
+class BankCategorySerializer(ModelSerializer):
     class Meta:
-        model = BankTransactionCategory
+        model = BankCategory
         fields = ['id', 'owner', 'name', 'description', 'icon']
 
 

@@ -3,10 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from .models import BankAccount, \
-    BankTransactionCategory, BankTransaction
+    BankCategory, BankTransaction
 
 from .serializers import BankAccountSerializer, \
-    BankTransactionCategorySerializer, BankTransactionSerializer
+    BankCategorySerializer, BankTransactionSerializer
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -20,15 +20,15 @@ class BankAccountViewSet(ModelViewSet):
         return BankAccount.objects.filter(owner=user)
 
 
-class BankTransactionCategoryViewSet(ModelViewSet):
-    queryset = BankTransactionCategory.objects.all()
-    serializer_class = BankTransactionCategorySerializer
+class BankCategoryViewSet(ModelViewSet):
+    queryset = BankCategory.objects.all()
+    serializer_class = BankCategorySerializer
     authentication_classes = [TokenAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
     def get_queryset(self):
         user = self.request.user
-        return BankTransactionCategory.objects.filter(owner=user)
+        return BankCategory.objects.filter(owner=user)
 
 
 class BankTransactionViewSet(ModelViewSet):

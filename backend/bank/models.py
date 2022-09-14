@@ -8,7 +8,7 @@ User = get_user_model()
 
 
 class BankAccount(Model):
-    owner = ForeignKey(User, on_delete=CASCADE, default=User.objects.first().pk)
+    owner = ForeignKey(User, on_delete=CASCADE)
     name = CharField(max_length=32, blank=False, null=False)
     description = TextField(max_length=128, blank=False, null=False)
     IBAN = CharField(max_length=32, blank=False, null=False)
@@ -17,7 +17,7 @@ class BankAccount(Model):
         return self.owner.username + ': ' + self.name
 
 
-class BankTransactionCategory(Model):
+class BankCategory(Model):
     owner = ForeignKey(User, on_delete=CASCADE)
     name = CharField(max_length=32, blank=False, null=False)
     description = TextField(max_length=128, blank=False, null=False)
@@ -35,7 +35,7 @@ class BankTransaction(Model):
     counter_party = TextField()
     balance_after = IntegerField(blank=False, null=False)
     description = TextField()
-    category = ForeignKey(BankTransactionCategory, on_delete=PROTECT)
+    category = ForeignKey(BankCategory, on_delete=PROTECT)
 
     def clean(self):
         if self.bank_account.owner != self.category.owner:
