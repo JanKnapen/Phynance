@@ -1,5 +1,7 @@
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from .models import BankAccount, \
@@ -7,6 +9,7 @@ from .models import BankAccount, \
 
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
+from .utils import select_info
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -21,6 +24,14 @@ class BankAccountViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    @action(detail=False, methods=['GET'])
+    def info(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+
+        serializer = self.get_serializer(queryset, many=True)
+        info_data = [select_info(bank_account, self.request.user) for bank_account in serializer.data]
+        return Response(info_data)
 
 
 class BankCategoryViewSet(ModelViewSet):

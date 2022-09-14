@@ -1,18 +1,19 @@
 import Grid from '@mui/material/Grid';
 import BankAccountsWidget from "./bankAccountWidget/bankAccountsWidget";
-import {useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
+import BankContext from "../contexts/BankContext";
 
 function Home() {
-    const [bankAccounts, setBankAccounts] = useState([]);
+    const { bankAccountsInfo, getBankAccountsInfo } = useContext(BankContext);
 
     useEffect(() => {
-        setBankAccounts([]);
+        getBankAccountsInfo();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Grid container spacing={3} pl={30} pt={5} pr={5}>
             <Grid item xs={6}>
-                <BankAccountsWidget bankAccounts={bankAccounts}/>
+                <BankAccountsWidget />
             </Grid>
         </Grid>
     );

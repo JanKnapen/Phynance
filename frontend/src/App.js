@@ -8,6 +8,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import Register from "./components/register";
 import {AxiosProvider} from "./contexts/AxiosContext";
 import PublicRoute from "./utils/PublicRoute";
+import {BankProvider} from "./contexts/BankContext";
 
 function App() {
     return (
@@ -15,53 +16,55 @@ function App() {
             <Router>
                 <AxiosProvider>
                     <AuthProvider>
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <Navigate to="/home" />
-                                }
-                            />
-                            <Route
-                                path="/login"
-                                element={
-                                    <PublicRoute>
-                                        <Login />
-                                    </PublicRoute>
-                                }
-                            />
-                            <Route
-                                path="/register"
-                                element={
-                                    <PublicRoute>
-                                        <Register />
-                                    </PublicRoute>
-                                }
-                            />
-                            <Route
-                                path="/settings"
-                                element={
-                                    <PrivateRoute>
-                                        <div></div>
-                                    </PrivateRoute>
-                                }
-                            />
-                            <Route
-                                path="/home"
-                                element={
-                                    <PrivateRoute>
-                                        <Home />
-                                    </PrivateRoute>
-                                }
-                            />
-                            <Route
-                                path="/bank_account/:id"
-                                element={
-                                    <PrivateRoute><BankAccount />
-                                    </PrivateRoute>
-                                }
-                            />
-                        </Routes>
+                        <BankProvider>
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={
+                                        <Navigate to="/home" />
+                                    }
+                                />
+                                <Route
+                                    path="/login"
+                                    element={
+                                        <PublicRoute>
+                                            <Login />
+                                        </PublicRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/register"
+                                    element={
+                                        <PublicRoute>
+                                            <Register />
+                                        </PublicRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/settings"
+                                    element={
+                                        <PrivateRoute>
+                                            <div></div>
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/home"
+                                    element={
+                                        <PrivateRoute>
+                                            <Home />
+                                        </PrivateRoute>
+                                    }
+                                />
+                                <Route
+                                    path="/bank_account/:id"
+                                    element={
+                                        <PrivateRoute><BankAccount />
+                                        </PrivateRoute>
+                                    }
+                                />
+                            </Routes>
+                        </BankProvider>
                     </AuthProvider>
                 </AxiosProvider>
             </Router>

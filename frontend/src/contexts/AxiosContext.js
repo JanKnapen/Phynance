@@ -99,12 +99,17 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/accounts/', postData, handleResponse, handleError);
     }
 
+    const getBankAccountsInfoRequest = async (handleResponse, handleError) => {
+        getRequest('/bank/accounts/info/', handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
         loginUserRequest,
         registerUserRequest,
         createBankAccountRequest,
+        getBankAccountsInfoRequest,
     };
 
     return (

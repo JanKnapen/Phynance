@@ -1,7 +1,10 @@
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import BankContext from "../../contexts/BankContext";
 
-function BankAccountsWidgetTable({ bankAccounts }) {
+function BankAccountsWidgetTable() {
+    const { bankAccountsInfo } = useContext(BankContext);
     const navigate = useNavigate();
 
     return (
@@ -21,14 +24,14 @@ function BankAccountsWidgetTable({ bankAccounts }) {
             <TableContainer style={{ minHeight: 200, maxHeight: 200}}>
                 <Table>
                     <TableBody>
-                        { bankAccounts && bankAccounts.map((bankAccount, index) => (
+                        { bankAccountsInfo && bankAccountsInfo.map((bankAccount, index) => (
                             <TableRow
                                 onClick={(event) => navigate('/bank_account/' + bankAccount.id)}
                                 hover
                                 style={{cursor: 'pointer'}}
                             >
                                 <TableCell width={300}>{bankAccount.name}</TableCell>
-                                <TableCell>100</TableCell>
+                                <TableCell>{bankAccount.balance}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -41,7 +44,7 @@ function BankAccountsWidgetTable({ bankAccounts }) {
                             <b>Total</b>
                         </TableCell>
                         <TableCell>
-                            <b>1500</b>
+                            <b>{bankAccountsInfo.reduce((accumulator, current) => accumulator + Number(current.balance), 0)}</b>
                         </TableCell>
                     </TableRow>
                 </TableHead>

@@ -4,13 +4,13 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CardContent from '@mui/material/CardContent';
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import AddBankAccountDialog from "./addBankAccountDialog/addBankAccountDialog";
 import BankAccountsWidgetSettings from "./bankAccountsWidgetSettings";
 import BankAccountsWidgetTable from "./bankAccountsWidgetTable";
 import CategoriesDialog from "./categoriesDialog/categoriesDialog";
 
-function BankAccountsWidget({  bankAccounts }) {
+function BankAccountsWidget() {
     const [openSettings, setOpenSettings] = useState(false);
     const [openAddBankAccount, setOpenAddBankAccount] = useState(false);
     const [openCategories, setOpenCategories] = useState(false);
@@ -70,9 +70,7 @@ function BankAccountsWidget({  bankAccounts }) {
                 style={{ backgroundColor: '#1976d2', color: 'white' }}
             />
             <CardContent>
-                <BankAccountsWidgetTable
-                    bankAccounts={bankAccounts}
-                />
+                <BankAccountsWidgetTable />
             </CardContent>
         </Card>
     );

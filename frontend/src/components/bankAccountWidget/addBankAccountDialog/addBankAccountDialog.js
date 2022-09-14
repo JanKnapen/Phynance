@@ -5,8 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import Grid from "@mui/material/Grid";
 import {useContext, useState} from "react";
 import AxiosContext from "../../../contexts/AxiosContext";
+import BankContext from "../../../contexts/BankContext";
 
 function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
+    const { getBankAccountsInfo } = useContext(BankContext);
     const { createBankAccountRequest } = useContext(AxiosContext);
     const [newBankAccount, setNewBankAccount] = useState({
         name: null,
@@ -20,6 +22,7 @@ function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
 
     const addBankAccount = () => {
         const handleResponse = (response) => {
+            getBankAccountsInfo();
             handleCloseAddBankAccount();
         }
         const handleError = (error) => {
