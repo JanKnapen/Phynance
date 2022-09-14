@@ -1,15 +1,14 @@
 from django.urls import path
 from django.conf.urls import include
-from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 
-from .views import BankAccountViewSet, BankTransactionCategoryIconViewSet, BankTransactionCategoryViewSet, \
+from .views import BankAccountViewSet, BankTransactionCategoryViewSet, \
     BankTransactionViewSet
 
-router = routers.DefaultRouter()
-router.register('bank_accounts', BankAccountViewSet)
-router.register('bank_transaction_category_icons', BankTransactionCategoryIconViewSet)
-router.register('bank_transaction_categories', BankTransactionCategoryViewSet)
-router.register('bank_transactions', BankTransactionViewSet)
+router = DefaultRouter()
+router.register('accounts', BankAccountViewSet)
+router.register('transaction_categories', BankTransactionCategoryViewSet)
+router.register('transactions', BankTransactionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

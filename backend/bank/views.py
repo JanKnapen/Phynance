@@ -1,15 +1,15 @@
-from rest_framework import viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet
 
-from .models import BankAccount, BankTransactionCategoryIcon, \
+from .models import BankAccount, \
     BankTransactionCategory, BankTransaction
 
-from .serializers import BankAccountSerializer, BankTransactionCategoryIconSerializer, \
+from .serializers import BankAccountSerializer, \
     BankTransactionCategorySerializer, BankTransactionSerializer
 
 
-class BankAccountViewSet(viewsets.ModelViewSet):
+class BankAccountViewSet(ModelViewSet):
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
     authentication_classes = [TokenAuthentication, ]
@@ -20,14 +20,7 @@ class BankAccountViewSet(viewsets.ModelViewSet):
         return BankAccount.objects.filter(owner=user)
 
 
-class BankTransactionCategoryIconViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = BankTransactionCategoryIcon.objects.all()
-    serializer_class = BankTransactionCategoryIconSerializer
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [IsAuthenticated, ]
-
-
-class BankTransactionCategoryViewSet(viewsets.ModelViewSet):
+class BankTransactionCategoryViewSet(ModelViewSet):
     queryset = BankTransactionCategory.objects.all()
     serializer_class = BankTransactionCategorySerializer
     authentication_classes = [TokenAuthentication, ]
@@ -38,7 +31,7 @@ class BankTransactionCategoryViewSet(viewsets.ModelViewSet):
         return BankTransactionCategory.objects.filter(owner=user)
 
 
-class BankTransactionViewSet(viewsets.ModelViewSet):
+class BankTransactionViewSet(ModelViewSet):
     queryset = BankTransaction.objects.all()
     serializer_class = BankTransactionSerializer
     authentication_classes = [TokenAuthentication, ]
