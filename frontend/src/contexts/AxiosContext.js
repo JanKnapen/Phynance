@@ -66,11 +66,45 @@ export const AxiosProvider = ({children}) => {
             .catch(error => handleError(error));
     }
 
+    const getRequest = (url, handleResponse, handleError) => {
+        axiosClient.get(url, {
+            headers: {
+                'Authorization': `token ${authUser.authToken}`,
+            },
+        })
+            .then(response => handleResponse(response))
+            .catch(error => handleError(error));
+    }
+
+    const postRequest = (url, data, handleResponse, handleError) => {
+        axiosClient.post(url, data, {
+            headers: {
+                'Authorization': `token ${authUser.authToken}`,
+            },
+        })
+            .then(response => handleResponse(response))
+            .catch(error => handleError(error));
+    }
+
+    const createBankAccountRequest = async ({
+                                                name,
+                                                description,
+                                                IBAN,
+                                            }, handleResponse, handleError) => {
+        const postData = {
+            name: name,
+            description: description,
+            IBAN: IBAN,
+        }
+        postRequest('/bank/accounts/', postData, handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
         loginUserRequest,
         registerUserRequest,
+        createBankAccountRequest,
     };
 
     return (

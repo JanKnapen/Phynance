@@ -6,13 +6,13 @@ from .models import BankAccount, BankCategory, BankTransaction
 class BankAccountSerializer(ModelSerializer):
     class Meta:
         model = BankAccount
-        fields = ['id', 'owner', 'name', 'description', 'IBAN']
+        fields = ['id', 'name', 'description', 'IBAN']
 
 
 class BankCategorySerializer(ModelSerializer):
     class Meta:
         model = BankCategory
-        fields = ['id', 'owner', 'name', 'description', 'icon']
+        fields = ['id', 'name', 'description', 'icon']
 
 
 class BankTransactionSerializer(ModelSerializer):

@@ -19,6 +19,9 @@ class BankAccountViewSet(ModelViewSet):
         user = self.request.user
         return BankAccount.objects.filter(owner=user)
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class BankCategoryViewSet(ModelViewSet):
     queryset = BankCategory.objects.all()

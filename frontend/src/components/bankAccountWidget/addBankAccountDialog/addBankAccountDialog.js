@@ -3,11 +3,38 @@ import IconButton from "@mui/material/IconButton";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import CloseIcon from "@mui/icons-material/Close";
 import Grid from "@mui/material/Grid";
+import {useContext, useState} from "react";
+import AxiosContext from "../../../contexts/AxiosContext";
 
 function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
+    const { createBankAccountRequest } = useContext(AxiosContext);
+    const [newBankAccount, setNewBankAccount] = useState({
+        name: null,
+        description: null,
+        IBAN: null,
+    });
+
     const handleCloseAddBankAccount = () => {
         setOpenAddBankAccount(false);
     };
+
+    const addBankAccount = () => {
+        const handleResponse = (response) => {
+            handleCloseAddBankAccount();
+        }
+        const handleError = (error) => {
+            //TODO: notification
+        }
+
+        createBankAccountRequest(newBankAccount, handleResponse, handleError);
+    }
+
+    const inputChanged = event => {
+        setNewBankAccount(prevState => ({
+            ...prevState,
+            [event.target.name]: event.target.value,
+        }));
+    }
 
     return (
         <Dialog
@@ -63,11 +90,13 @@ function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
                     >
                         <TextField
                             label="Name"
+                            name="name"
                             variant="standard"
                             style={{
                                 marginLeft: 15,
                                 width: '50%',
                             }}
+                            onChange={inputChanged}
                         />
                     </Grid>
                     <Grid item xs={3}>
@@ -78,10 +107,12 @@ function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
                     <Grid item xs={9}>
                         <TextField
                             label="Description"
+                            name="description"
                             multiline
                             rows={3}
                             maxRows={3}
                             fullWidth
+                            onChange={inputChanged}
                         />
                     </Grid>
                     <Grid item xs={3} >
@@ -95,11 +126,13 @@ function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
                     >
                         <TextField
                             label="IBAN"
+                            name="IBAN"
                             variant="standard"
                             style={{
                                 marginLeft: 15,
                                 width: '50%',
                             }}
+                            onChange={inputChanged}
                         />
                     </Grid>
                 </Grid>
@@ -107,7 +140,7 @@ function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
             <DialogActions style={{justifyContent: 'center'}}>
                 <Button
                     autoFocus
-                    onClick={handleCloseAddBankAccount}
+                    onClick={addBankAccount}
                     variant='contained'
                     style={{ width: 200 }}
                 >

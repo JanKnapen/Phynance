@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import BankAccountsWidget from "./addBankAccountWidget/bankAccountsWidget";
+import BankAccountsWidget from "./bankAccountWidget/bankAccountsWidget";
 import {useEffect, useState} from "react";
 
 function Home() {

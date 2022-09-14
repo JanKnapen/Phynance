@@ -7,11 +7,12 @@ import {AuthProvider} from "./contexts/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import Register from "./components/register";
 import {AxiosProvider} from "./contexts/AxiosContext";
+import PublicRoute from "./utils/PublicRoute";
 
 function App() {
-    window.onbeforeunload = () => {
-        localStorage.clear();
-    }
+    // window.onbeforeunload = () => {
+    //     localStorage.clear();
+    // }
 
     return (
         <div className="App">
@@ -28,13 +29,17 @@ function App() {
                             <Route
                                 path="/login"
                                 element={
-                                    <Login />
+                                    <PublicRoute>
+                                        <Login />
+                                    </PublicRoute>
                                 }
                             />
                             <Route
                                 path="/register"
                                 element={
-                                    <Register />
+                                    <PublicRoute>
+                                        <Register />
+                                    </PublicRoute>
                                 }
                             />
                             <Route
