@@ -1,14 +1,14 @@
 import {useContext} from "react";
-import AuthContext from "../contexts/AuthContext";
 import {Navigate} from "react-router-dom";
 import TopBar from "../components/topBar";
 import Sidebar from "../components/sidebar";
 import {Box, Toolbar} from "@mui/material";
+import AxiosContext from "../contexts/AxiosContext";
 
 const PrivateRoute = ({children }) => {
-    let {user} = useContext(AuthContext);
+    const { authUser } = useContext(AxiosContext);
 
-    return !user ? <Navigate to="/login" /> : (
+    return !authUser.authToken ? <Navigate to="/login" /> : (
         <>
             <Box sx={{ display: 'flex' }}>
                 <TopBar />

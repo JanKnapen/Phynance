@@ -1,25 +1,12 @@
 import Grid from '@mui/material/Grid';
 import BankAccountsWidget from "./addBankAccountWidget/bankAccountsWidget";
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import AuthContext from "../contexts/AuthContext";
+import {useEffect, useState} from "react";
 
 function Home() {
-    const { authTokens } = useContext(AuthContext);
     const [bankAccounts, setBankAccounts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
-            headers: {
-                'Authorization': `token ${authTokens.token}`,
-            },
-        })
-            .then(response => {
-                setBankAccounts(response.data);
-            })
-            .catch(error => {
-                console.error(error.message);
-            });
+        setBankAccounts([]);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (

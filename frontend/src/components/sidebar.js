@@ -5,27 +5,14 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import HomeIcon from '@mui/icons-material/Home';
 import Toolbar from "@mui/material/Toolbar";
 import {useNavigate} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import AuthContext from "../contexts/AuthContext";
+import {useEffect, useState} from "react";
 
 function Sidebar() {
-    const { authTokens } = useContext(AuthContext);
     const navigate = useNavigate();
     const [bankAccounts, setBankAccounts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
-            headers: {
-                'Authorization': `token ${authTokens.token}`,
-            },
-        })
-            .then(response => {
-                setBankAccounts(response.data);
-            })
-            .catch(error => {
-                console.error(error.message);
-            });
+        setBankAccounts([]);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (

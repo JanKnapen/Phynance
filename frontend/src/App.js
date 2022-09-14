@@ -6,6 +6,7 @@ import BankAccount from "./components/bankAccount";
 import {AuthProvider} from "./contexts/AuthContext";
 import PrivateRoute from "./utils/PrivateRoute";
 import Register from "./components/register";
+import {AxiosProvider} from "./contexts/AxiosContext";
 
 function App() {
     window.onbeforeunload = () => {
@@ -15,51 +16,53 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <AuthProvider>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <Navigate to="/home" />
-                            }
-                        />
-                        <Route
-                            path="/login"
-                            element={
-                                <Login />
-                            }
-                        />
-                        <Route
-                            path="/register"
-                            element={
-                                <Register />
-                            }
-                        />
-                        <Route
-                            path="/settings"
-                            element={
-                                <PrivateRoute>
-                                    <div></div>
-                                </PrivateRoute>
-                            }
-                        />
-                        <Route
-                            path="/home"
-                            element={
-                                <PrivateRoute>
-                                    <Home />
-                                </PrivateRoute>
-                            }
-                        />
-                        <Route
-                            path="/bank_account/:id"
-                            element={
-                                <PrivateRoute><BankAccount />
-                                </PrivateRoute>
-                            }
-                        />
-                    </Routes>
-                </AuthProvider>
+                <AxiosProvider>
+                    <AuthProvider>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <Navigate to="/home" />
+                                }
+                            />
+                            <Route
+                                path="/login"
+                                element={
+                                    <Login />
+                                }
+                            />
+                            <Route
+                                path="/register"
+                                element={
+                                    <Register />
+                                }
+                            />
+                            <Route
+                                path="/settings"
+                                element={
+                                    <PrivateRoute>
+                                        <div></div>
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/home"
+                                element={
+                                    <PrivateRoute>
+                                        <Home />
+                                    </PrivateRoute>
+                                }
+                            />
+                            <Route
+                                path="/bank_account/:id"
+                                element={
+                                    <PrivateRoute><BankAccount />
+                                    </PrivateRoute>
+                                }
+                            />
+                        </Routes>
+                    </AuthProvider>
+                </AxiosProvider>
             </Router>
         </div>
     );

@@ -1,25 +1,16 @@
 import {useParams} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import AuthContext from "../contexts/AuthContext";
+import {useEffect, useState} from "react";
 
 function BankAccount() {
-    const { authTokens } = useContext(AuthContext);
     const { id } = useParams();
     const [bankAccount, setBankAccount] = useState({});
 
     useEffect(() => {
-        axios.get('http://localhost:8000/bank_portfolio/bank_accounts/' + id, {
-            headers: {
-                'Authorization': `token ${authTokens.token}`,
-            },
-        })
-            .then(response => {
-                setBankAccount(response.data);
-            })
-            .catch(error => {
-                console.error(error.message);
-            });
+        setBankAccount({
+            name: null,
+            description: null,
+            IBAN: null
+        });
     }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
