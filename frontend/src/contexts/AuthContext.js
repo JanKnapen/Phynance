@@ -29,7 +29,7 @@ export const AuthProvider = ({children}) => {
                 username: username,
                 authToken: response.data.token,
             })
-            localStorage.setItem('authUserPhynance', JSON.stringify({
+            sessionStorage.setItem('authUserPhynance', JSON.stringify({
                 username: username,
                 authToken: response.data.token,
             }))
@@ -74,7 +74,7 @@ export const AuthProvider = ({children}) => {
             username: null,
             authToken: null,
         });
-        localStorage.removeItem('authUserPhynance');
+        sessionStorage.removeItem('authUserPhynance');
         navigate("/login");
     };
 

@@ -10,8 +10,8 @@ export const AxiosProvider = ({children}) => {
     const navigate = useNavigate();
 
     const [authUser, setAuthUser] = useState(() =>
-        localStorage.getItem('authUserPhynance')
-            ? JSON.parse(localStorage.getItem('authUserPhynance'))
+        sessionStorage.getItem('authUserPhynance')
+            ? JSON.parse(sessionStorage.getItem('authUserPhynance'))
             : {
                 username: null,
                 authToken: null,
@@ -32,7 +32,7 @@ export const AxiosProvider = ({children}) => {
                     username: null,
                     authToken: null,
                 });
-                localStorage.removeItem('authUserPhynance');
+                sessionStorage.removeItem('authUserPhynance');
                 navigate('/login');
             }
             console.error('Looks like there was a problem. Status Code: ' + error.message.status);

@@ -10,10 +10,6 @@ import {AxiosProvider} from "./contexts/AxiosContext";
 import PublicRoute from "./utils/PublicRoute";
 
 function App() {
-    // window.onbeforeunload = () => {
-    //     localStorage.clear();
-    // }
-
     return (
         <div className="App">
             <Router>
