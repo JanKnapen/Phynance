@@ -10,11 +10,6 @@ const PrivateRoute = ({children }) => {
 
     return authUser.authToken ? <Navigate to="/home" /> : (
         <>
-            <Box sx={{ display: 'flex' }}>
-                <TopBar />
-                <Sidebar />
-            </Box>
-            <Toolbar />
             {children}
         </>
     );
