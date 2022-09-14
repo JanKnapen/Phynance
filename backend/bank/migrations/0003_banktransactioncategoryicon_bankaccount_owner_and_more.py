@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('bank_portfolio', '0002_alter_bankaccount_iban_alter_bankaccount_name'),
+        ('bank', '0002_alter_bankaccount_iban_alter_bankaccount_name'),
     ]
 
     operations = [
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=32)),
                 ('description', models.TextField(max_length=128)),
-                ('icon', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='bank_portfolio.banktransactioncategoryicon')),
+                ('icon', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='bank.banktransactioncategoryicon')),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -45,8 +45,8 @@ class Migration(migrations.Migration):
                 ('counter_party', models.TextField()),
                 ('balance_after', models.IntegerField()),
                 ('description', models.TextField()),
-                ('bank_account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bank_portfolio.bankaccount')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='bank_portfolio.banktransactioncategory')),
+                ('bank_account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bank.bankaccount')),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='bank.banktransactioncategory')),
             ],
         ),
     ]
