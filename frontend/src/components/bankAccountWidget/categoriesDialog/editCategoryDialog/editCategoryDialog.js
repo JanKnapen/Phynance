@@ -4,7 +4,7 @@ import {Category} from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import Grid from "@mui/material/Grid";
 
-function EditCategoryDialog({ openEditCategory, setOpenEditCategory, categories, categoryEditId }) {
+function EditCategoryDialog({ openEditCategory, setOpenEditCategory }) {
     const handleCloseEditCategory = () => {
         setOpenEditCategory(false);
     };
@@ -63,7 +63,7 @@ function EditCategoryDialog({ openEditCategory, setOpenEditCategory, categories,
                     >
                         <TextField
                             label="Name"
-                            defaultValue={categories && categoryEditId ? categories.filter(category => category.id === categoryEditId)[0].name : ''}
+                            defaultValue={''}
                             variant="standard"
                             style={{
                                 marginLeft: 15,
@@ -79,7 +79,7 @@ function EditCategoryDialog({ openEditCategory, setOpenEditCategory, categories,
                     <Grid item xs={9}>
                         <TextField
                             label="Description"
-                            defaultValue={categories && categoryEditId ? categories.filter(category => category.id === categoryEditId)[0].description : ''}
+                            defaultValue={''}
                             multiline
                             rows={3}
                             maxRows={3}

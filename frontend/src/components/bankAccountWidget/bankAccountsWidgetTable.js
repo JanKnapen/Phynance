@@ -29,6 +29,7 @@ function BankAccountsWidgetTable() {
                                 onClick={(event) => navigate('/bank_account/' + bankAccount.id)}
                                 hover
                                 style={{cursor: 'pointer'}}
+                                key={bankAccount.id}
                             >
                                 <TableCell width={300}>{bankAccount.name}</TableCell>
                                 <TableCell>{bankAccount.balance}</TableCell>

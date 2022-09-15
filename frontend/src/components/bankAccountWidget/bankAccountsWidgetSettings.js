@@ -1,14 +1,19 @@
 import {ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuList, Paper, Popper} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import {AddCard, Category} from "@mui/icons-material";
+import {useContext} from "react";
+import BankContext from "../../contexts/BankContext";
 
 function BankAccountsWidgetSettings({ openSettings, setOpenSettings, setOpenAddBankAccount, setOpenCategories, anchorRefSettings }) {
+    const { getCategories } = useContext(BankContext);
+
     const handleOpenAddBankAccount = () => {
         setOpenSettings(false);
         setOpenAddBankAccount(true);
     };
 
     const handleOpenCategories = () => {
+        getCategories();
         setOpenSettings(false);
         setOpenCategories(true);
     };

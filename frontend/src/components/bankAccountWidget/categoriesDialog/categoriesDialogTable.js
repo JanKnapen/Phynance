@@ -1,7 +1,11 @@
 import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
+import {useContext} from "react";
+import BankContext from "../../../contexts/BankContext";
 
-function CategoriesDialogTable({ categories, setOpenEditCategory, setCategoryEditId }) {
+function CategoriesDialogTable({ setOpenEditCategory, setCategoryEditId }) {
+    const { categories } = useContext(BankContext);
+
     return (
         <>
             <Table>
@@ -20,7 +24,9 @@ function CategoriesDialogTable({ categories, setOpenEditCategory, setCategoryEdi
                 <Table>
                     <TableBody>
                         { categories && categories.map((category, index) => (
-                            <TableRow>
+                            <TableRow
+                                key={category.id}
+                            >
                                 <TableCell width={300}>{category.name}</TableCell>
                                 <TableCell width={400}>{category.description}</TableCell>
                                 <TableCell>

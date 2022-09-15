@@ -103,6 +103,24 @@ export const AxiosProvider = ({children}) => {
         getRequest('/bank/accounts/info/', handleResponse, handleError);
     }
 
+    const createCategoryRequest = async ({
+                                             name,
+                                             description,
+                                             icon,
+                                         }, handleResponse, handleError) => {
+
+        const postData = {
+            name: name,
+            description: description,
+            icon: icon,
+        }
+        postRequest('/bank/categories/', postData, handleResponse, handleError);
+    }
+
+    const getCategoriesRequest = async (handleResponse, handleError) => {
+        getRequest('/bank/categories/', handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -110,6 +128,8 @@ export const AxiosProvider = ({children}) => {
         registerUserRequest,
         createBankAccountRequest,
         getBankAccountsInfoRequest,
+        createCategoryRequest,
+        getCategoriesRequest,
     };
 
     return (

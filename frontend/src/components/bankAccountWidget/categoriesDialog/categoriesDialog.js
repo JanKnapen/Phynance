@@ -3,12 +3,13 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import {Category} from "@mui/icons-material";
 import CategoriesDialogTable from "./categoriesDialogTable";
-import {useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import EditCategoryDialog from "./editCategoryDialog/editCategoryDialog";
 import AddCategoryDialog from "./addCategoryDialog/addCategoryDialog";
+import BankContext from "../../../contexts/BankContext";
 
 function CategoriesDialog({ setOpenCategories, openCategories }) {
-    const [categories, setCategories] = useState([]);
+    const { categories } = useContext(BankContext);
     const [openEditCategory, setOpenEditCategory] = useState(false);
     const [openAddCategory, setOpenAddCategory] = useState(false);
     const [categoryEditId, setCategoryEditId] = useState(null);
@@ -16,23 +17,6 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
     const handleCloseCategories = () => {
         setOpenCategories(false);
     };
-
-    useEffect(() => {
-        if (openCategories === true) {
-            setCategories([
-                {
-                    id: 1,
-                    name: 'Food',
-                    description: 'Category of Food',
-                },
-                {
-                    id: 2,
-                    name: 'Drinks',
-                    description: 'Category of Drinks',
-                },
-            ])
-        }
-    }, [openCategories])
 
     return (
         <>
@@ -78,7 +62,6 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                 </DialogTitle>
                 <DialogContent dividers>
                     <CategoriesDialogTable
-                        categories={categories}
                         setOpenEditCategory={setOpenEditCategory}
                         setCategoryEditId={setCategoryEditId}
                     />

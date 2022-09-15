@@ -6,8 +6,12 @@ const BankContext = createContext(null);
 export default BankContext;
 
 export const BankProvider = ({children}) => {
-    const { getBankAccountsInfoRequest } = useContext(AxiosContext);
+    const {
+        getBankAccountsInfoRequest,
+        getCategoriesRequest
+    } = useContext(AxiosContext);
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     const getBankAccountsInfo = () => {
         const handleResponse = (response) => {
@@ -19,9 +23,21 @@ export const BankProvider = ({children}) => {
         getBankAccountsInfoRequest(handleResponse, handleError);
     }
 
+    const getCategories = () => {
+        const handleResponse = (response) => {
+            setCategories(response.data);
+        }
+        const handleError = (error) => {
+            //TODO: notification
+        }
+        getCategoriesRequest(handleResponse, handleError);
+    }
+
     const contextData = {
         bankAccountsInfo,
         getBankAccountsInfo,
+        categories,
+        getCategories,
     };
 
     return (

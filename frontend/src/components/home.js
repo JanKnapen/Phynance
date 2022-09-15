@@ -4,7 +4,7 @@ import {useContext, useEffect} from "react";
 import BankContext from "../contexts/BankContext";
 
 function Home() {
-    const { bankAccountsInfo, getBankAccountsInfo } = useContext(BankContext);
+    const { getBankAccountsInfo } = useContext(BankContext);
 
     useEffect(() => {
         getBankAccountsInfo();

@@ -9,7 +9,7 @@ User = get_user_model()
 
 class BankAccount(Model):
     owner = ForeignKey(User, on_delete=CASCADE)
-    name = CharField(max_length=32, blank=False, null=False)
+    name = CharField(max_length=32, blank=False, null=False, unique=True)
     description = TextField(max_length=128, blank=False, null=False)
     IBAN = CharField(max_length=32, blank=False, null=False)
 

@@ -1,3 +1,4 @@
+from django.forms import model_to_dict
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -10,6 +11,7 @@ from .models import BankAccount, \
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
 from .utils import select_info
+from utils.models import MUIIcon
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -43,6 +45,9 @@ class BankCategoryViewSet(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return BankCategory.objects.filter(owner=user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class BankTransactionViewSet(ModelViewSet):
