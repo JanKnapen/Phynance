@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import LoginForm from "./loginForm/loginForm";
+import LoginForm from "./authentication/loginForm";
 
 function Login() {
     return (
