@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import RegisterForm from "./registerForm/registerForm";
+import RegisterForm from "./authentication/registerForm";
 
 function Register() {
     return (

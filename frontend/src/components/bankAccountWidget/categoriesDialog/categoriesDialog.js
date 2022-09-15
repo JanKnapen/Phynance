@@ -4,8 +4,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import {Category} from "@mui/icons-material";
 import CategoriesDialogTable from "./categoriesDialogTable";
 import {useState} from "react";
-import EditCategoryDialog from "./formatCategoryDialog/editCategoryDialog/editCategoryDialog";
-import AddCategoryDialog from "./formatCategoryDialog/addCategoryDialog/addCategoryDialog";
+import EditCategoryDialog from "../../dialogs/inputDialogs/formatCategoryDialog/editCategoryDialog";
+import AddCategoryDialog from "../../dialogs/inputDialogs/formatCategoryDialog/addCategoryDialog";
 
 function CategoriesDialog({ setOpenCategories, openCategories }) {
     const [openEditCategory, setOpenEditCategory] = useState(false);
@@ -15,6 +15,14 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
     const handleCloseCategories = () => {
         setOpenCategories(false);
     };
+
+    const handleCloseEditCategoryDialog = () => {
+        setOpenEditCategory(false);
+    }
+
+    const handleCloseAddCategoryDialog = () => {
+        setOpenAddCategory(false);
+    }
 
     return (
         <>
@@ -76,14 +84,18 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                 </DialogActions>
             </Dialog>
             <EditCategoryDialog
-                openEditCategory={openEditCategory}
-                setOpenEditCategory={setOpenEditCategory}
+                maxWidth='sm'
+                actionWidth={150}
+                open={openEditCategory}
+                onClose={handleCloseEditCategoryDialog}
                 editCategory={editCategory}
                 setEditCategory={setEditCategory}
             />
             <AddCategoryDialog
-                openAddCategory={openAddCategory}
-                setOpenAddCategory={setOpenAddCategory}
+                maxWidth='sm'
+                actionWidth={150}
+                open={openAddCategory}
+                onClose={handleCloseAddCategoryDialog}
             />
         </>
     );

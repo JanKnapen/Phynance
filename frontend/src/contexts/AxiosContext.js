@@ -138,7 +138,6 @@ export const AxiosProvider = ({children}) => {
             description: description,
             icon: icon,
         }
-        console.log(putData);
         putRequest('/bank/categories/' + id + '/', putData, handleResponse, handleError);
     }
 
