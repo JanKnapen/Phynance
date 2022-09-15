@@ -1,17 +1,13 @@
-import {Alert, Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
+import {Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
+import NotificationsContext from "../../contexts/NotificationsContext";
 
 function RegisterForm() {
+    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const {
         registerUser,
-        alert,
-        alertMessage,
-        alertSeverity,
-        setAlert,
-        setAlertMessage,
-        setAlertSeverity,
     } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -25,10 +21,7 @@ function RegisterForm() {
         if (credentials.password === credentials.confirmPassword) {
             registerUser(credentials.username, credentials.password)
         } else {
-            setAlert(true);
-            setAlertMessage('Passwords do not match');
-            setAlertSeverity('error');
-            setTimeout(() => setAlert(false), 2500);
+            enqueueErrorSnackbar('Passwords do not match.');
         }
     }
 
@@ -124,13 +117,6 @@ function RegisterForm() {
                             </div>
                         </div>
                     </Box>
-                    {alert ?
-                        <Alert variant="outlined" severity={alertSeverity} style={{width: '100%'}}>
-                            {alertMessage}
-                        </Alert>
-                        :
-                        <></>
-                    }
                 </Box>
             </Container>
         </>

@@ -1,21 +1,19 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import AxiosContext from "./AxiosContext";
+import NotificationsContext from "./NotificationsContext";
 
 const AuthContext = createContext(null);
 
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
+    const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useContext(NotificationsContext);
     const {
         setAuthUser,
         loginUserRequest,
         registerUserRequest,
     } = useContext(AxiosContext);
-
-    const [alert, setAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [alertSeverity, setAlertSeverity] = useState('error');
 
     const navigate = useNavigate();
 
@@ -36,10 +34,7 @@ export const AuthProvider = ({children}) => {
             navigate("/home");
         }
         const handleError = (error) => {
-            setAlert(true);
-            setAlertMessage("Combination of username & password doesn't exist");
-            setAlertSeverity('error');
-            setTimeout(() => setAlert(false), 2500);
+            enqueueErrorSnackbar("Combination of username & password doesn't exist");
         }
 
         loginUserRequest(postData, handleResponse, handleError);
@@ -51,18 +46,12 @@ export const AuthProvider = ({children}) => {
             password: password,
         }
         const handleResponse = (response) => {
-            setAlert(true);
-            setAlertMessage('Successfully created account!');
-            setAlertSeverity('success');
-            setTimeout(() => setAlert(false), 2500);
+            enqueueSuccessSnackbar('Successfully created account!');
             navigate("/login");
         }
         const handleError = (error) => {
             if (error.response.status === 400) {
-                setAlert(true);
-                setAlertMessage('Username already exists');
-                setAlertSeverity('error');
-                setTimeout(() => setAlert(false), 2500);
+                enqueueErrorSnackbar('Username already exists');
             }
         }
 
@@ -82,12 +71,6 @@ export const AuthProvider = ({children}) => {
         loginUser,
         logoutUser,
         registerUser,
-        alert,
-        alertMessage,
-        alertSeverity,
-        setAlert,
-        setAlertMessage,
-        setAlertSeverity,
     };
 
     return (

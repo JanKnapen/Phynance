@@ -1,11 +1,13 @@
 import {createContext, useContext, useState} from "react";
 import AxiosContext from "./AxiosContext";
+import NotificationsContext from "./NotificationsContext";
 
 const BankContext = createContext(null);
 
 export default BankContext;
 
 export const BankProvider = ({children}) => {
+    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const {
         getBankAccountsInfoRequest,
         getCategoriesRequest
@@ -18,7 +20,7 @@ export const BankProvider = ({children}) => {
             setBankAccountsInfo(response.data);
         }
         const handleError = (error) => {
-            //TODO: notification
+            enqueueErrorSnackbar('Unable to load your bank accounts, eload to try again.')
         }
         getBankAccountsInfoRequest(handleResponse, handleError);
     }
@@ -28,7 +30,7 @@ export const BankProvider = ({children}) => {
             setCategories(response.data);
         }
         const handleError = (error) => {
-            //TODO: notification
+            enqueueErrorSnackbar('Unable to load your categories, reload to try again.')
         }
         getCategoriesRequest(handleResponse, handleError);
     }
