@@ -10,8 +10,10 @@ import MenuItem from '@mui/material/MenuItem';
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import NotificationsContext from "../contexts/NotificationsContext";
 
 function TopBar() {
+    const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
     const { logoutUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -30,6 +32,7 @@ function TopBar() {
 
     const logOut = (event) => {
         logoutUser();
+        enqueueSuccessSnackbar('Successfully logged out!');
     }
 
     return (

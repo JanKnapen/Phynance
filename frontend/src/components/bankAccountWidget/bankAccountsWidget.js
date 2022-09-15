@@ -4,7 +4,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CardContent from '@mui/material/CardContent';
-import {useContext, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import AddBankAccountDialog from "./addBankAccountDialog/addBankAccountDialog";
 import BankAccountsWidgetSettings from "./bankAccountsWidgetSettings";
 import BankAccountsWidgetTable from "./bankAccountsWidgetTable";

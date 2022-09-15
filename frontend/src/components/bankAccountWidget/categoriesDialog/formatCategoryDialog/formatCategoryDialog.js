@@ -128,7 +128,6 @@ function FormatCategoryDialog({
                             }}
                             label='Icon'
                             name='icon'
-                            defaultValue={''}
                             renderValue={(value) => {
                                 if (value === '') return <></>
                                 const icon = MUIIcons.filter(MUIIcon => MUIIcon.name === value)[0].icon

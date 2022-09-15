@@ -10,12 +10,14 @@ import {
     Fastfood,
 } from "@mui/icons-material";
 import AxiosContext from "./AxiosContext";
+import NotificationsContext from "./NotificationsContext";
 
 const UtilsContext = createContext(null);
 
 export default UtilsContext;
 
 export const UtilsProvider = ({children}) => {
+    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const { getMUIIconsRequest } = useContext(AxiosContext);
     const [MUIIcons, setMUIIcons] = useState([]);
 
@@ -42,9 +44,27 @@ export const UtilsProvider = ({children}) => {
                 ])))
         }
         const handleError = (error) => {
-            //TODO
+            enqueueErrorSnackbar('Unable to load the Icon options, reload to try again.')
         }
         getMUIIconsRequest(handleResponse, handleError);
+    }
+
+    const handleSaveRequestError = (error, type) => {
+        let errorMessage = 'Unable to save ' + type + ': ';
+        if ((error.response.data.name && (error.response.data.name[0] === 'This field may not be blank.' || error.response.data.name[0] === 'This field may not be null.'))
+            || (error.response.data.description && (error.response.data.description[0] === 'This field may not be blank.' || error.response.data.description[0] === 'This field may not be null.'))
+        ) {
+            errorMessage += 'make sure to fill in all the fields.';
+        } else {
+            if (error.response.data.name) {
+                errorMessage += error.response.data.name;
+            } else if (error.response.data.description) {
+                errorMessage += error.response.data.description;
+            } else {
+                errorMessage += 'unknown error'
+            }
+        }
+        enqueueErrorSnackbar(errorMessage);
     }
 
     useEffect(() => {
@@ -54,6 +74,7 @@ export const UtilsProvider = ({children}) => {
     const contextData = {
         MUIIcons,
         getMUIIcons,
+        handleSaveRequestError,
     };
 
     return (

@@ -6,8 +6,12 @@ import Grid from "@mui/material/Grid";
 import {useContext, useState} from "react";
 import AxiosContext from "../../../contexts/AxiosContext";
 import BankContext from "../../../contexts/BankContext";
+import NotificationsContext from "../../../contexts/NotificationsContext";
+import UtilsContext from "../../../contexts/UtilsContext";
 
 function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
+    const { handleSaveRequestError } = useContext(UtilsContext);
+    const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
     const { getBankAccountsInfo } = useContext(BankContext);
     const { createBankAccountRequest } = useContext(AxiosContext);
     const [newBankAccount, setNewBankAccount] = useState({
@@ -22,11 +26,17 @@ function AddBankAccountDialog({ setOpenAddBankAccount, openAddBankAccount }) {
 
     const addBankAccount = () => {
         const handleResponse = (response) => {
+            enqueueSuccessSnackbar('Successfully created bank account!');
+            setNewBankAccount({
+                name: null,
+                description: null,
+                IBAN: null,
+            });
             getBankAccountsInfo();
             handleCloseAddBankAccount();
         }
         const handleError = (error) => {
-            //TODO: notification
+            handleSaveRequestError(error, 'bank account');
         }
 
         createBankAccountRequest(newBankAccount, handleResponse, handleError);

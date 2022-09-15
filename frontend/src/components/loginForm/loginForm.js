@@ -1,10 +1,10 @@
-import {Alert, Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
+import {Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
 import {useContext, useState} from "react";
 import AuthContext from "../../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
 
 function LoginForm() {
-    const { loginUser, alert, alertMessage, alertSeverity } = useContext(AuthContext);
+    const { loginUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({
@@ -98,13 +98,6 @@ function LoginForm() {
                             </div>
                         </div>
                     </Box>
-                    {alert ?
-                        <Alert variant="outlined" severity={alertSeverity} style={{width: '100%'}}>
-                            {alertMessage}
-                        </Alert>
-                        :
-                        <></>
-                    }
                 </Box>
             </Container>
         </>
