@@ -5,10 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CardContent from '@mui/material/CardContent';
 import {useEffect, useRef, useState} from "react";
-import AddBankAccountDialog from "./addBankAccountDialog/addBankAccountDialog";
 import BankAccountsWidgetSettings from "./bankAccountsWidgetSettings";
 import BankAccountsWidgetTable from "./bankAccountsWidgetTable";
 import CategoriesDialog from "./categoriesDialog/categoriesDialog";
+import AddBankAccountDialog from "../dialogs/inputDialogs/addBankAccountDialog/addBankAccountDialog";
 
 function BankAccountsWidget() {
     const [openSettings, setOpenSettings] = useState(false);
@@ -19,6 +19,10 @@ function BankAccountsWidget() {
     const handleToggleSettings = () => {
         setOpenSettings((prevOpen) => !prevOpen);
     };
+
+    const handleCloseAddBankAccountDialog = () => {
+        setOpenAddBankAccount(false);
+    }
 
     // return focus to the button when we transitioned from !open -> open
     const prevOpenSettings = useRef(openSettings);
@@ -56,8 +60,10 @@ function BankAccountsWidget() {
                             anchorRefSettings={anchorRefSettings}
                         />
                         <AddBankAccountDialog
-                            setOpenAddBankAccount={setOpenAddBankAccount}
-                            openAddBankAccount={openAddBankAccount}
+                            maxWidth='md'
+                            actionWidth={200}
+                            onClose={handleCloseAddBankAccountDialog}
+                            open={openAddBankAccount}
                         />
                         <CategoriesDialog
                             setOpenCategories={setOpenCategories}
