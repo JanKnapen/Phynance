@@ -5,27 +5,15 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import HomeIcon from '@mui/icons-material/Home';
 import Toolbar from "@mui/material/Toolbar";
 import {useNavigate} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
-import axios from "axios";
-import AuthContext from "../contexts/AuthContext";
+import {useContext, useEffect} from "react";
+import BankContext from "../contexts/BankContext";
 
 function Sidebar() {
-    const { authTokens } = useContext(AuthContext);
+    const { bankAccountsInfo, getBankAccountsInfo } = useContext(BankContext);
     const navigate = useNavigate();
-    const [bankAccounts, setBankAccounts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/bank_portfolio/bank_accounts/', {
-            headers: {
-                'Authorization': `token ${authTokens.token}`,
-            },
-        })
-            .then(response => {
-                setBankAccounts(response.data);
-            })
-            .catch(error => {
-                console.error(error.message);
-            });
+        getBankAccountsInfo();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -74,9 +62,9 @@ function Sidebar() {
                     </ListItem>
                 </List>
                 <Divider />
-                {bankAccounts.length > 0 && (
+                {bankAccountsInfo.length > 0 && (
                     <List style={{backgroundColor: 'white'}}>
-                        {bankAccounts.map((bankAccount, index) => (
+                        {bankAccountsInfo.map((bankAccount, index) => (
                             <ListItem key={bankAccount.name} disablePadding>
                                 <ListItemButton
                                     onClick={event => {
@@ -92,7 +80,7 @@ function Sidebar() {
                         ))}
                     </List>
                 )}
-                {bankAccounts.length > 0 && (
+                {bankAccountsInfo.length > 0 && (
                     <Divider />
                 )}
             </Box>

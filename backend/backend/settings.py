@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'authentication',
-    'bank_portfolio',
+    'bank',
+    'utils',
 ]
 
 MIDDLEWARE = [
