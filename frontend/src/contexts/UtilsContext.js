@@ -1,4 +1,4 @@
-import {createContext} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {
     MedicalInformation,
     FlightTakeoff,
@@ -9,54 +9,47 @@ import {
     LocalGroceryStore,
     Fastfood,
 } from "@mui/icons-material";
+import AxiosContext from "./AxiosContext";
 
 const UtilsContext = createContext(null);
 
 export default UtilsContext;
 
 export const UtilsProvider = ({children}) => {
-    const MUIIcons = [
-        {
-            id: 8,
-            name: 'MedicalInformation',
-            icon: MedicalInformation
-        },
-        {
-            id: 7,
-            name: 'FlightTakeoff',
-            icon: FlightTakeoff
-        },
-        {
-            id: 6,
-            name: 'DriveEta',
-            icon: DriveEta
-        },
-        {
-            id: 5,
-            name: 'SportsEsports',
-            icon: SportsEsports
-        },
-        {
-            id: 4,
-            name: 'School',
-            icon: School
-        },
-        {
-            id: 3,
-            name: 'Savings',
-            icon: Savings
-        },
-        {
-            id: 2,
-            name: 'LocalGroceryStore',
-            icon: LocalGroceryStore
-        },
-        {
-            id: 1,
-            name: 'Fastfood',
-            icon: Fastfood
-        },
-    ];
+    const { getMUIIconsRequest } = useContext(AxiosContext);
+    const [MUIIcons, setMUIIcons] = useState([]);
+
+    const MUIIconComponents = {
+        'MedicalInformation': MedicalInformation,
+        'FlightTakeoff': FlightTakeoff,
+        'DriveEta': DriveEta,
+        'SportsEsports': SportsEsports,
+        'School': School,
+        'Savings': Savings,
+        'LocalGroceryStore': LocalGroceryStore,
+        'Fastfood': Fastfood,
+    };
+
+    const getMUIIcons = () => {
+        const handleResponse = (response) => {
+            response.data.forEach(({ id, mui_name }) => setMUIIcons(prevState => ([
+                ...prevState,
+                {
+                    id: id,
+                    name: mui_name,
+                    icon: MUIIconComponents[mui_name],
+                }
+                ])))
+        }
+        const handleError = (error) => {
+            //TODO
+        }
+        getMUIIconsRequest(handleResponse, handleError);
+    }
+
+    useEffect(() => {
+        getMUIIcons();
+    }, []);
 
     const contextData = {
         MUIIcons,

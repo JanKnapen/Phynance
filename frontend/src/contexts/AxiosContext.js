@@ -121,6 +121,10 @@ export const AxiosProvider = ({children}) => {
         getRequest('/bank/categories/', handleResponse, handleError);
     }
 
+    const getMUIIconsRequest = async (handleResponse, handleError) => {
+        getRequest('/utils/mui_icons/', handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -130,6 +134,7 @@ export const AxiosProvider = ({children}) => {
         getBankAccountsInfoRequest,
         createCategoryRequest,
         getCategoriesRequest,
+        getMUIIconsRequest,
     };
 
     return (
