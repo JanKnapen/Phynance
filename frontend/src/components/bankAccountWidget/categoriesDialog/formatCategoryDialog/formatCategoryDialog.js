@@ -3,43 +3,33 @@ import IconButton from "@mui/material/IconButton";
 import {Category} from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import Grid from "@mui/material/Grid";
-import {createElement, useContext, useState} from "react";
+import {createElement, useContext} from "react";
 import UtilsContext from "../../../../contexts/UtilsContext";
-import AxiosContext from "../../../../contexts/AxiosContext";
-import BankContext from "../../../../contexts/BankContext";
 
-function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
-    const { getCategories } = useContext(BankContext);
-    const { createCategoryRequest } = useContext(AxiosContext);
+function FormatCategoryDialog({
+                                  openFormatCategory,
+                                  setOpenFormatCategory,
+                                  confirmText,
+                                  handleConfirm,
+                                  formatCategory,
+                                  setFormatCategory,
+                              }) {
     const { MUIIcons } = useContext(UtilsContext);
-    const [newCategory, setNewCategory] = useState({
-        name: null,
-        description: null,
-        icon: null,
-    });
 
-    const handleCloseAddCategory = () => {
-        setOpenAddCategory(false);
-    };
-
-    const addCategory = () => {
-        const handleResponse = (response) => {
-            getCategories();
-            handleCloseAddCategory();
-        }
-        const handleError = (error) => {
-            //TODO: notification
-        }
-
-        createCategoryRequest(newCategory, handleResponse, handleError);
+    const getIconName = (iconId) => {
+        return MUIIcons.filter(MUIIcon => MUIIcon.id === iconId)[0].name;
     }
+
+    const handleCloseFormatCategory = () => {
+        setOpenFormatCategory(false);
+    };
 
     const inputChanged = event => {
         let newInput = event.target.value;
         if (event.target.name === 'icon') {
             newInput = MUIIcons.filter(MUIIcon => MUIIcon.name === event.target.value)[0].id;
         }
-        setNewCategory(prevState => ({
+        setFormatCategory(prevState => ({
             ...prevState,
             [event.target.name]: newInput,
         }));
@@ -47,13 +37,13 @@ function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
 
     return (
         <Dialog
-            onClose={handleCloseAddCategory}
-            open={openAddCategory}
+            onClose={handleCloseFormatCategory}
+            open={openFormatCategory}
             fullWidth
             maxWidth="sm"
         >
             <DialogTitle
-                onClose={handleCloseAddCategory}
+                onClose={handleCloseFormatCategory}
                 style={{
                     backgroundColor: '#1976d2',
                     color: 'white',
@@ -75,7 +65,7 @@ function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
                 </IconButton>
                 Add Category
                 <IconButton
-                    onClick={handleCloseAddCategory}
+                    onClick={handleCloseFormatCategory}
                     sx={{
                         position: 'absolute',
                         right: 12,
@@ -106,6 +96,7 @@ function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
                                 width: '50%',
                             }}
                             onChange={inputChanged}
+                            defaultValue={formatCategory ? formatCategory.name : ''}
                         />
                     </Grid>
                     <Grid item xs={3}>
@@ -122,6 +113,7 @@ function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
                             maxRows={3}
                             fullWidth
                             onChange={inputChanged}
+                            defaultValue={formatCategory ? formatCategory.description : ''}
                         />
                     </Grid>
                     <Grid item xs={3}>
@@ -145,6 +137,7 @@ function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
                                 )
                             }}
                             onChange={inputChanged}
+                            defaultValue={formatCategory ? getIconName(formatCategory.icon) : ''}
                         >
                             {MUIIcons.map(MUIIcon => (
                                 <MenuItem
@@ -161,15 +154,15 @@ function AddCategoryDialog({ openAddCategory, setOpenAddCategory }) {
             <DialogActions style={{justifyContent: 'center'}}>
                 <Button
                     autoFocus
-                    onClick={addCategory}
+                    onClick={handleConfirm}
                     variant='contained'
                     style={{ width: 150 }}
                 >
-                    Save & Close
+                    {confirmText}
                 </Button>
             </DialogActions>
         </Dialog>
     );
 }
 
-export default AddCategoryDialog;
+export default FormatCategoryDialog;

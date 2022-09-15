@@ -49,10 +49,11 @@ export const UtilsProvider = ({children}) => {
 
     useEffect(() => {
         getMUIIcons();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const contextData = {
         MUIIcons,
+        getMUIIcons,
     };
 
     return (

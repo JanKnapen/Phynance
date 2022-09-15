@@ -86,6 +86,16 @@ export const AxiosProvider = ({children}) => {
             .catch(error => handleError(error));
     }
 
+    const putRequest = (url, data, handleResponse, handleError) => {
+        axiosClient.put(url, data, {
+            headers: {
+                'Authorization': `token ${authUser.authToken}`,
+            },
+        })
+            .then(response => handleResponse(response))
+            .catch(error => handleError(error));
+    }
+
     const createBankAccountRequest = async ({
                                                 name,
                                                 description,
@@ -117,6 +127,20 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/categories/', postData, handleResponse, handleError);
     }
 
+    const updateCategoryRequest = async ({
+                                             id,
+                                             name,
+                                             description,
+                                             icon,
+                                         }, handleResponse, handleError) => {
+        const putData = {
+            name: name,
+            description: description,
+            icon: icon,
+        }
+        putRequest('/bank/categories/' + id + '/', putData, handleResponse, handleError);
+    }
+
     const getCategoriesRequest = async (handleResponse, handleError) => {
         getRequest('/bank/categories/', handleResponse, handleError);
     }
@@ -133,6 +157,7 @@ export const AxiosProvider = ({children}) => {
         createBankAccountRequest,
         getBankAccountsInfoRequest,
         createCategoryRequest,
+        updateCategoryRequest,
         getCategoriesRequest,
         getMUIIconsRequest,
     };

@@ -3,16 +3,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import {Category} from "@mui/icons-material";
 import CategoriesDialogTable from "./categoriesDialogTable";
-import {useContext, useState} from "react";
-import EditCategoryDialog from "./editCategoryDialog/editCategoryDialog";
-import AddCategoryDialog from "./addCategoryDialog/addCategoryDialog";
-import BankContext from "../../../contexts/BankContext";
+import {useState} from "react";
+import EditCategoryDialog from "./formatCategoryDialog/editCategoryDialog/editCategoryDialog";
+import AddCategoryDialog from "./formatCategoryDialog/addCategoryDialog/addCategoryDialog";
 
 function CategoriesDialog({ setOpenCategories, openCategories }) {
-    const { categories } = useContext(BankContext);
     const [openEditCategory, setOpenEditCategory] = useState(false);
     const [openAddCategory, setOpenAddCategory] = useState(false);
-    const [categoryEditId, setCategoryEditId] = useState(null);
+    const [editCategory, setEditCategory] = useState(null);
 
     const handleCloseCategories = () => {
         setOpenCategories(false);
@@ -63,7 +61,7 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                 <DialogContent dividers>
                     <CategoriesDialogTable
                         setOpenEditCategory={setOpenEditCategory}
-                        setCategoryEditId={setCategoryEditId}
+                        setEditCategory={setEditCategory}
                     />
                 </DialogContent>
                 <DialogActions style={{justifyContent: 'center'}}>
@@ -80,8 +78,8 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
             <EditCategoryDialog
                 openEditCategory={openEditCategory}
                 setOpenEditCategory={setOpenEditCategory}
-                categories={categories}
-                categoryEditId={categoryEditId}
+                editCategory={editCategory}
+                setEditCategory={setEditCategory}
             />
             <AddCategoryDialog
                 openAddCategory={openAddCategory}

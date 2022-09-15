@@ -4,7 +4,7 @@ import {createElement, useContext} from "react";
 import BankContext from "../../../contexts/BankContext";
 import UtilsContext from "../../../contexts/UtilsContext";
 
-function CategoriesDialogTable({ setOpenEditCategory, setCategoryEditId }) {
+function CategoriesDialogTable({ setOpenEditCategory, setEditCategory }) {
     const { categories } = useContext(BankContext);
     const { MUIIcons } = useContext(UtilsContext);
 
@@ -49,7 +49,8 @@ function CategoriesDialogTable({ setOpenEditCategory, setCategoryEditId }) {
                                         variant='contained'
                                         onClick={(event) => {
                                             setOpenEditCategory(true);
-                                            setCategoryEditId(category.id);
+                                            const editCategory = categories.filter(cat => cat.id === category.id)[0]
+                                            setEditCategory(editCategory);
                                         }}
                                     >
                                         <EditIcon />
