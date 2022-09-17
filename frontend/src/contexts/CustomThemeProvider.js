@@ -1,6 +1,7 @@
 import {createContext, useState} from "react";
 import {createTheme, CssBaseline} from "@mui/material";
 import {ThemeProvider} from "@emotion/react";
+import Cookies from "universal-cookie/es6";
 
 const CustomThemeContext = createContext(null);
 
@@ -119,10 +120,16 @@ export const CustomThemeProvider = ({children}) => {
         }
     });
 
-    const [theme, setTheme] = useState(lightTheme);
+    const cookies = new Cookies()
+    const [theme, setTheme] = useState(cookies.get('phynanceDarkMode') ?
+        (cookies.get('phynanceDarkMode') === 'light' ? lightTheme : darkTheme)
+        : lightTheme);
 
     const switchTheme = () => {
-        setTheme(prevTheme => (prevTheme.palette.mode === 'light' ? darkTheme : lightTheme));
+        setTheme(prevTheme => {
+            cookies.set('phynanceDarkMode', prevTheme.palette.mode === 'light' ? 'dark' : 'light');
+            return prevTheme.palette.mode === 'light' ? darkTheme : lightTheme;
+        });
     }
 
     const contextData = {

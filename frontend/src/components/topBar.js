@@ -13,6 +13,7 @@ import NotificationsContext from "../contexts/NotificationsContext";
 import CustomThemeContext from "../contexts/CustomThemeProvider";
 
 function TopBar({ isPrivate }) {
+    const { theme } = useContext(CustomThemeContext);
     const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
     const { switchTheme } = useContext(CustomThemeContext);
     const { logoutUser } = useContext(AuthContext);
@@ -98,6 +99,7 @@ function TopBar({ isPrivate }) {
                                         onClick={() => {
                                             switchTheme();
                                         }}
+                                        defaultChecked={theme.palette.mode === 'light' ? false : true}
                                     />
                                 </MenuItem>
                                 <MenuItem onClick={logOut}>Log Out</MenuItem>
@@ -111,6 +113,7 @@ function TopBar({ isPrivate }) {
                             onClick={() => {
                                 switchTheme();
                             }}
+                            defaultChecked={theme.palette.mode === 'light' ? false : true}
                         />
                     }
                 </Toolbar>
