@@ -7,8 +7,10 @@ import Toolbar from "@mui/material/Toolbar";
 import {useNavigate} from "react-router-dom";
 import {useContext, useEffect} from "react";
 import BankContext from "../contexts/BankContext";
+import CustomThemeContext from "../contexts/CustomThemeProvider";
 
 function Sidebar() {
+    const { theme } = useContext(CustomThemeContext);
     const { bankAccountsInfo, getBankAccountsInfo } = useContext(BankContext);
     const navigate = useNavigate();
 
@@ -22,11 +24,11 @@ function Sidebar() {
             sx={{
                 width: 200,
                 flexShrink: 0,
-                [`& .MuiDrawer-paper`]: { width: 200, boxSizing: 'border-box' },
+                [`& .MuiDrawer-paper`]: { width: 200 },
             }}
         >
             <Toolbar />
-            <Box sx={{ overflow: 'auto' }} style={{backgroundColor: 'lightgray'}}>
+            <Box style={{ backgroundColor: theme.palette.sidebar.menuHeader }}>
                 <List>
                     <ListItem key="Home" disablePadding>
                         <ListItemButton
@@ -63,7 +65,7 @@ function Sidebar() {
                 </List>
                 <Divider />
                 {bankAccountsInfo.length > 0 && (
-                    <List style={{backgroundColor: 'white'}}>
+                    <List style={{ backgroundColor: theme.palette.sidebar.menuItem }}>
                         {bankAccountsInfo.map((bankAccount, index) => (
                             <ListItem key={bankAccount.name} disablePadding>
                                 <ListItemButton

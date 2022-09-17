@@ -1,7 +1,5 @@
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CardContent from '@mui/material/CardContent';
 import {useEffect, useRef, useState} from "react";
@@ -9,6 +7,7 @@ import BankAccountsWidgetSettings from "./bankAccountsWidgetSettings";
 import BankAccountsWidgetTable from "./bankAccountsWidgetTable";
 import CategoriesDialog from "./categoriesDialog/categoriesDialog";
 import AddBankAccountDialog from "../dialogs/inputDialogs/addBankAccountDialog/addBankAccountDialog";
+import {CardHeader, IconButton} from "@mui/material";
 
 function BankAccountsWidget() {
     const [openSettings, setOpenSettings] = useState(false);
@@ -38,9 +37,7 @@ function BankAccountsWidget() {
         <Card>
             <CardHeader
                 avatar={
-                    <AccountBalanceIcon
-                        style={{ color: 'white' }}
-                    />
+                    <AccountBalanceIcon />
                 }
                 action={
                     <>
@@ -48,9 +45,7 @@ function BankAccountsWidget() {
                             ref={anchorRefSettings}
                             onClick={handleToggleSettings}
                         >
-                            <MoreVertIcon
-                                style={{ color: 'white' }}
-                            />
+                            <MoreVertIcon />
                         </IconButton>
                         <BankAccountsWidgetSettings
                             openSettings={openSettings}
@@ -73,7 +68,6 @@ function BankAccountsWidget() {
                 }
                 title="Bank Accounts"
                 titleTypographyProps={{ variant:'h6' }}
-                style={{ backgroundColor: '#1976d2', color: 'white' }}
             />
             <CardContent>
                 <BankAccountsWidgetTable />

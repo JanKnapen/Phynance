@@ -1,21 +1,20 @@
-import {Container, Switch} from "@mui/material";
+import {Container, IconButton, Switch} from "@mui/material";
 import SavingsIcon from '@mui/icons-material/Savings';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import NotificationsContext from "../contexts/NotificationsContext";
-import {ColorModeContext} from "../Contexts";
+import CustomThemeContext from "../contexts/CustomThemeProvider";
 
 function TopBar() {
     const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
-    const { switchTheme } = useContext(ColorModeContext);
+    const { switchTheme } = useContext(CustomThemeContext);
     const { logoutUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -58,7 +57,6 @@ function TopBar() {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.2rem',
-                            color: 'inherit',
                             textDecoration: 'none',
                         }}
                         onClick={(event) => navigate('/home')}
@@ -74,7 +72,6 @@ function TopBar() {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleMenu}
-                            color="inherit"
                             >
                             <AccountCircle />
                         </IconButton>
@@ -97,7 +94,9 @@ function TopBar() {
                             <MenuItem>
                                 <div>Dark Theme</div>
                                 <Switch
-                                    onClick={switchTheme}
+                                    onClick={() => {
+                                        switchTheme();
+                                    }}
                                 />
                             </MenuItem>
                             <MenuItem onClick={logOut}>Log Out</MenuItem>

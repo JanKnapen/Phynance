@@ -3,8 +3,10 @@ import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
 import NotificationsContext from "../../contexts/NotificationsContext";
+import CustomThemeContext from "../../contexts/CustomThemeProvider";
 
 function RegisterForm() {
+    const { theme } = useContext(CustomThemeContext);
     const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const {
         registerUser,
@@ -106,11 +108,7 @@ function RegisterForm() {
                                 Already have an account?
                             </div>
                             <div
-                                style={{
-                                    color: '#3366CC',
-                                    textDecoration: 'underline',
-                                    cursor: 'pointer',
-                                }}
+                                style={theme.palette.link_div}
                                 onClick={event => navigate('/login')}
                             >
                                 Sing in
