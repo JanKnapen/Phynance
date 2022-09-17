@@ -11,7 +11,9 @@ const PrivateRoute = ({children }) => {
     return !authUser.authToken ? <Navigate to="/login" /> : (
         <>
             <Box sx={{ display: 'flex' }}>
-                <TopBar />
+                <TopBar
+                    isPrivate={true}
+                />
                 <Sidebar />
             </Box>
             <Toolbar />

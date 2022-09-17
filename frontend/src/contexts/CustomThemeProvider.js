@@ -14,6 +14,11 @@ export const CustomThemeProvider = ({children}) => {
                 menuHeader: 'lightgray',
                 menuItem: 'white',
             },
+            link_div: {
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                color: '#3366CC',
+            },
         },
         components: {
             MuiIconButton: {
@@ -52,7 +57,7 @@ export const CustomThemeProvider = ({children}) => {
                 textDecoration: 'underline',
                 cursor: 'pointer',
                 color: '#3366CC',
-            }
+            },
         },
         components: {
             MuiButton: {
