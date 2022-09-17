@@ -1,6 +1,5 @@
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import {DialogTitle} from "@mui/material";
+import {DialogTitle, IconButton} from "@mui/material";
 
 function InputDialogTemplateTitle({
     onClose,
@@ -11,24 +10,18 @@ function InputDialogTemplateTitle({
         <DialogTitle
             onClose={onClose}
             style={{
-                backgroundColor: '#1976d2',
-                color: 'white',
                 textAlign: 'center',
             }}
         >
-            <IconButton
-                disabled
-                sx={{
+            <div
+                style={{
                     position: 'absolute',
-                    left: 12,
-                    top: 12,
-                    ":disabled": {
-                        color: 'white',
-                    },
+                    left: 20,
+                    top: 20,
                 }}
             >
                 {titleIcon}
-            </IconButton>
+            </div>
             {titleText}
             <IconButton
                 onClick={onClose}
@@ -36,7 +29,6 @@ function InputDialogTemplateTitle({
                     position: 'absolute',
                     right: 12,
                     top: 12,
-                    color: 'white',
                 }}
             >
                 <CloseIcon />

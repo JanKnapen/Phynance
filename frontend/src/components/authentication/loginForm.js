@@ -2,8 +2,10 @@ import {Box, Button, Container, CssBaseline, TextField, Typography} from "@mui/m
 import {useContext, useState} from "react";
 import AuthContext from "../../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
+import CustomThemeContext from "../../contexts/CustomThemeProvider";
 
 function LoginForm() {
+    const { theme } = useContext(CustomThemeContext);
     const { loginUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -87,11 +89,7 @@ function LoginForm() {
                                 New to Phynance?
                             </div>
                             <div
-                                style={{
-                                    color: '#3366CC',
-                                    textDecoration: 'underline',
-                                    cursor: 'pointer',
-                                }}
+                                style={theme.palette.link_div}
                                 onClick={event => navigate('/register')}
                             >
                                 Create an account

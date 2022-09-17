@@ -1,5 +1,4 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
-import IconButton from "@mui/material/IconButton";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import {Category} from "@mui/icons-material";
 import CategoriesDialogTable from "./categoriesDialogTable";
@@ -35,24 +34,18 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                 <DialogTitle
                     onClose={handleCloseCategories}
                     style={{
-                        backgroundColor: '#1976d2',
-                        color: 'white',
                         textAlign: 'center',
                     }}
                 >
-                    <IconButton
-                        disabled
-                        sx={{
+                    <div
+                        style={{
                             position: 'absolute',
-                            left: 12,
-                            top: 12,
-                            ":disabled": {
-                                color: 'white',
-                            },
+                            left: 20,
+                            top: 20,
                         }}
                     >
                         <Category />
-                    </IconButton>
+                    </div>
                     Categories
                     <IconButton
                         onClick={handleCloseCategories}
@@ -60,7 +53,6 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                             position: 'absolute',
                             right: 12,
                             top: 12,
-                            color: 'white',
                         }}
                     >
                         <CloseIcon />

@@ -1,4 +1,4 @@
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
 import BankContext from "../../contexts/BankContext";
@@ -38,7 +38,8 @@ function BankAccountsWidgetTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Table style={{borderTop: '1px solid #e0e0e0'}}>
+            <Divider />
+            <Table>
                 <TableHead>
                     <TableRow>
                         <TableCell width={300}>

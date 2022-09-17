@@ -4,23 +4,26 @@ import {BankProvider} from "./contexts/BankContext";
 import {UtilsProvider} from "./contexts/UtilsContext";
 import {SnackbarProvider} from "notistack";
 import {NotificationsProvider} from "./contexts/NotificationsContext";
+import {CustomThemeProvider} from "./contexts/CustomThemeProvider";
 
 function Contexts({children}) {
     return (
-        <SnackbarProvider maxSnack={5}>
-            <NotificationsProvider>
-                <AxiosProvider>
-                    <AuthProvider>
-                        <BankProvider>
-                            <UtilsProvider>
-                                {children}
-                            </UtilsProvider>
-                        </BankProvider>
-                    </AuthProvider>
-                </AxiosProvider>
-            </NotificationsProvider>
-        </SnackbarProvider>
+        <CustomThemeProvider>
+            <SnackbarProvider maxSnack={5}>
+                <NotificationsProvider>
+                    <AxiosProvider>
+                        <AuthProvider>
+                            <BankProvider>
+                                <UtilsProvider>
+                                    {children}
+                                </UtilsProvider>
+                            </BankProvider>
+                        </AuthProvider>
+                    </AxiosProvider>
+                </NotificationsProvider>
+            </SnackbarProvider>
+        </CustomThemeProvider>
     )
-};
+}
 
 export default Contexts;
