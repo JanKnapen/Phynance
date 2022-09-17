@@ -1,9 +1,23 @@
 import {createContext} from "react";
 import {useSnackbar} from "notistack";
+import {IconButton} from "@mui/material";
+import {Close} from "@mui/icons-material";
 
 const NotificationsContext = createContext(null);
 
 export default NotificationsContext;
+
+function SnackbarCloseButton({ variant, snackbarKey }) {
+    const { closeSnackbar } = useSnackbar();
+
+    return (
+        <IconButton
+            onClick={() => closeSnackbar(snackbarKey)}
+        >
+            <Close/>
+        </IconButton>
+    )
+}
 
 export const NotificationsProvider = ({children}) => {
     const { enqueueSnackbar } = useSnackbar();
@@ -16,6 +30,7 @@ export const NotificationsProvider = ({children}) => {
                 horizontal: 'right',
             },
             autoHideDuration: 2500,
+            action: (snackbarKey) => <SnackbarCloseButton variant={variant} snackbarKey={snackbarKey}/>
         })
     }
 
