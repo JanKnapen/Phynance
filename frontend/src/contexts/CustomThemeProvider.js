@@ -20,6 +20,9 @@ export const CustomThemeProvider = ({children}) => {
                 cursor: 'pointer',
                 color: '#3366CC',
             },
+            container: {
+                backgroundColor: '#f5f5f5',
+            },
         },
         components: {
             MuiIconButton: {
@@ -58,6 +61,9 @@ export const CustomThemeProvider = ({children}) => {
                 textDecoration: 'underline',
                 cursor: 'pointer',
                 color: '#3366CC',
+            },
+            container: {
+                backgroundColor: '#1c1c1c',
             },
         },
         components: {
