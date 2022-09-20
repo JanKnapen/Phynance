@@ -22,6 +22,7 @@ function AddBankAccountDialog({
         name: null,
         description: null,
         IBAN: null,
+        currency: null,
     });
 
     const addBankAccount = () => {
@@ -31,6 +32,7 @@ function AddBankAccountDialog({
                 name: null,
                 description: null,
                 IBAN: null,
+                currency: null,
             });
             getBankAccountsInfo();
             onClose();

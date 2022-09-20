@@ -100,11 +100,13 @@ export const AxiosProvider = ({children}) => {
                                                 name,
                                                 description,
                                                 IBAN,
+                                                currency,
                                             }, handleResponse, handleError) => {
         const postData = {
             name: name,
             description: description,
             IBAN: IBAN,
+            currency: currency,
         }
         postRequest('/bank/accounts/', postData, handleResponse, handleError);
     }

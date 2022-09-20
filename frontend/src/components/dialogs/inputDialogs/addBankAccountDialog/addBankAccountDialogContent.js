@@ -1,9 +1,13 @@
 import Grid from "@mui/material/Grid";
-import {TextField} from "@mui/material";
+import {MenuItem, Select, TextField} from "@mui/material";
+import {createElement, useContext} from "react";
+import UtilsContext from "../../../../contexts/UtilsContext";
 
 function AddBankAccountDialogContent({
     onInputChange,
                                      }) {
+    const { currencies } = useContext(UtilsContext);
+
     return (
         <Grid container spacing={2} pl={2} pt={2} pr={2}>
             <Grid item xs={3} >
@@ -61,6 +65,35 @@ function AddBankAccountDialogContent({
                     }}
                     onChange={onInputChange}
                 />
+            </Grid>
+            <Grid item xs={3} >
+                <div style={{ marginTop: 20, fontWeight: 'bold' }}>
+                    Currency:
+                </div>
+            </Grid>
+            <Grid
+                item
+                xs={9}
+            >
+                <Select
+                    label="Currency"
+                    name="currency"
+                    style={{
+                        marginLeft: 15,
+                        width: '15%',
+                    }}
+                    onChange={onInputChange}
+                    defaultValue={currencies[0]}
+                >
+                    {currencies.map(currency => (
+                        <MenuItem
+                            value={currency}
+                            key={currency}
+                        >
+                            {currency}
+                        </MenuItem>
+                    ))}
+                </Select>
             </Grid>
         </Grid>
     )

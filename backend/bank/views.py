@@ -11,7 +11,6 @@ from .models import BankAccount, \
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
 from .utils import select_info
-from utils.models import MUIIcon
 
 
 class BankAccountViewSet(ModelViewSet):
