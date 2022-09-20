@@ -4,6 +4,8 @@ from rest_framework.exceptions import ValidationError
 
 from utils.models import MUIIcon
 
+from .definitions import CURRENCIES
+
 User = get_user_model()
 
 
@@ -12,6 +14,7 @@ class BankAccount(Model):
     name = CharField(max_length=32, blank=False, null=False, unique=True)
     description = TextField(max_length=128, blank=False, null=False)
     IBAN = CharField(max_length=32, blank=False, null=False)
+    currency = CharField(max_length=3, choices=CURRENCIES, default='EUR', blank=False, null=False)
 
     def __str__(self):
         return self.owner.username + ': ' + self.name
