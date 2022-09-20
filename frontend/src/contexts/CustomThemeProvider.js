@@ -11,6 +11,10 @@ export const CustomThemeProvider = ({children}) => {
     const lightTheme = createTheme({
         palette: {
             mode: 'light',
+            text: {
+                light: '#9e9e9e',
+                darkBlue: '#7b1fa2',
+            },
             sidebar: {
                 menuHeader: 'lightgray',
                 menuItem: 'white',
@@ -53,6 +57,10 @@ export const CustomThemeProvider = ({children}) => {
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
+            text: {
+                light: '#737373',
+                darkBlue: '#7b1fa2',
+            },
             sidebar: {
                 menuHeader: '#1e1e1e',
                 menuItem: '#121212',

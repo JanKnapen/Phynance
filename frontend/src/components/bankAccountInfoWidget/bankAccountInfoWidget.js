@@ -1,57 +1,60 @@
 import {useContext} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import Grid from "@mui/material/Grid";
-import {Typography} from "@mui/material";
-import MastercardLogo from "../../utils/mastercardLogo";
+import BankAccountCardLogo from "./bankAccountCardLogo";
+import {Button} from "@mui/material";
+import BankAccountInfo from "./bankAccountInfo";
 
 function BankAccountInfoWidget() {
     const { theme } = useContext(CustomThemeContext);
+
+    const bank = {
+        name: 'Betaal',
+        IBAN: 'NL00RABO0000000000',
+        balance: 500,
+        description: 'Rekening om tantoe veel te sparen en daarna alles te spenden a nifauw.',
+        currency: 'EUR',
+    }
 
     return (
         <div
             style={{
                 ...theme.palette.container,
                 borderRadius: 10,
-                width: '100%',
             }}
         >
             <Grid container
                   pt={5}
                   pl={5}
+                  pb={5}
+                  pr={5}
             >
+                <Grid item xs={12} paddingBottom={5}>
+                    <BankAccountCardLogo
+                        IBAN={bank.IBAN}
+                    />
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    paddingLeft={3}
+                    paddingRight={3}
+                    paddingBottom={5}
+                >
+                    <BankAccountInfo
+                        bank={bank}
+                    />
+                </Grid>
                 <Grid item xs={12}>
-                    <div
+                    <Button
+                        variant='contained'
                         style={{
-                            backgroundColor: '#1d36b4',
-                            borderRadius: 10,
-                            width: '90%',
-                            height: '18vh',
+                            width: '60%',
                         }}
                     >
-                        <Grid container>
-                            <Grid item xs={12} pt={3} pl={3}>
-                                <MastercardLogo size={'1.5vw'} halfSize={'0.75vw'} oneHalfSize={'1.5vw'}/>
-                            </Grid>
-                            <Grid item xs={12} pt={5}>
-                                <div
-                                    style={{
-                                        color: 'white',
-                                        fontWeight: 'bold',
-                                        fontSize: '1vw',
-                                        letterSpacing: '0.1vw',
-                                    }}
-                                >
-                                    NL70 RABO 0340 1550 00
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </div>
+                        Upload Transactions
+                    </Button>
                 </Grid>
-                {/*<Grid item xs={2}>*/}
-                {/*    <Typography>*/}
-                {/*        Info*/}
-                {/*    </Typography>*/}
-                {/*</Grid>*/}
             </Grid>
         </div>
     )
