@@ -1,6 +1,5 @@
 import Grid from "@mui/material/Grid";
-import {Input, MenuItem, Select, TextField} from "@mui/material";
-import {useState} from "react";
+import {Input, MenuItem, Select} from "@mui/material";
 
 function UploadTransactionsDialogContent({ inputChanged }) {
     const bankOptions = ['Rabobank'];
