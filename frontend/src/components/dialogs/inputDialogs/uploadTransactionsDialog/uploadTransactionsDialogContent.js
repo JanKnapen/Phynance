@@ -1,9 +1,11 @@
 import Grid from "@mui/material/Grid";
-import {Input, MenuItem, Select} from "@mui/material";
+import {Button, Input, MenuItem, Select} from "@mui/material";
+import {useState} from "react";
 
 function UploadTransactionsDialogContent({ inputChanged }) {
     const bankOptions = ['Rabobank'];
     const languageOptions = ['NL'];
+    const [fileName, setFileName] = useState(null);
 
     return (
         <Grid container spacing={2} pl={2} pt={2} pr={2}>
@@ -68,14 +70,41 @@ function UploadTransactionsDialogContent({ inputChanged }) {
                 </div>
             </Grid>
             <Grid item xs={9}>
-                <Input
-                    type='file'
-                    name='file'
-                    onChange={inputChanged}
+                <div
                     style={{
-                        marginLeft: 15,
+                        display: 'flex',
+                        height: '100%',
                     }}
-                />
+                >
+                    <Button
+                        component='label'
+                        variant='contained'
+                        style={{
+                            marginLeft: 15,
+                        }}
+                    >
+                        Select File
+                        <input
+                            type='file'
+                            name='file'
+                            hidden={true}
+                            onChange={(event) => {
+                                setFileName(event.target.files[0].name);
+                                inputChanged(event);
+                            }}
+                        />
+                    </Button>
+                    <div
+                        style={{
+                            paddingLeft: '3%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        {fileName}
+                    </div>
+                </div>
             </Grid>
         </Grid>
     )
