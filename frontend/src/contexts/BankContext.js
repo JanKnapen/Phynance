@@ -40,7 +40,6 @@ export const BankProvider = ({children}) => {
     const getBankAccount = (id) => {
         const handleResponse = (response) => {
             setBankAccount(response.data);
-            console.log(response.data);
         }
         const handleError = (error) => {
             enqueueErrorSnackbar('Unable to load bank account, reload to try again.');

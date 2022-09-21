@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import {Divider, Typography} from "@mui/material";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import BankContext from "../../contexts/BankContext";
 

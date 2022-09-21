@@ -1,14 +1,20 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import Grid from "@mui/material/Grid";
 import BankAccountCardLogo from "./bankAccountCardLogo";
 import {Button} from "@mui/material";
 import BankAccountInfo from "./bankAccountInfo";
 import BankContext from "../../contexts/BankContext";
+import UploadTransactionsDialog from "../dialogs/inputDialogs/uploadTransactionsDialog/uploadTransactionsDialog";
 
 function BankAccountInfoWidget() {
     const { theme } = useContext(CustomThemeContext);
     const { bankAccount } = useContext(BankContext);
+    const [openUploadTransactionsDialog, setOpenUploadTransactionsDialog] = useState(false);
+
+    const handleCloseUploadTransactionsDialog = () => {
+        setOpenUploadTransactionsDialog(false);
+    }
 
     return (
         <div
@@ -43,10 +49,16 @@ function BankAccountInfoWidget() {
                         style={{
                             width: '60%',
                         }}
+                        onClick={() => setOpenUploadTransactionsDialog(true)}
                     >
                         Upload Transactions
                     </Button>
                 </Grid>
+                <UploadTransactionsDialog
+                    open={openUploadTransactionsDialog}
+                    onClose={handleCloseUploadTransactionsDialog}
+                    maxWidth='md'
+                />
             </Grid>
         </div>
     )
