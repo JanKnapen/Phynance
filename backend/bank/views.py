@@ -1,4 +1,3 @@
-from django.forms import model_to_dict
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -10,7 +9,7 @@ from .models import BankAccount, \
 
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
-from .utils import select_info
+from .utils import select_info, get_balance
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -25,6 +24,13 @@ class BankAccountViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        bank_account = serializer.data
+        bank_account['balance'] = get_balance(bank_account, self.request.user)
+        return Response(bank_account)
 
     @action(detail=False, methods=['GET'])
     def info(self, request, *args, **kwargs):

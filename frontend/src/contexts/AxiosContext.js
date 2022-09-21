@@ -115,6 +115,10 @@ export const AxiosProvider = ({children}) => {
         getRequest('/bank/accounts/info/', handleResponse, handleError);
     }
 
+    const getBankAccountRequest = async (id, handleResponse, handleError) => {
+        getRequest('/bank/accounts/' + id + '/', handleResponse, handleError);
+    }
+
     const createCategoryRequest = async ({
                                              name,
                                              description,
@@ -158,6 +162,7 @@ export const AxiosProvider = ({children}) => {
         registerUserRequest,
         createBankAccountRequest,
         getBankAccountsInfoRequest,
+        getBankAccountRequest,
         createCategoryRequest,
         updateCategoryRequest,
         getCategoriesRequest,

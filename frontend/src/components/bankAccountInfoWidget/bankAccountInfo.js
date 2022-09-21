@@ -2,20 +2,15 @@ import Grid from "@mui/material/Grid";
 import {Divider, Typography} from "@mui/material";
 import {useContext, useEffect, useState} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
+import BankContext from "../../contexts/BankContext";
 
-function BankAccountInfo({ bank }) {
+function BankAccountInfo({ currency }) {
     const { theme } = useContext(CustomThemeContext);
-    const [currencyFormatter, setCurrencyFormatter] = useState(new Intl.NumberFormat('en-US', {
+    const { bankAccount } = useContext(BankContext);
+    const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'EUR',
-    }));
-
-    useEffect(() => {
-        setCurrencyFormatter(new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: bank.currency,
-        }));
-    }, [bank.currency]);
+        currency: currency,
+    });
 
     return(
         <Grid container>
@@ -41,7 +36,7 @@ function BankAccountInfo({ bank }) {
                         fontWeight: 'bold',
                     }}
                 >
-                    {currencyFormatter.format(bank.balance)}
+                    {bankAccount ? currencyFormatter.format(bankAccount.balance) : ''}
                 </Typography>
             </Grid>
             <Grid
@@ -89,7 +84,7 @@ function BankAccountInfo({ bank }) {
                         fontWeight: 'bold',
                     }}
                 >
-                    {bank.name}
+                    {bankAccount ? bankAccount.name : ''}
                 </Typography>
             </Grid>
             <Grid
@@ -123,7 +118,7 @@ function BankAccountInfo({ bank }) {
                         fontWeight: 'bold',
                     }}
                 >
-                    {bank.description}
+                    {bankAccount ? bankAccount.description : ''}
                 </Typography>
             </Grid>
             <Grid

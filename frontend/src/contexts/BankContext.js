@@ -10,10 +10,12 @@ export const BankProvider = ({children}) => {
     const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const {
         getBankAccountsInfoRequest,
+        getBankAccountRequest,
         getCategoriesRequest
     } = useContext(AxiosContext);
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [bankAccount, setBankAccount] = useState(null);
 
     const getBankAccountsInfo = () => {
         const handleResponse = (response) => {
@@ -35,11 +37,24 @@ export const BankProvider = ({children}) => {
         getCategoriesRequest(handleResponse, handleError);
     }
 
+    const getBankAccount = (id) => {
+        const handleResponse = (response) => {
+            setBankAccount(response.data);
+            console.log(response.data);
+        }
+        const handleError = (error) => {
+            enqueueErrorSnackbar('Unable to load bank account, reload to try again.');
+        }
+        getBankAccountRequest(id, handleResponse, handleError);
+    }
+
     const contextData = {
         bankAccountsInfo,
         getBankAccountsInfo,
         categories,
         getCategories,
+        bankAccount,
+        getBankAccount,
     };
 
     return (

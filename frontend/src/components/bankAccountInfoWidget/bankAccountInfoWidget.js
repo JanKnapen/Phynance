@@ -4,17 +4,11 @@ import Grid from "@mui/material/Grid";
 import BankAccountCardLogo from "./bankAccountCardLogo";
 import {Button} from "@mui/material";
 import BankAccountInfo from "./bankAccountInfo";
+import BankContext from "../../contexts/BankContext";
 
 function BankAccountInfoWidget() {
     const { theme } = useContext(CustomThemeContext);
-
-    const bank = {
-        name: 'Betaal',
-        IBAN: 'NL00RABO0000000000',
-        balance: 500,
-        description: 'Rekening om tantoe veel te sparen en daarna alles te spenden a nifauw.',
-        currency: 'EUR',
-    }
+    const { bankAccount } = useContext(BankContext);
 
     return (
         <div
@@ -31,7 +25,7 @@ function BankAccountInfoWidget() {
             >
                 <Grid item xs={12} paddingBottom={5}>
                     <BankAccountCardLogo
-                        IBAN={bank.IBAN}
+                        IBAN={bankAccount ? bankAccount.IBAN : ''}
                     />
                 </Grid>
                 <Grid
@@ -41,9 +35,7 @@ function BankAccountInfoWidget() {
                     paddingRight={3}
                     paddingBottom={5}
                 >
-                    <BankAccountInfo
-                        bank={bank}
-                    />
+                    <BankAccountInfo currency={bankAccount ? bankAccount.currency : 'EUR'}/>
                 </Grid>
                 <Grid item xs={12}>
                     <Button

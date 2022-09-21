@@ -20,7 +20,7 @@ export const UtilsProvider = ({children}) => {
     const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const { getMUIIconsRequest } = useContext(AxiosContext);
     const [MUIIcons, setMUIIcons] = useState([]);
-    const [currencies, setCurrencies] = useState(['EUR', 'USD']);
+    const currencies = ['EUR', 'USD'];
 
     const MUIIconComponents = {
         'MedicalInformation': MedicalInformation,

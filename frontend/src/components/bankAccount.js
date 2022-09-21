@@ -1,15 +1,17 @@
 import {useParams} from "react-router-dom";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import Grid from "@mui/material/Grid";
 import {Box} from "@mui/material";
 import BankAccountOverviewWidget from "./bankAccountOverviewWidget/bankAccountOverviewWidget";
 import BankAccountInfoWidget from "./bankAccountInfoWidget/bankAccountInfoWidget";
+import BankContext from "../contexts/BankContext";
 
 function BankAccount() {
     const { id } = useParams();
+    const { getBankAccount } = useContext(BankContext);
 
     useEffect(() => {
-
+        getBankAccount(id);
     }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (

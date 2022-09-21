@@ -23,7 +23,7 @@ function BankAccountCardLogo({ IBAN }) {
                             letterSpacing: '0.1vw',
                         }}
                     >
-                        {IBAN.match(/.{1,4}/g).join(' ')}
+                        {IBAN ? IBAN.match(/.{1,4}/g).join(' ') : ''}
                     </div>
                 </Grid>
             </Grid>
