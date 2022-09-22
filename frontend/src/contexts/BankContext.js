@@ -11,11 +11,13 @@ export const BankProvider = ({children}) => {
     const {
         getBankAccountsInfoRequest,
         getBankAccountRequest,
-        getCategoriesRequest
+        getCategoriesRequest,
+        processTransactionsRequest,
     } = useContext(AxiosContext);
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
     const [bankAccount, setBankAccount] = useState(null);
+    const [processedTransactions, setProcessedTransactions] = useState(null);
 
     const getBankAccountsInfo = () => {
         const handleResponse = (response) => {
@@ -47,6 +49,16 @@ export const BankProvider = ({children}) => {
         getBankAccountRequest(id, handleResponse, handleError);
     }
 
+    const processTransactions = (transactions) => {
+        const handleResponse = (response) => {
+            setProcessedTransactions(response.data);
+        }
+        const handleError = (error) => {
+            enqueueErrorSnackbar('Unable to process uploaded transactions.');
+        }
+        processTransactionsRequest(transactions, handleResponse, handleError);
+    }
+
     const contextData = {
         bankAccountsInfo,
         getBankAccountsInfo,
@@ -54,6 +66,7 @@ export const BankProvider = ({children}) => {
         getCategories,
         bankAccount,
         getBankAccount,
+        processTransactions,
     };
 
     return (

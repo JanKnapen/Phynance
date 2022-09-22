@@ -155,6 +155,10 @@ export const AxiosProvider = ({children}) => {
         getRequest('/utils/mui_icons/', handleResponse, handleError);
     }
 
+    const processTransactionsRequest = async (transactions, handleResponse, handleError) => {
+        postRequest('/bank/transactions/process/', transactions, handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -167,6 +171,7 @@ export const AxiosProvider = ({children}) => {
         updateCategoryRequest,
         getCategoriesRequest,
         getMUIIconsRequest,
+        processTransactionsRequest,
     };
 
     return (

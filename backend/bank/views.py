@@ -9,7 +9,7 @@ from .models import BankAccount, \
 
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
-from .utils import select_info, get_balance
+from .utils import select_info, get_balance, transaction_exists
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -64,3 +64,9 @@ class BankTransactionViewSet(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return BankTransaction.objects.filter(bank_account__owner=user)
+
+    @action(detail=False, methods=['POST'])
+    def process(self, request, *args, **kwargs):
+        transactions = request.data
+        new_transactions = [transaction for transaction in transactions if not transaction_exists(transaction)]
+        return Response(new_transactions)

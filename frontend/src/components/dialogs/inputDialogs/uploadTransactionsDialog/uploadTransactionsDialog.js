@@ -9,7 +9,10 @@ import UploadTransactionsDialogContent from "./uploadTransactionsDialogContent";
 import InputDialogTemplateActions from "../inputDialogTemplateActions";
 
 function UploadTransactionsDialog({ open, onClose, maxWidth }) {
-    const { bankAccount } = useContext(BankContext);
+    const {
+        bankAccount,
+        processTransactions,
+    } = useContext(BankContext);
     const [uploadSettings, setUploadSettings] = useState({
         language: 'NL',
         bank: 'Rabobank',
@@ -27,6 +30,7 @@ function UploadTransactionsDialog({ open, onClose, maxWidth }) {
             balance_after: parseFloat(row['Saldo na trn']),
             description: row['Omschrijving-1'],
         }));
+        processTransactions(transactions);
     }
 
     const handleTransactionsUpload = () => {
