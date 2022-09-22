@@ -22,3 +22,8 @@ def transaction_exists(transaction):
         .filter(serial_number=transaction['serial_number'])\
         .first()
     return existing_transaction is not None
+
+
+def suggest_category(transaction):
+    transaction['category'] = None
+    return transaction

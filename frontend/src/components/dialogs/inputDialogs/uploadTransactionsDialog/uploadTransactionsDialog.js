@@ -1,14 +1,13 @@
-import {Dialog} from "@mui/material";
 import Papa from "papaparse";
 import {useContext, useState} from "react";
 import BankContext from "../../../../contexts/BankContext";
-import InputDialogTemplateTitle from "../inputDialogTemplateTitle";
 import {Receipt} from "@mui/icons-material";
-import InputDialogTemplateContent from "../inputDialogTemplateContent";
 import UploadTransactionsDialogContent from "./uploadTransactionsDialogContent";
-import InputDialogTemplateActions from "../inputDialogTemplateActions";
+import InputDialogTemplate from "../inputDialogTemplate";
+import NotificationsContext from "../../../../contexts/NotificationsContext";
 
-function UploadTransactionsDialog({ open, onClose, maxWidth }) {
+function UploadTransactionsDialog({ open, onClose, maxWidth, setOpenCreateTransactionsDialog }) {
+    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
     const {
         bankAccount,
         processTransactions,
@@ -20,17 +19,21 @@ function UploadTransactionsDialog({ open, onClose, maxWidth }) {
     });
 
     const handleTransactionsComplete = (results) => {
-        const transactions = results.data.map((row) => ({
+        const transactions = results.data.filter((row) => row['Volgnr'] != null).map((row) => ({
             bank_account: bankAccount.id,
-            date: new Date(row['Datum']),
-            amount: parseFloat(row['Bedrag']),
+            date: row['Datum'],
+            amount: parseFloat(row['Bedrag'].replace(',', '.')),
             serial_number: parseInt(row['Volgnr']),
             counter_party_IBAN: row['Tegenrekening IBAN/BBAN'],
             counter_party_name: row['Naam tegenpartij'],
-            balance_after: parseFloat(row['Saldo na trn']),
+            balance_after: parseFloat(row['Saldo na trn'].replace(',', '.')),
             description: row['Omschrijving-1'],
         }));
-        processTransactions(transactions);
+        if (transactions.length === 0) {
+            enqueueErrorSnackbar('The file does not contain any transactions, please upload the correct file.');
+        } else {
+            processTransactions(transactions, onClose, setOpenCreateTransactionsDialog);
+        }
     }
 
     const handleTransactionsUpload = () => {
@@ -40,6 +43,8 @@ function UploadTransactionsDialog({ open, onClose, maxWidth }) {
                 skipEmptyLines: true,
                 complete: handleTransactionsComplete,
             });
+        } else {
+            enqueueErrorSnackbar('Please select a file.');
         }
     }
 
@@ -55,30 +60,21 @@ function UploadTransactionsDialog({ open, onClose, maxWidth }) {
     }
 
     return (
-        <Dialog
+        <InputDialogTemplate
+            maxWidth={maxWidth}
             open={open}
             onClose={onClose}
-            fullWidth
-            maxWidth={maxWidth}
-        >
-            <InputDialogTemplateTitle
-                onClose={onClose}
-                titleIcon={<Receipt />}
-                titleText='Upload Transactions'
-            />
-            <InputDialogTemplateContent
-                content={
-                    <UploadTransactionsDialogContent
-                        inputChanged={inputChanged}
-                    />
-                }
-            />
-            <InputDialogTemplateActions
-                actionWidth='30%'
-                action={handleTransactionsUpload}
-                actionText='Upload'
-            />
-        </Dialog>
+            titleIcon={<Receipt />}
+            titleText='Upload Transactions'
+            content={
+                <UploadTransactionsDialogContent
+                    inputChanged={inputChanged}
+                />
+            }
+            action={handleTransactionsUpload}
+            actionText='Upload'
+            actionWidth='30%'
+        />
     )
 }
 

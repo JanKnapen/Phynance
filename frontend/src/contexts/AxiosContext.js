@@ -159,6 +159,10 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/transactions/process/', transactions, handleResponse, handleError);
     }
 
+    const createTransactionsRequest = async (transactions, handleResponse, handleError) => {
+        postRequest('/bank/transactions/', transactions, handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -172,6 +176,7 @@ export const AxiosProvider = ({children}) => {
         getCategoriesRequest,
         getMUIIconsRequest,
         processTransactionsRequest,
+        createTransactionsRequest,
     };
 
     return (

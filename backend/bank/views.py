@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -9,7 +10,7 @@ from .models import BankAccount, \
 
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
-from .utils import select_info, get_balance, transaction_exists
+from .utils import select_info, get_balance, transaction_exists, suggest_category
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -61,6 +62,13 @@ class BankTransactionViewSet(ModelViewSet):
     authentication_classes = [TokenAuthentication, ]
     permission_classes = [IsAuthenticated, ]
 
+    def get_serializer(self, *args, **kwargs):
+        if isinstance(kwargs.get('data', {}), list):
+            kwargs['many'] = True
+        serializer_class = self.get_serializer_class()
+        kwargs.setdefault('context', self.get_serializer_context())
+        return serializer_class(*args, **kwargs)
+
     def get_queryset(self):
         user = self.request.user
         return BankTransaction.objects.filter(bank_account__owner=user)
@@ -68,5 +76,5 @@ class BankTransactionViewSet(ModelViewSet):
     @action(detail=False, methods=['POST'])
     def process(self, request, *args, **kwargs):
         transactions = request.data
-        new_transactions = [transaction for transaction in transactions if not transaction_exists(transaction)]
+        new_transactions = [suggest_category(transaction) for transaction in transactions if not transaction_exists(transaction)]
         return Response(new_transactions)

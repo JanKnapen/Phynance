@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Model, ForeignKey, CASCADE, TextField, PROTECT, DateField, CharField, IntegerField
+from django.db.models import Model, ForeignKey, CASCADE, TextField, PROTECT, DateField, CharField, IntegerField, \
+    FloatField
 from rest_framework.exceptions import ValidationError
 
 from utils.models import MUIIcon
@@ -33,11 +34,11 @@ class BankCategory(Model):
 class BankTransaction(Model):
     bank_account = ForeignKey(BankAccount, on_delete=CASCADE)
     date = DateField(blank=False, null=False)
-    amount = IntegerField(blank=False, null=False)
+    amount = FloatField(blank=False, null=False)
     serial_number = IntegerField(blank=False, null=False)
-    counter_party_IBAN = TextField()
-    counter_party_name = TextField()
-    balance_after = IntegerField(blank=False, null=False)
+    counter_party_IBAN = TextField(blank=True, null=True)
+    counter_party_name = TextField(blank=True, null=True)
+    balance_after = FloatField(blank=False, null=False)
     description = TextField()
     category = ForeignKey(BankCategory, on_delete=PROTECT)
 

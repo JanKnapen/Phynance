@@ -17,7 +17,7 @@ export const BankProvider = ({children}) => {
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
     const [bankAccount, setBankAccount] = useState(null);
-    const [processedTransactions, setProcessedTransactions] = useState(null);
+    const [processedTransactions, setProcessedTransactions] = useState([]);
 
     const getBankAccountsInfo = () => {
         const handleResponse = (response) => {
@@ -49,9 +49,16 @@ export const BankProvider = ({children}) => {
         getBankAccountRequest(id, handleResponse, handleError);
     }
 
-    const processTransactions = (transactions) => {
+    const processTransactions = (transactions, closeUploadTransactionsDialog, setOpenCreateTransactionsDialog) => {
         const handleResponse = (response) => {
-            setProcessedTransactions(response.data);
+            if (response.data.length === 0) {
+                enqueueErrorSnackbar('All transactions already have been upload.');
+            } else {
+                setProcessedTransactions(response.data);
+                getCategories();
+                closeUploadTransactionsDialog();
+                setOpenCreateTransactionsDialog(true);
+            }
         }
         const handleError = (error) => {
             enqueueErrorSnackbar('Unable to process uploaded transactions.');
@@ -67,6 +74,8 @@ export const BankProvider = ({children}) => {
         bankAccount,
         getBankAccount,
         processTransactions,
+        processedTransactions,
+        setProcessedTransactions,
     };
 
     return (

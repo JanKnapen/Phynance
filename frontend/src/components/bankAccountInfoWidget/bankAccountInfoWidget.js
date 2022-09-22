@@ -6,14 +6,20 @@ import {Button} from "@mui/material";
 import BankAccountInfo from "./bankAccountInfo";
 import BankContext from "../../contexts/BankContext";
 import UploadTransactionsDialog from "../dialogs/inputDialogs/uploadTransactionsDialog/uploadTransactionsDialog";
+import CreateTransactionsDialog from "../dialogs/inputDialogs/createTransactionsDialog/createTransactionsDialog";
 
 function BankAccountInfoWidget() {
     const { theme } = useContext(CustomThemeContext);
     const { bankAccount } = useContext(BankContext);
     const [openUploadTransactionsDialog, setOpenUploadTransactionsDialog] = useState(false);
+    const [openCreateTransactionsDialog, setOpenCreateTransactionsDialog] = useState(false);
 
     const handleCloseUploadTransactionsDialog = () => {
         setOpenUploadTransactionsDialog(false);
+    }
+
+    const handleCloseCreateTransactionsDialog = () => {
+        setOpenCreateTransactionsDialog(false);
     }
 
     return (
@@ -58,6 +64,12 @@ function BankAccountInfoWidget() {
                     open={openUploadTransactionsDialog}
                     onClose={handleCloseUploadTransactionsDialog}
                     maxWidth='md'
+                    setOpenCreateTransactionsDialog={setOpenCreateTransactionsDialog}
+                />
+                <CreateTransactionsDialog
+                    open={openCreateTransactionsDialog}
+                    onClose={handleCloseCreateTransactionsDialog}
+                    maxWidth='xl'
                 />
             </Grid>
         </div>
