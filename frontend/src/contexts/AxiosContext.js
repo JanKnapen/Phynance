@@ -163,6 +163,16 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/transactions/', transactions, handleResponse, handleError);
     }
 
+    const getTransactionsRequest = async ({
+                                              bankAccountId,
+                                              period,
+                                          }, handleResponse, handleError) => {
+        const postData = {
+            period: period,
+        }
+        postRequest('/bank/accounts/' + bankAccountId + '/transactions/period/', postData, handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -177,6 +187,7 @@ export const AxiosProvider = ({children}) => {
         getMUIIconsRequest,
         processTransactionsRequest,
         createTransactionsRequest,
+        getTransactionsRequest,
     };
 
     return (

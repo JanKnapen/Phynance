@@ -1,17 +1,19 @@
 import Grid from "@mui/material/Grid";
-import {Button, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import {useContext, useState} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import BankContext from "../../contexts/BankContext";
+import ButtonSelector from "../../utils/buttonSelector";
 
 function BankAccountOverviewWidget() {
     const { theme } = useContext(CustomThemeContext);
     const { bankAccount } = useContext(BankContext);
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: bankAccount ? bankAccount.currency : 'EUR',
+        currency: bankAccount.currency ? bankAccount.currency : 'EUR',
     });
-    const [period, setPeriod] = useState('month');
+    const periodOptions = ['month', 'year'];
+    const [period, setPeriod] = useState(periodOptions[0]);
 
     return (
         <div
@@ -22,10 +24,7 @@ function BankAccountOverviewWidget() {
             }}
         >
             <Grid container
-                  pt={5}
-                  pl={5}
-                  pb={5}
-                  pr={5}
+                  padding={5}
             >
                 <Grid item xs={11}>
                     <Typography
@@ -40,28 +39,11 @@ function BankAccountOverviewWidget() {
                     </Typography>
                 </Grid>
                 <Grid item xs={1}>
-                    <Button
-                        variant={period === 'year' ? 'contained' : 'text'}
-                        disabled={period === 'year'}
-                        style={{
-                            float: 'left',
-                            width: '40%',
-                        }}
-                        onClick={() => setPeriod('year')}
-                    >
-                        Year
-                    </Button>
-                    <Button
-                        variant={period === 'month' ? 'contained' : 'text'}
-                        disabled={period === 'month'}
-                        style={{
-                            float: 'right',
-                            width: '40%',
-                        }}
-                        onClick={() => setPeriod('month')}
-                    >
-                        Month
-                    </Button>
+                    <ButtonSelector
+                        options={periodOptions}
+                        currentOption={period}
+                        setCurrentOption={setPeriod}
+                    />
                 </Grid>
                 <Grid item xs={2}>
                     <Typography
@@ -81,7 +63,7 @@ function BankAccountOverviewWidget() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {bankAccount != null ? currencyFormatter.format(bankAccount.expenses[period]) : null}
+                        {bankAccount.expenses != null ? currencyFormatter.format(bankAccount.expenses[period]) : null}
                     </Typography>
                     <br/>
                     <Typography
@@ -101,7 +83,7 @@ function BankAccountOverviewWidget() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {bankAccount != null ? currencyFormatter.format(bankAccount.income[period]) : null}
+                        {bankAccount.income != null ? currencyFormatter.format(bankAccount.income[period]) : null}
                     </Typography>
                 </Grid>
             </Grid>

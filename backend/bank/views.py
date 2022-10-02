@@ -9,7 +9,8 @@ from .models import BankAccount, \
 
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
-from .utils import select_info, get_balance, transaction_exists, suggest_category, get_expenses_and_income
+from .utils import select_info, get_balance, transaction_exists, suggest_category, get_expenses_and_income, \
+    get_transactions_by_period
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -30,7 +31,7 @@ class BankAccountViewSet(ModelViewSet):
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
         bank_account['balance'] = get_balance(bank_account, self.request.user)
-        bank_account['expenses'], bank_account['income'] = get_expenses_and_income(bank_account, self.request.user)
+        bank_account['expenses'], bank_account['income'] = get_expenses_and_income(bank_account)
         return Response(bank_account)
 
     @action(detail=False, methods=['GET'])
@@ -40,6 +41,25 @@ class BankAccountViewSet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         info_data = [select_info(bank_account, self.request.user) for bank_account in serializer.data]
         return Response(info_data)
+
+
+class TransactionsPeriodViewSet(ModelViewSet):
+    queryset = BankAccount.objects.all()
+    serializer_class = BankAccountSerializer
+    authentication_classes = [TokenAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        user = self.request.user
+        return BankAccount.objects.filter(owner=user)
+
+    def list(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        bank_account = serializer.data
+        period = request.data['period']
+        transactions = get_transactions_by_period(bank_account, period)
+        return Response(transactions)
 
 
 class BankCategoryViewSet(ModelViewSet):

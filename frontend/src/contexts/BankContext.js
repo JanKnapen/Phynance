@@ -13,10 +13,12 @@ export const BankProvider = ({children}) => {
         getBankAccountRequest,
         getCategoriesRequest,
         processTransactionsRequest,
+        getTransactionsRequest,
     } = useContext(AxiosContext);
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [bankAccount, setBankAccount] = useState(null);
+    const [bankAccount, setBankAccount] = useState({});
+    const [transactions, setTransactions] = useState([]);
     const [processedTransactions, setProcessedTransactions] = useState([]);
 
     const getBankAccountsInfo = () => {
@@ -66,6 +68,18 @@ export const BankProvider = ({children}) => {
         processTransactionsRequest(transactions, handleResponse, handleError);
     }
 
+    const getTransactions = ({ bankAccountId, period }) => {
+        const handleResponse = (response) => {
+            //TODO: delete this
+            setTransactions(response.data.concat(response.data).concat(response.data));
+            // setTransactions(response.data);
+        }
+        const handleError = (error) => {
+            enqueueErrorSnackbar('Unable to load transactions for the selected period, reload to try again.');
+        }
+        getTransactionsRequest({ bankAccountId, period }, handleResponse, handleError);
+    }
+
     const contextData = {
         bankAccountsInfo,
         getBankAccountsInfo,
@@ -76,6 +90,8 @@ export const BankProvider = ({children}) => {
         processTransactions,
         processedTransactions,
         setProcessedTransactions,
+        getTransactions,
+        transactions,
     };
 
     return (

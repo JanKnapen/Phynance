@@ -5,13 +5,15 @@ import {Box} from "@mui/material";
 import BankAccountOverviewWidget from "./bankAccountOverviewWidget/bankAccountOverviewWidget";
 import BankAccountInfoWidget from "./bankAccountInfoWidget/bankAccountInfoWidget";
 import BankContext from "../contexts/BankContext";
+import BankAccountMainWidget from "./bankAccountMainWidget/bankAccountMainWidget";
 
 function BankAccount() {
     const { id } = useParams();
-    const { getBankAccount } = useContext(BankContext);
+    const { getBankAccount, getCategories } = useContext(BankContext);
 
     useEffect(() => {
         getBankAccount(id);
+        getCategories();
     }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -36,6 +38,12 @@ function BankAccount() {
                         xs={12}
                     >
                         <BankAccountOverviewWidget />
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                    >
+                        <BankAccountMainWidget />
                     </Grid>
                 </Grid>
                 <Grid

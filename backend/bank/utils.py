@@ -31,16 +31,20 @@ def get_income(transactions):
     return round(total_income, 2)
 
 
-def get_expenses_and_income(bank_account, user):
+def get_month_and_year_transaction(bank_account):
     current_month = datetime.now().month
     current_year = datetime.now().year
 
-    month_transactions = BankTransaction.objects.filter(bank_account__owner=user.id)\
-        .filter(bank_account__id=bank_account['id'])\
+    month_transactions = BankTransaction.objects.filter(bank_account__id=bank_account['id'])\
         .filter(date__month=current_month)
-    year_transactions = BankTransaction.objects.filter(bank_account__owner=user.id)\
-        .filter(bank_account__id=bank_account['id'])\
+    year_transactions = BankTransaction.objects.filter(bank_account__id=bank_account['id'])\
         .filter(date__year=current_year)
+
+    return month_transactions, year_transactions
+
+
+def get_expenses_and_income(bank_account):
+    month_transactions, year_transactions = get_month_and_year_transaction(bank_account)
 
     expenses = {
         'month': get_expenses(month_transactions),
@@ -69,3 +73,10 @@ def transaction_exists(transaction):
 def suggest_category(transaction):
     transaction['category'] = None
     return transaction
+
+
+def get_transactions_by_period(bank_account, period):
+    if period in ['month', 'year']:
+        month_transactions, year_transactions = get_month_and_year_transaction(bank_account)
+        return month_transactions.values() if period == 'month' else year_transactions.values()
+    return []

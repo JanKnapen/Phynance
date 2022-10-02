@@ -9,7 +9,7 @@ function BankAccountInfo() {
     const { bankAccount } = useContext(BankContext);
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: bankAccount ? bankAccount.currency : 'EUR',
+        currency: bankAccount.currency ? bankAccount.currency : 'EUR',
     });
 
     return(
