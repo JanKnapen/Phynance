@@ -25,14 +25,34 @@ function BankAccount() {
                 <Grid
                     item
                     xs={9}
+                    style={{
+                        height: '100%',
+                    }}
+                    container
+                    spacing={3}
                 >
-                    <BankAccountOverviewWidget />
+                    <Grid
+                        item
+                        xs={12}
+                    >
+                        <BankAccountOverviewWidget />
+                    </Grid>
                 </Grid>
                 <Grid
                     item
                     xs={3}
+                    style={{
+                        height: '100%',
+                    }}
+                    container
+                    spacing={3}
                 >
-                    <BankAccountInfoWidget />
+                    <Grid
+                        item
+                        xs={12}
+                    >
+                        <BankAccountInfoWidget />
+                    </Grid>
                 </Grid>
             </Grid>
         </Box>

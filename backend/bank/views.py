@@ -1,4 +1,3 @@
-from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -10,7 +9,7 @@ from .models import BankAccount, \
 
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
-from .utils import select_info, get_balance, transaction_exists, suggest_category
+from .utils import select_info, get_balance, transaction_exists, suggest_category, get_expenses_and_income
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -31,6 +30,7 @@ class BankAccountViewSet(ModelViewSet):
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
         bank_account['balance'] = get_balance(bank_account, self.request.user)
+        bank_account['expenses'], bank_account['income'] = get_expenses_and_income(bank_account, self.request.user)
         return Response(bank_account)
 
     @action(detail=False, methods=['GET'])

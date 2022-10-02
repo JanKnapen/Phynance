@@ -1,3 +1,7 @@
+from datetime import datetime
+
+from django.db.models import Sum
+
 from .definitions import BANK_ACCOUNT_INFO_KEYS
 from .models import BankTransaction
 
@@ -9,6 +13,44 @@ def get_balance(bank_account, user):
         .first()
     balance = last_transaction.balance_after if last_transaction else 0
     return balance
+
+
+def get_expenses(transactions):
+    expense_transactions = transactions.filter(amount__lt=0)
+    total_expenses = expense_transactions.aggregate(Sum('amount'))['amount__sum']
+    if total_expenses is None:
+        total_expenses = 0
+    return -round(total_expenses, 2)
+
+
+def get_income(transactions):
+    income_transactions = transactions.filter(amount__gt=0)
+    total_income = income_transactions.aggregate(Sum('amount'))['amount__sum']
+    if total_income is None:
+        total_income = 0
+    return round(total_income, 2)
+
+
+def get_expenses_and_income(bank_account, user):
+    current_month = datetime.now().month
+    current_year = datetime.now().year
+
+    month_transactions = BankTransaction.objects.filter(bank_account__owner=user.id)\
+        .filter(bank_account__id=bank_account['id'])\
+        .filter(date__month=current_month)
+    year_transactions = BankTransaction.objects.filter(bank_account__owner=user.id)\
+        .filter(bank_account__id=bank_account['id'])\
+        .filter(date__year=current_year)
+
+    expenses = {
+        'month': get_expenses(month_transactions),
+        'year': get_expenses(year_transactions),
+    }
+    income = {
+        'month': get_income(month_transactions),
+        'year': get_income(year_transactions),
+    }
+    return expenses, income
 
 
 def select_info(bank_account, user):

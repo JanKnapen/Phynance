@@ -4,12 +4,12 @@ import {useContext} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import BankContext from "../../contexts/BankContext";
 
-function BankAccountInfo({ currency }) {
+function BankAccountInfo() {
     const { theme } = useContext(CustomThemeContext);
     const { bankAccount } = useContext(BankContext);
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: currency,
+        currency: bankAccount ? bankAccount.currency : 'EUR',
     });
 
     return(

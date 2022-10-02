@@ -47,7 +47,7 @@ function BankAccountInfoWidget() {
                     paddingRight={3}
                     paddingBottom={5}
                 >
-                    <BankAccountInfo currency={bankAccount ? bankAccount.currency : 'EUR'}/>
+                    <BankAccountInfo />
                 </Grid>
                 <Grid item xs={12}>
                     <Button
