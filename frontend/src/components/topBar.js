@@ -93,27 +93,29 @@ function TopBar({ isPrivate }) {
                                 onClose={handleClose}
                             >
                                 <MenuItem onClick={openSettings}>Settings</MenuItem>
-                                <MenuItem>
+                                <MenuItem
+                                    onClick={switchTheme}
+                                >
                                     <div>Dark Mode</div>
                                     <Switch
-                                        onClick={() => {
-                                            switchTheme();
-                                        }}
-                                        defaultChecked={theme.palette.mode === 'light' ? false : true}
+                                        checked={theme.palette.mode !== 'light'}
                                     />
                                 </MenuItem>
                                 <MenuItem onClick={logOut}>Log Out</MenuItem>
                             </Menu>
                         </div>
                         :
-                        <div>Dark Mode</div>
+                        <div
+                            style={{
+                                cursor: 'pointer',
+                            }}
+                            onClick={switchTheme}
+                        >Dark Mode</div>
                     }
                     {isPrivate ? null :
                         <Switch
-                            onClick={() => {
-                                switchTheme();
-                            }}
-                            defaultChecked={theme.palette.mode === 'light' ? false : true}
+                            onClick={switchTheme}
+                            checked={theme.palette.mode !== 'light'}
                         />
                     }
                 </Toolbar>
