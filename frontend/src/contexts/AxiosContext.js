@@ -100,17 +100,23 @@ export const AxiosProvider = ({children}) => {
                                                 name,
                                                 description,
                                                 IBAN,
+                                                currency,
                                             }, handleResponse, handleError) => {
         const postData = {
             name: name,
             description: description,
             IBAN: IBAN,
+            currency: currency,
         }
         postRequest('/bank/accounts/', postData, handleResponse, handleError);
     }
 
     const getBankAccountsInfoRequest = async (handleResponse, handleError) => {
         getRequest('/bank/accounts/info/', handleResponse, handleError);
+    }
+
+    const getBankAccountRequest = async (id, handleResponse, handleError) => {
+        getRequest('/bank/accounts/' + id + '/', handleResponse, handleError);
     }
 
     const createCategoryRequest = async ({
@@ -149,6 +155,29 @@ export const AxiosProvider = ({children}) => {
         getRequest('/utils/mui_icons/', handleResponse, handleError);
     }
 
+    const processTransactionsRequest = async (transactions, handleResponse, handleError) => {
+        postRequest('/bank/transactions/process/', transactions, handleResponse, handleError);
+    }
+
+    const createTransactionsRequest = async (transactions, handleResponse, handleError) => {
+        postRequest('/bank/transactions/', transactions, handleResponse, handleError);
+    }
+
+    const getTransactionsRequest = async ({
+                                              bankAccountId,
+                                              period,
+                                              dateRange,
+                                          }, handleResponse, handleError) => {
+        const postData = {
+            period: period,
+            dateRange: dateRange != null ? {
+                startDate: dateRange.startDate.format('YYYY/MM/DD'),
+                endDate: dateRange.endDate.format('YYYY/MM/DD'),
+            } : null,
+        }
+        postRequest('/bank/accounts/' + bankAccountId + '/transactions/period/', postData, handleResponse, handleError);
+    }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -156,10 +185,14 @@ export const AxiosProvider = ({children}) => {
         registerUserRequest,
         createBankAccountRequest,
         getBankAccountsInfoRequest,
+        getBankAccountRequest,
         createCategoryRequest,
         updateCategoryRequest,
         getCategoriesRequest,
         getMUIIconsRequest,
+        processTransactionsRequest,
+        createTransactionsRequest,
+        getTransactionsRequest,
     };
 
     return (

@@ -11,6 +11,10 @@ export const CustomThemeProvider = ({children}) => {
     const lightTheme = createTheme({
         palette: {
             mode: 'light',
+            text: {
+                light: '#9e9e9e',
+                darkBlue: '#7b1fa2',
+            },
             sidebar: {
                 menuHeader: 'lightgray',
                 menuItem: 'white',
@@ -20,13 +24,16 @@ export const CustomThemeProvider = ({children}) => {
                 cursor: 'pointer',
                 color: '#3366CC',
             },
+            container: {
+                backgroundColor: '#f5f5f5',
+            },
         },
         components: {
             MuiIconButton: {
                 styleOverrides: {
                     root: {
                         color: 'white',
-                    }
+                    },
                 }
             },
             MuiCardHeader: {
@@ -50,6 +57,10 @@ export const CustomThemeProvider = ({children}) => {
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
+            text: {
+                light: '#737373',
+                darkBlue: '#7b1fa2',
+            },
             sidebar: {
                 menuHeader: '#1e1e1e',
                 menuItem: '#121212',
@@ -58,6 +69,9 @@ export const CustomThemeProvider = ({children}) => {
                 textDecoration: 'underline',
                 cursor: 'pointer',
                 color: '#3366CC',
+            },
+            container: {
+                backgroundColor: '#1c1c1c',
             },
         },
         components: {
@@ -120,21 +134,44 @@ export const CustomThemeProvider = ({children}) => {
         }
     });
 
+    const datePickerThemeLight = createTheme({
+        palette: {
+            mode: 'light',
+        },
+        components: {
+            MuiIconButton: {
+                root: null
+            },
+        }
+    })
+    const datePickerThemeDark = createTheme({
+        palette: {
+            mode: 'dark',
+        },
+    })
+
     const cookies = new Cookies()
     const [theme, setTheme] = useState(cookies.get('phynanceDarkMode') ?
         (cookies.get('phynanceDarkMode') === 'light' ? lightTheme : darkTheme)
         : lightTheme);
+    const [datePickerTheme, setDatePickerTheme] = useState(cookies.get('phynanceDarkMode') ?
+        (cookies.get('phynanceDarkMode') === 'light' ? datePickerThemeLight : datePickerThemeDark)
+        : datePickerThemeLight);
 
     const switchTheme = () => {
         setTheme(prevTheme => {
             cookies.set('phynanceDarkMode', prevTheme.palette.mode === 'light' ? 'dark' : 'light');
             return prevTheme.palette.mode === 'light' ? darkTheme : lightTheme;
         });
+        setDatePickerTheme(prevTheme => {
+            return prevTheme.palette.mode === 'light' ? datePickerThemeDark : datePickerThemeLight;
+        })
     }
 
     const contextData = {
         theme,
         switchTheme,
+        datePickerTheme,
     }
 
     return (
