@@ -166,9 +166,14 @@ export const AxiosProvider = ({children}) => {
     const getTransactionsRequest = async ({
                                               bankAccountId,
                                               period,
+                                              dateRange,
                                           }, handleResponse, handleError) => {
         const postData = {
             period: period,
+            dateRange: dateRange != null ? {
+                startDate: dateRange.startDate.format('YYYY/MM/DD'),
+                endDate: dateRange.endDate.format('YYYY/MM/DD'),
+            } : null,
         }
         postRequest('/bank/accounts/' + bankAccountId + '/transactions/period/', postData, handleResponse, handleError);
     }

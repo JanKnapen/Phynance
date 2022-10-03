@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import {Button, Input, MenuItem, Select} from "@mui/material";
+import {Button, MenuItem, Select} from "@mui/material";
 import {useState} from "react";
 
 function UploadTransactionsDialogContent({ inputChanged }) {

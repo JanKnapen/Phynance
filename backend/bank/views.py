@@ -58,7 +58,8 @@ class TransactionsPeriodViewSet(ModelViewSet):
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
         period = request.data['period']
-        transactions = get_transactions_by_period(bank_account, period)
+        date_range = request.data['dateRange']
+        transactions = get_transactions_by_period(bank_account, period, date_range)
         return Response(transactions)
 
 

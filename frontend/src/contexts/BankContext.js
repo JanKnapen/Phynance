@@ -68,16 +68,15 @@ export const BankProvider = ({children}) => {
         processTransactionsRequest(transactions, handleResponse, handleError);
     }
 
-    const getTransactions = ({ bankAccountId, period }) => {
+    const getTransactions = ({ bankAccountId, period, dateRange }, debug) => {
+        if (period === 'custom' && dateRange == null) return;
         const handleResponse = (response) => {
-            //TODO: delete this
-            setTransactions(response.data.concat(response.data).concat(response.data));
-            // setTransactions(response.data);
+            setTransactions(response.data);
         }
         const handleError = (error) => {
             enqueueErrorSnackbar('Unable to load transactions for the selected period, reload to try again.');
         }
-        getTransactionsRequest({ bankAccountId, period }, handleResponse, handleError);
+        getTransactionsRequest({ bankAccountId, period, dateRange }, handleResponse, handleError);
     }
 
     const contextData = {

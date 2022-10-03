@@ -33,7 +33,7 @@ export const CustomThemeProvider = ({children}) => {
                 styleOverrides: {
                     root: {
                         color: 'white',
-                    }
+                    },
                 }
             },
             MuiCardHeader: {
@@ -134,21 +134,44 @@ export const CustomThemeProvider = ({children}) => {
         }
     });
 
+    const datePickerThemeLight = createTheme({
+        palette: {
+            mode: 'light',
+        },
+        components: {
+            MuiIconButton: {
+                root: null
+            },
+        }
+    })
+    const datePickerThemeDark = createTheme({
+        palette: {
+            mode: 'dark',
+        },
+    })
+
     const cookies = new Cookies()
     const [theme, setTheme] = useState(cookies.get('phynanceDarkMode') ?
         (cookies.get('phynanceDarkMode') === 'light' ? lightTheme : darkTheme)
         : lightTheme);
+    const [datePickerTheme, setDatePickerTheme] = useState(cookies.get('phynanceDarkMode') ?
+        (cookies.get('phynanceDarkMode') === 'light' ? datePickerThemeLight : datePickerThemeDark)
+        : datePickerThemeLight);
 
     const switchTheme = () => {
         setTheme(prevTheme => {
             cookies.set('phynanceDarkMode', prevTheme.palette.mode === 'light' ? 'dark' : 'light');
             return prevTheme.palette.mode === 'light' ? darkTheme : lightTheme;
         });
+        setDatePickerTheme(prevTheme => {
+            return prevTheme.palette.mode === 'light' ? datePickerThemeDark : datePickerThemeLight;
+        })
     }
 
     const contextData = {
         theme,
         switchTheme,
+        datePickerTheme,
     }
 
     return (

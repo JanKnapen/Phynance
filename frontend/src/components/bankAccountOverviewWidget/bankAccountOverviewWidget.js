@@ -12,8 +12,19 @@ function BankAccountOverviewWidget() {
         style: 'currency',
         currency: bankAccount.currency ? bankAccount.currency : 'EUR',
     });
-    const periodOptions = ['month', 'year'];
-    const [period, setPeriod] = useState(periodOptions[0]);
+    const periodOptions = [
+        {
+            name: 'month',
+            disable: true,
+            onClick: () => setPeriod('month'),
+        },
+        {
+            name: 'year',
+            disable: true,
+            onClick: () => setPeriod('year'),
+        }
+    ];
+    const [period, setPeriod] = useState(periodOptions[0].name);
 
     return (
         <div
@@ -42,7 +53,6 @@ function BankAccountOverviewWidget() {
                     <ButtonSelector
                         options={periodOptions}
                         currentOption={period}
-                        setCurrentOption={setPeriod}
                     />
                 </Grid>
                 <Grid item xs={2}>

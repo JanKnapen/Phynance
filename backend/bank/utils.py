@@ -43,6 +43,13 @@ def get_month_and_year_transaction(bank_account):
     return month_transactions, year_transactions
 
 
+def get_transactions_by_date_range(bank_account, start_date, end_date):
+    transactions = BankTransaction.objects.filter(bank_account__id=bank_account['id'])\
+        .filter(date__gte=start_date)\
+        .filter(date__lte=end_date)
+    return transactions
+
+
 def get_expenses_and_income(bank_account):
     month_transactions, year_transactions = get_month_and_year_transaction(bank_account)
 
@@ -75,8 +82,13 @@ def suggest_category(transaction):
     return transaction
 
 
-def get_transactions_by_period(bank_account, period):
+def get_transactions_by_period(bank_account, period, date_range):
     if period in ['month', 'year']:
         month_transactions, year_transactions = get_month_and_year_transaction(bank_account)
         return month_transactions.values() if period == 'month' else year_transactions.values()
+    if period == 'custom':
+        start_date = datetime.strptime(date_range['startDate'], '%Y/%m/%d').date()
+        end_date = datetime.strptime(date_range['endDate'], '%Y/%m/%d').date()
+        transactions = get_transactions_by_date_range(bank_account, start_date, end_date)
+        return transactions.values()
     return []

@@ -1,6 +1,6 @@
 import {Button} from "@mui/material";
 
-function ButtonSelector({ options, currentOption, setCurrentOption }) {
+function ButtonSelector({ options, currentOption }) {
     return (
         <div
             style={{
@@ -10,15 +10,15 @@ function ButtonSelector({ options, currentOption, setCurrentOption }) {
         >
             {options.map((option, index) => (
                 <Button
-                    variant={currentOption === option ? 'contained' : 'text'}
-                    disabled={currentOption === option}
-                    onClick={() => setCurrentOption(option)}
+                    variant={currentOption === option.name ? 'contained' : 'text'}
+                    disabled={option.disable && currentOption === option.name}
+                    onClick={option.onClick}
                     style={{
                         width: 1/options.length * 100 + '%',
                     }}
-                    key={option}
+                    key={option.name}
                 >
-                    {option}
+                    {option.name}
                 </Button>
             ))}
         </div>
