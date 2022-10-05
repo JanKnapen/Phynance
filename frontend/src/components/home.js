@@ -4,7 +4,7 @@ import {useContext, useEffect} from "react";
 import BankContext from "../contexts/BankContext";
 
 function Home() {
-    const { getBankAccountsInfo } = useContext(BankContext);
+    const {getBankAccountsInfo} = useContext(BankContext);
 
     useEffect(() => {
         getBankAccountsInfo();
@@ -13,7 +13,7 @@ function Home() {
     return (
         <Grid container spacing={3} pl={30} pt={5} pr={5}>
             <Grid item xs={6}>
-                <BankAccountsWidget />
+                <BankAccountsWidget/>
             </Grid>
         </Grid>
     );

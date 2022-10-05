@@ -7,7 +7,7 @@ const BankContext = createContext(null);
 export default BankContext;
 
 export const BankProvider = ({children}) => {
-    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
+    const {enqueueErrorSnackbar} = useContext(NotificationsContext);
     const {
         getBankAccountsInfoRequest,
         getBankAccountRequest,
@@ -68,7 +68,7 @@ export const BankProvider = ({children}) => {
         processTransactionsRequest(transactions, handleResponse, handleError);
     }
 
-    const getTransactions = ({ bankAccountId, period, dateRange }, debug) => {
+    const getTransactions = ({bankAccountId, period, dateRange}, debug) => {
         if (period === 'custom' && dateRange == null) return;
         const handleResponse = (response) => {
             setTransactions(response.data);
@@ -76,7 +76,7 @@ export const BankProvider = ({children}) => {
         const handleError = (error) => {
             enqueueErrorSnackbar('Unable to load transactions for the selected period, reload to try again.');
         }
-        getTransactionsRequest({ bankAccountId, period, dateRange }, handleResponse, handleError);
+        getTransactionsRequest({bankAccountId, period, dateRange}, handleResponse, handleError);
     }
 
     const contextData = {

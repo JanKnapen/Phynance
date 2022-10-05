@@ -13,11 +13,11 @@ import {
     Tooltip
 } from "@mui/material";
 
-function TransactionsTable({ transactions, setTransactions, editable, minHeight, maxHeight }) {
+function TransactionsTable({transactions, setTransactions, editable, minHeight, maxHeight}) {
     const {
         categories,
     } = useContext(BankContext);
-    const { MUIIcons } = useContext(UtilsContext);
+    const {MUIIcons} = useContext(UtilsContext);
 
     const getMUIIcon = (category) => {
         const MUIIcon = MUIIcons.filter(MUIIcon => MUIIcon.id === category.icon)[0];
@@ -67,14 +67,18 @@ function TransactionsTable({ transactions, setTransactions, editable, minHeight,
                     </TableRow>
                 </TableHead>
             </Table>
-            <TableContainer style={{ minHeight: minHeight, maxHeight: maxHeight}}>
+            <TableContainer style={{minHeight: minHeight, maxHeight: maxHeight}}>
                 <Table>
                     <TableBody>
-                        { transactions.map((transaction, index) => (
+                        {transactions.map((transaction, index) => (
                             <TableRow
                                 key={transaction.serial_number}
                             >
-                                <TableCell width={100}>{new Date(transaction.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</TableCell>
+                                <TableCell width={100}>{new Date(transaction.date).toLocaleDateString('en-US', {
+                                    day: 'numeric',
+                                    month: 'short',
+                                    year: 'numeric'
+                                })}</TableCell>
                                 <TableCell width={50}>{transaction.amount}</TableCell>
                                 <TableCell width={900}>{transaction.description}</TableCell>
                                 <TableCell width={50}>
@@ -104,12 +108,15 @@ function TransactionsTable({ transactions, setTransactions, editable, minHeight,
                                                         key={category.id}
                                                     >
                                                         {getMUIIcon(category)}
-                                                        <div style={{paddingLeft: 10, float: 'right'}}>{category.name}</div>
+                                                        <div style={{
+                                                            paddingLeft: 10,
+                                                            float: 'right'
+                                                        }}>{category.name}</div>
                                                     </MenuItem>
                                                 ))}
                                             </Select>
                                         </Tooltip>
-                                    :
+                                        :
                                         <Tooltip
                                             title={getCategoryName(transaction.category_id)}
                                             placement='left'

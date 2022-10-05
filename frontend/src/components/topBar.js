@@ -12,11 +12,11 @@ import AuthContext from "../contexts/AuthContext";
 import NotificationsContext from "../contexts/NotificationsContext";
 import CustomThemeContext from "../contexts/CustomThemeProvider";
 
-function TopBar({ isPrivate }) {
-    const { theme } = useContext(CustomThemeContext);
-    const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
-    const { switchTheme } = useContext(CustomThemeContext);
-    const { logoutUser } = useContext(AuthContext);
+function TopBar({isPrivate}) {
+    const {theme} = useContext(CustomThemeContext);
+    const {enqueueSuccessSnackbar} = useContext(NotificationsContext);
+    const {switchTheme} = useContext(CustomThemeContext);
+    const {logoutUser} = useContext(AuthContext);
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -38,11 +38,11 @@ function TopBar({ isPrivate }) {
     }
 
     return (
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}>
             <Container maxWidth="x1">
                 <Toolbar disableGutters>
                     <SavingsIcon
-                        sx={{ display: { xs: 'none', md: 'flex' }, mr: 3 }}
+                        sx={{display: {xs: 'none', md: 'flex'}, mr: 3}}
                         onClick={isPrivate ? (event) => navigate('/home') : null}
                         style={{cursor: isPrivate ? 'pointer' : ''}}
                     />
@@ -54,7 +54,7 @@ function TopBar({ isPrivate }) {
                         sx={{
                             flexGrow: 1,
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: {xs: 'none', md: 'flex'},
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.2rem',

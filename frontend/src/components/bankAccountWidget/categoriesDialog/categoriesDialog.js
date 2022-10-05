@@ -6,7 +6,7 @@ import {useState} from "react";
 import EditCategoryDialog from "../../dialogs/inputDialogs/formatCategoryDialog/editCategoryDialog";
 import AddCategoryDialog from "../../dialogs/inputDialogs/formatCategoryDialog/addCategoryDialog";
 
-function CategoriesDialog({ setOpenCategories, openCategories }) {
+function CategoriesDialog({setOpenCategories, openCategories}) {
     const [openEditCategory, setOpenEditCategory] = useState(false);
     const [openAddCategory, setOpenAddCategory] = useState(false);
     const [editCategory, setEditCategory] = useState(null);
@@ -44,7 +44,7 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                             top: 20,
                         }}
                     >
-                        <Category />
+                        <Category/>
                     </div>
                     Categories
                     <IconButton
@@ -55,7 +55,7 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                             top: 12,
                         }}
                     >
-                        <CloseIcon />
+                        <CloseIcon/>
                     </IconButton>
                 </DialogTitle>
                 <DialogContent dividers>
@@ -69,7 +69,7 @@ function CategoriesDialog({ setOpenCategories, openCategories }) {
                         autoFocus
                         onClick={(event) => setOpenAddCategory(true)}
                         variant='contained'
-                        style={{ width: 200 }}
+                        style={{width: 200}}
                     >
                         Add A Category
                     </Button>

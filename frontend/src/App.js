@@ -17,14 +17,14 @@ function App() {
                         <Route
                             path="/"
                             element={
-                                <Navigate to="/home" />
+                                <Navigate to="/home"/>
                             }
                         />
                         <Route
                             path="/login"
                             element={
                                 <PublicRoute>
-                                    <Login />
+                                    <Login/>
                                 </PublicRoute>
                             }
                         />
@@ -32,7 +32,7 @@ function App() {
                             path="/register"
                             element={
                                 <PublicRoute>
-                                    <Register />
+                                    <Register/>
                                 </PublicRoute>
                             }
                         />
@@ -48,14 +48,14 @@ function App() {
                             path="/home"
                             element={
                                 <PrivateRoute>
-                                    <Home />
+                                    <Home/>
                                 </PrivateRoute>
                             }
                         />
                         <Route
                             path="/bank_account/:id"
                             element={
-                                <PrivateRoute><BankAccount />
+                                <PrivateRoute><BankAccount/>
                                 </PrivateRoute>
                             }
                         />

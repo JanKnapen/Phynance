@@ -5,16 +5,16 @@ import {Box, Toolbar} from "@mui/material";
 import TopBar from "../components/topBar";
 
 const PublicRoute = ({children}) => {
-    const { authUser } = useContext(AxiosContext);
+    const {authUser} = useContext(AxiosContext);
 
-    return authUser.authToken ? <Navigate to="/home" /> : (
+    return authUser.authToken ? <Navigate to="/home"/> : (
         <>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{display: 'flex'}}>
                 <TopBar
                     ísPrivate={false}
                 />
             </Box>
-            <Toolbar />
+            <Toolbar/>
             {children}
         </>
     );

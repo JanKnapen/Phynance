@@ -2,15 +2,15 @@ import Grid from "@mui/material/Grid";
 import {Button, MenuItem, Select} from "@mui/material";
 import {useState} from "react";
 
-function UploadTransactionsDialogContent({ inputChanged }) {
+function UploadTransactionsDialogContent({inputChanged}) {
     const bankOptions = ['Rabobank'];
     const languageOptions = ['NL'];
     const [fileName, setFileName] = useState(null);
 
     return (
         <Grid container spacing={2} pl={2} pt={2} pr={2}>
-            <Grid item xs={3} >
-                <div style={{ marginTop: 20, fontWeight: 'bold' }}>
+            <Grid item xs={3}>
+                <div style={{marginTop: 20, fontWeight: 'bold'}}>
                     Bank:
                 </div>
             </Grid>
@@ -39,7 +39,7 @@ function UploadTransactionsDialogContent({ inputChanged }) {
                 </Select>
             </Grid>
             <Grid item xs={3}>
-                <div style={{ marginTop: 10, fontWeight: 'bold' }}>
+                <div style={{marginTop: 10, fontWeight: 'bold'}}>
                     Language:
                 </div>
             </Grid>
@@ -65,7 +65,7 @@ function UploadTransactionsDialogContent({ inputChanged }) {
                 </Select>
             </Grid>
             <Grid item xs={3}>
-                <div style={{ marginTop: 10, fontWeight: 'bold' }}>
+                <div style={{marginTop: 10, fontWeight: 'bold'}}>
                     File:
                 </div>
             </Grid>

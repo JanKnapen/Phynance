@@ -6,8 +6,8 @@ import BankContext from "../../contexts/BankContext";
 import ButtonSelector from "../../utils/buttonSelector";
 
 function BankAccountOverviewWidget() {
-    const { theme } = useContext(CustomThemeContext);
-    const { bankAccount } = useContext(BankContext);
+    const {theme} = useContext(CustomThemeContext);
+    const {bankAccount} = useContext(BankContext);
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: bankAccount.currency ? bankAccount.currency : 'EUR',

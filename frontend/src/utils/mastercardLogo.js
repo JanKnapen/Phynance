@@ -1,4 +1,4 @@
-function MastercardLogo({ size, halfSize, oneHalfSize }) {
+function MastercardLogo({size, halfSize, oneHalfSize}) {
     return (
         <>
             <div

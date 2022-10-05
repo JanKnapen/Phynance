@@ -5,14 +5,14 @@ import ButtonSelector from "../../utils/buttonSelector";
 import TransactionsTable from "../transactionsTable/transactionsTable";
 import BankContext from "../../contexts/BankContext";
 import {ClickAwayListener, Grow, MenuList, Paper, Popper, TextField, ThemeProvider} from "@mui/material";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import NotificationsContext from "../../contexts/NotificationsContext";
 
 function BankAccountMainWidget() {
-    const { theme, datePickerTheme } = useContext(CustomThemeContext);
-    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
+    const {theme, datePickerTheme} = useContext(CustomThemeContext);
+    const {enqueueErrorSnackbar} = useContext(NotificationsContext);
     const {
         bankAccount,
         getTransactions,
@@ -123,7 +123,7 @@ function BankAccountMainWidget() {
                         {({TransitionProps}) => (
                             <Grow
                                 {...TransitionProps}
-                                style={{ transformOrigin: 'right top' }}
+                                style={{transformOrigin: 'right top'}}
                             >
                                 <Paper>
                                     <ClickAwayListener
@@ -167,7 +167,8 @@ function BankAccountMainWidget() {
                                                                 return newDateRange;
                                                             });
                                                         }}
-                                                        renderInput={(params) => <TextField {...params} sx={{svg: theme.palette.datePickerIcon }} />}
+                                                        renderInput={(params) => <TextField {...params}
+                                                                                            sx={{svg: theme.palette.datePickerIcon}}/>}
                                                     />
                                                 </LocalizationProvider>
                                             </ThemeProvider>

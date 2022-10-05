@@ -7,8 +7,8 @@ const NotificationsContext = createContext(null);
 
 export default NotificationsContext;
 
-function SnackbarCloseButton({ variant, snackbarKey }) {
-    const { closeSnackbar } = useSnackbar();
+function SnackbarCloseButton({variant, snackbarKey}) {
+    const {closeSnackbar} = useSnackbar();
 
     return (
         <IconButton
@@ -20,7 +20,7 @@ function SnackbarCloseButton({ variant, snackbarKey }) {
 }
 
 export const NotificationsProvider = ({children}) => {
-    const { enqueueSnackbar } = useSnackbar();
+    const {enqueueSnackbar} = useSnackbar();
 
     const enqueueSnackbarWithOptions = (message, variant) => {
         enqueueSnackbar(message, {

@@ -176,7 +176,7 @@ export const CustomThemeProvider = ({children}) => {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline />
+            <CssBaseline/>
             <CustomThemeContext.Provider value={contextData}>
                 {children}
             </CustomThemeContext.Provider>

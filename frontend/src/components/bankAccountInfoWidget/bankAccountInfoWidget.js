@@ -9,8 +9,8 @@ import UploadTransactionsDialog from "../dialogs/inputDialogs/uploadTransactions
 import CreateTransactionsDialog from "../dialogs/inputDialogs/createTransactionsDialog/createTransactionsDialog";
 
 function BankAccountInfoWidget() {
-    const { theme } = useContext(CustomThemeContext);
-    const { bankAccount } = useContext(BankContext);
+    const {theme} = useContext(CustomThemeContext);
+    const {bankAccount} = useContext(BankContext);
     const [openUploadTransactionsDialog, setOpenUploadTransactionsDialog] = useState(false);
     const [openCreateTransactionsDialog, setOpenCreateTransactionsDialog] = useState(false);
 
@@ -47,7 +47,7 @@ function BankAccountInfoWidget() {
                     paddingRight={3}
                     paddingBottom={5}
                 >
-                    <BankAccountInfo />
+                    <BankAccountInfo/>
                 </Grid>
                 <Grid item xs={12}>
                     <Button

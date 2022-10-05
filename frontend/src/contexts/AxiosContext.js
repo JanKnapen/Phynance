@@ -23,10 +23,10 @@ export const AxiosProvider = ({children}) => {
     axiosClient.defaults.timeout = 2000;
 
     axiosClient.interceptors.response.use(
-        function(response) {
+        function (response) {
             return response;
         },
-        function(error) {
+        function (error) {
             if (error.message.status === 401) {
                 setAuthUser({
                     username: null,

@@ -5,14 +5,14 @@ import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import BankContext from "../../contexts/BankContext";
 
 function BankAccountInfo() {
-    const { theme } = useContext(CustomThemeContext);
-    const { bankAccount } = useContext(BankContext);
+    const {theme} = useContext(CustomThemeContext);
+    const {bankAccount} = useContext(BankContext);
     const currencyFormatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: bankAccount.currency ? bankAccount.currency : 'EUR',
     });
 
-    return(
+    return (
         <Grid container>
             <Grid
                 item
@@ -60,7 +60,7 @@ function BankAccountInfo() {
                 xs={12}
                 paddingBottom={2.5}
             >
-                <Divider />
+                <Divider/>
             </Grid>
             <Grid
                 item
@@ -92,7 +92,7 @@ function BankAccountInfo() {
                 xs={12}
                 paddingBottom={2.5}
             >
-                <Divider />
+                <Divider/>
             </Grid>
             <Grid
                 item
@@ -126,7 +126,7 @@ function BankAccountInfo() {
                 xs={12}
                 paddingBottom={2.5}
             >
-                <Divider />
+                <Divider/>
             </Grid>
         </Grid>
     )

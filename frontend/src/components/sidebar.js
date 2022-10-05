@@ -10,8 +10,8 @@ import BankContext from "../contexts/BankContext";
 import CustomThemeContext from "../contexts/CustomThemeProvider";
 
 function Sidebar() {
-    const { theme } = useContext(CustomThemeContext);
-    const { bankAccountsInfo, getBankAccountsInfo } = useContext(BankContext);
+    const {theme} = useContext(CustomThemeContext);
+    const {bankAccountsInfo, getBankAccountsInfo} = useContext(BankContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,11 +24,11 @@ function Sidebar() {
             sx={{
                 width: 200,
                 flexShrink: 0,
-                [`& .MuiDrawer-paper`]: { width: 200 },
+                [`& .MuiDrawer-paper`]: {width: 200},
             }}
         >
-            <Toolbar />
-            <Box style={{ backgroundColor: theme.palette.sidebar.menuHeader }}>
+            <Toolbar/>
+            <Box style={{backgroundColor: theme.palette.sidebar.menuHeader}}>
                 <List>
                     <ListItem key="Home" disablePadding>
                         <ListItemButton
@@ -37,9 +37,9 @@ function Sidebar() {
                             }}
                         >
                             <ListItemIcon>
-                                <HomeIcon />
+                                <HomeIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Home" />
+                            <ListItemText primary="Home"/>
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -47,9 +47,9 @@ function Sidebar() {
                     <ListItem key="Overview" disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                <EqualizerIcon />
+                                <EqualizerIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Overview" />
+                            <ListItemText primary="Overview"/>
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -57,15 +57,15 @@ function Sidebar() {
                     <ListItem key="Bank Accounts" disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                <AccountBalanceIcon />
+                                <AccountBalanceIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Bank Accounts" />
+                            <ListItemText primary="Bank Accounts"/>
                         </ListItemButton>
                     </ListItem>
                 </List>
-                <Divider />
+                <Divider/>
                 {bankAccountsInfo.length > 0 && (
-                    <List style={{ backgroundColor: theme.palette.sidebar.menuItem }}>
+                    <List style={{backgroundColor: theme.palette.sidebar.menuItem}}>
                         {bankAccountsInfo.map((bankAccount, index) => (
                             <ListItem key={bankAccount.name} disablePadding>
                                 <ListItemButton
@@ -74,16 +74,16 @@ function Sidebar() {
                                     }}
                                 >
                                     <ListItemIcon>
-                                        <HorizontalRuleIcon />
+                                        <HorizontalRuleIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary={bankAccount.name} />
+                                    <ListItemText primary={bankAccount.name}/>
                                 </ListItemButton>
                             </ListItem>
                         ))}
                     </List>
                 )}
                 {bankAccountsInfo.length > 0 && (
-                    <Divider />
+                    <Divider/>
                 )}
             </Box>
         </Drawer>

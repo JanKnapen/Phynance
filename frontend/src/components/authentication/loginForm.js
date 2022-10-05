@@ -14,7 +14,7 @@ function LoginForm() {
         password: '',
     });
 
-    const login = event => {
+    const login = () => {
         loginUser(credentials.username, credentials.password);
     }
 
@@ -90,7 +90,7 @@ function LoginForm() {
                             </div>
                             <div
                                 style={theme.palette.link_div}
-                                onClick={event => navigate('/register')}
+                                onClick={() => navigate('/register')}
                             >
                                 Create an account
                             </div>
