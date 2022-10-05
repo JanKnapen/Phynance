@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import MastercardLogo from "../../utils/mastercardLogo";
 
-function BankAccountCardLogo({ IBAN }) {
+function BankAccountCardLogo({IBAN}) {
     return (
         <div
             style={{

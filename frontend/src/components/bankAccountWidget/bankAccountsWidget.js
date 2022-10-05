@@ -37,7 +37,7 @@ function BankAccountsWidget() {
         <Card>
             <CardHeader
                 avatar={
-                    <AccountBalanceIcon />
+                    <AccountBalanceIcon/>
                 }
                 action={
                     <>
@@ -45,7 +45,7 @@ function BankAccountsWidget() {
                             ref={anchorRefSettings}
                             onClick={handleToggleSettings}
                         >
-                            <MoreVertIcon />
+                            <MoreVertIcon/>
                         </IconButton>
                         <BankAccountsWidgetSettings
                             openSettings={openSettings}
@@ -67,10 +67,10 @@ function BankAccountsWidget() {
                     </>
                 }
                 title="Bank Accounts"
-                titleTypographyProps={{ variant:'h6' }}
+                titleTypographyProps={{variant: 'h6'}}
             />
             <CardContent>
-                <BankAccountsWidgetTable />
+                <BankAccountsWidgetTable/>
             </CardContent>
         </Card>
     );

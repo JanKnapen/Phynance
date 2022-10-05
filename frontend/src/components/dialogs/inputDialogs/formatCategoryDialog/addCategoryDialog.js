@@ -1,4 +1,4 @@
-import InputDialogTemplate from "../inputDialogTemplate";
+import DialogTemplate from "../dialogTemplate";
 import {Category} from "@mui/icons-material";
 import AddCategoryDialogContent from "./addCategoryDialogContent";
 import {useContext, useState} from "react";
@@ -8,16 +8,16 @@ import UtilsContext from "../../../../contexts/UtilsContext";
 import AxiosContext from "../../../../contexts/AxiosContext";
 
 function AddCategoryDialog({
-    maxWidth,
-    actionWidth,
-    open,
-    onClose,
+                               maxWidth,
+                               actionWidth,
+                               open,
+                               onClose,
                            }) {
-    const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
-    const { getCategories } = useContext(BankContext);
-    const { handleSaveRequestError } = useContext(UtilsContext);
-    const { createCategoryRequest } = useContext(AxiosContext);
-    const { MUIIcons } = useContext(UtilsContext);
+    const {enqueueSuccessSnackbar} = useContext(NotificationsContext);
+    const {getCategories} = useContext(BankContext);
+    const {handleSaveRequestError} = useContext(UtilsContext);
+    const {createCategoryRequest} = useContext(AxiosContext);
+    const {MUIIcons} = useContext(UtilsContext);
 
     const [newCategory, setNewCategory] = useState({
         name: null,
@@ -50,12 +50,12 @@ function AddCategoryDialog({
     }
 
     return (
-        <InputDialogTemplate
+        <DialogTemplate
             maxWidth={maxWidth}
             actionWidth={actionWidth}
             open={open}
             onClose={onClose}
-            titleIcon={<Category />}
+            titleIcon={<Category/>}
             titleText='Add Category'
             content={<AddCategoryDialogContent
                 onInputChange={inputChanged}

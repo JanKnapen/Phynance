@@ -1,4 +1,4 @@
-import InputDialogTemplate from "../inputDialogTemplate";
+import DialogTemplate from "../dialogTemplate";
 import {Receipt} from "@mui/icons-material";
 import CreateTransactionsDialogContent from "./createTransactionsDialogContent";
 import {useContext} from "react";
@@ -8,11 +8,11 @@ import AxiosContext from "../../../../contexts/AxiosContext";
 import {useParams} from "react-router-dom";
 import UtilsContext from "../../../../contexts/UtilsContext";
 
-function CreateTransactionsDialog({ open, onClose, maxWidth }) {
-    const { id } = useParams();
-    const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useContext(NotificationsContext);
-    const { createTransactionsRequest } = useContext(AxiosContext);
-    const { handleSaveRequestError } = useContext(UtilsContext);
+function CreateTransactionsDialog({open, onClose, maxWidth}) {
+    const {id} = useParams();
+    const {enqueueErrorSnackbar, enqueueSuccessSnackbar} = useContext(NotificationsContext);
+    const {createTransactionsRequest} = useContext(AxiosContext);
+    const {handleSaveRequestError} = useContext(UtilsContext);
     const {
         processedTransactions,
         getBankAccount,
@@ -35,11 +35,11 @@ function CreateTransactionsDialog({ open, onClose, maxWidth }) {
     }
 
     return (
-        <InputDialogTemplate
+        <DialogTemplate
             maxWidth={maxWidth}
             open={open}
             onClose={onClose}
-            titleIcon={<Receipt />}
+            titleIcon={<Receipt/>}
             titleText='Create Transactions'
             content={<CreateTransactionsDialogContent/>}
             action={handleCreateTransactions}
