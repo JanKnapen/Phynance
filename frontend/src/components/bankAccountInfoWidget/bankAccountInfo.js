@@ -7,10 +7,6 @@ import BankContext from "../../contexts/BankContext";
 function BankAccountInfo() {
     const {theme} = useContext(CustomThemeContext);
     const {bankAccount} = useContext(BankContext);
-    const currencyFormatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: bankAccount.currency ? bankAccount.currency : 'EUR',
-    });
 
     return (
         <Grid container>
@@ -36,7 +32,7 @@ function BankAccountInfo() {
                         fontWeight: 'bold',
                     }}
                 >
-                    {bankAccount ? currencyFormatter.format(bankAccount.balance) : ''}
+                    {bankAccount ? bankAccount.currencyFormatter.format(bankAccount.balance) : ''}
                 </Typography>
             </Grid>
             <Grid

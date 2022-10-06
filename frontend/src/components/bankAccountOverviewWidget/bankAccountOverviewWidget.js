@@ -8,10 +8,6 @@ import ButtonSelector from "../../utils/buttonSelector";
 function BankAccountOverviewWidget() {
     const {theme} = useContext(CustomThemeContext);
     const {bankAccount} = useContext(BankContext);
-    const currencyFormatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: bankAccount.currency ? bankAccount.currency : 'EUR',
-    });
     const periodOptions = [
         {
             name: 'month',
@@ -73,7 +69,7 @@ function BankAccountOverviewWidget() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {bankAccount.expenses != null ? currencyFormatter.format(bankAccount.expenses[period]) : null}
+                        {bankAccount.expenses != null ? bankAccount.currencyFormatter.format(bankAccount.expenses[period]) : null}
                     </Typography>
                     <br/>
                     <Typography
@@ -93,7 +89,7 @@ function BankAccountOverviewWidget() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {bankAccount.income != null ? currencyFormatter.format(bankAccount.income[period]) : null}
+                        {bankAccount.income != null ? bankAccount.currencyFormatter.format(bankAccount.income[period]) : null}
                     </Typography>
                 </Grid>
             </Grid>

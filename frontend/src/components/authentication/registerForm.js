@@ -8,9 +8,7 @@ import CustomThemeContext from "../../contexts/CustomThemeProvider";
 function RegisterForm() {
     const {theme} = useContext(CustomThemeContext);
     const {enqueueErrorSnackbar} = useContext(NotificationsContext);
-    const {
-        registerUser,
-    } = useContext(AuthContext);
+    const {registerUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({
@@ -19,7 +17,7 @@ function RegisterForm() {
         confirmPassword: '',
     });
 
-    const register = event => {
+    const register = () => {
         if (credentials.password === credentials.confirmPassword) {
             registerUser(credentials.username, credentials.password)
         } else {
@@ -109,7 +107,7 @@ function RegisterForm() {
                             </div>
                             <div
                                 style={theme.palette.link_div}
-                                onClick={event => navigate('/login')}
+                                onClick={() => navigate('/login')}
                             >
                                 Sing in
                             </div>

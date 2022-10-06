@@ -2,7 +2,7 @@ import {createContext, useContext, useState} from "react";
 import AxiosContext from "./AxiosContext";
 import NotificationsContext from "./NotificationsContext";
 
-const BankContext = createContext(null);
+const   BankContext = createContext(null);
 
 export default BankContext;
 
@@ -17,7 +17,12 @@ export const BankProvider = ({children}) => {
     } = useContext(AxiosContext);
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [bankAccount, setBankAccount] = useState({});
+    const [bankAccount, setBankAccount] = useState({
+        currencyFormatter: new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'EUR',
+        }),
+    });
     const [transactions, setTransactions] = useState([]);
     const [processedTransactions, setProcessedTransactions] = useState([]);
 
@@ -43,7 +48,13 @@ export const BankProvider = ({children}) => {
 
     const getBankAccount = (id) => {
         const handleResponse = (response) => {
-            setBankAccount(response.data);
+            setBankAccount({
+                ...response.data,
+                currencyFormatter: new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: response.data.currency,
+                }),
+            });
         }
         const handleError = (error) => {
             enqueueErrorSnackbar('Unable to load bank account, reload to try again.');
