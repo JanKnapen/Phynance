@@ -5,8 +5,8 @@ import BankAccountCardLogo from "./bankAccountCardLogo";
 import {Button} from "@mui/material";
 import BankAccountInfo from "./bankAccountInfo";
 import BankContext from "../../contexts/BankContext";
-import UploadTransactionsDialog from "../dialogs/inputDialogs/uploadTransactionsDialog/uploadTransactionsDialog";
-import CreateTransactionsDialog from "../dialogs/inputDialogs/createTransactionsDialog/createTransactionsDialog";
+import UploadTransactionsDialog from "../dialogs/uploadTransactionsDialog/uploadTransactionsDialog";
+import CreateTransactionsDialog from "../dialogs/createTransactionsDialog/createTransactionsDialog";
 
 function BankAccountInfoWidget() {
     const {theme} = useContext(CustomThemeContext);

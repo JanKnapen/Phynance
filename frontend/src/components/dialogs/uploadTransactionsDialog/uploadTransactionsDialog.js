@@ -1,10 +1,10 @@
 import Papa from "papaparse";
 import {useContext, useState} from "react";
-import BankContext from "../../../../contexts/BankContext";
+import BankContext from "../../../contexts/BankContext";
 import {Receipt} from "@mui/icons-material";
 import UploadTransactionsDialogContent from "./uploadTransactionsDialogContent";
 import DialogTemplate from "../dialogTemplate";
-import NotificationsContext from "../../../../contexts/NotificationsContext";
+import NotificationsContext from "../../../contexts/NotificationsContext";
 
 function UploadTransactionsDialog({open, onClose, maxWidth, setOpenCreateTransactionsDialog}) {
     const {enqueueErrorSnackbar} = useContext(NotificationsContext);

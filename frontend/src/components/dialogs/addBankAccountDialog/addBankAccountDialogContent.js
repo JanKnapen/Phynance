@@ -1,17 +1,12 @@
 import Grid from "@mui/material/Grid";
 import {MenuItem, Select, TextField} from "@mui/material";
-import {createElement, useContext} from "react";
-import UtilsContext from "../../../../contexts/UtilsContext";
+import {useContext} from "react";
+import UtilsContext from "../../../contexts/UtilsContext";
 
-function EditCategoryDialogContent({
-                                       editCategory,
-                                       onInputChange,
-                                   }) {
-    const {MUIIcons} = useContext(UtilsContext);
-
-    const getIconName = (iconId) => {
-        return MUIIcons.filter(MUIIcon => MUIIcon.id === iconId)[0].name;
-    }
+function AddBankAccountDialogContent({
+                                         onInputChange,
+                                     }) {
+    const {currencies} = useContext(UtilsContext);
 
     return (
         <Grid container spacing={2} pl={2} pt={2} pr={2}>
@@ -26,14 +21,13 @@ function EditCategoryDialogContent({
             >
                 <TextField
                     label="Name"
-                    name='name'
+                    name="name"
                     variant="standard"
                     style={{
                         marginLeft: 15,
                         width: '50%',
                     }}
                     onChange={onInputChange}
-                    defaultValue={editCategory ? editCategory.name : ''}
                 />
             </Grid>
             <Grid item xs={3}>
@@ -44,43 +38,59 @@ function EditCategoryDialogContent({
             <Grid item xs={9}>
                 <TextField
                     label="Description"
-                    name='description'
+                    name="description"
                     multiline
                     rows={3}
                     maxRows={3}
                     fullWidth
                     onChange={onInputChange}
-                    defaultValue={editCategory ? editCategory.description : ''}
                 />
             </Grid>
             <Grid item xs={3}>
-                <div style={{marginTop: 10, fontWeight: 'bold'}}>
-                    Icon:
+                <div style={{marginTop: 20, fontWeight: 'bold'}}>
+                    IBAN:
                 </div>
             </Grid>
-            <Grid item xs={3}>
-                <Select
+            <Grid
+                item
+                xs={9}
+            >
+                <TextField
+                    label="IBAN"
+                    name="IBAN"
+                    variant="standard"
                     style={{
-                        width: '70%',
-                    }}
-                    label='Icon'
-                    name='icon'
-                    renderValue={(value) => {
-                        if (value === '') return <></>
-                        const icon = MUIIcons.filter(MUIIcon => MUIIcon.name === value)[0].icon
-                        return (
-                            createElement(icon, {key: icon}, null)
-                        )
+                        marginLeft: 15,
+                        width: '50%',
                     }}
                     onChange={onInputChange}
-                    defaultValue={editCategory ? getIconName(editCategory.icon) : ''}
+                />
+            </Grid>
+            <Grid item xs={3}>
+                <div style={{marginTop: 20, fontWeight: 'bold'}}>
+                    Currency:
+                </div>
+            </Grid>
+            <Grid
+                item
+                xs={9}
+            >
+                <Select
+                    label="Currency"
+                    name="currency"
+                    style={{
+                        marginLeft: 15,
+                        width: '15%',
+                    }}
+                    onChange={onInputChange}
+                    defaultValue={currencies[0]}
                 >
-                    {MUIIcons.map(MUIIcon => (
+                    {currencies.map(currency => (
                         <MenuItem
-                            value={MUIIcon.name}
-                            key={MUIIcon.name}
+                            value={currency}
+                            key={currency}
                         >
-                            {createElement(MUIIcon.icon, {key: MUIIcon.icon}, null)}
+                            {currency}
                         </MenuItem>
                     ))}
                 </Select>
@@ -89,4 +99,4 @@ function EditCategoryDialogContent({
     )
 }
 
-export default EditCategoryDialogContent;
+export default AddBankAccountDialogContent;

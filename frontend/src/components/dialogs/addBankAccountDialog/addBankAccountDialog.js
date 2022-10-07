@@ -1,10 +1,10 @@
 import DialogTemplate from "../dialogTemplate";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import {useContext, useState} from "react";
-import NotificationsContext from "../../../../contexts/NotificationsContext";
-import BankContext from "../../../../contexts/BankContext";
-import UtilsContext from "../../../../contexts/UtilsContext";
-import AxiosContext from "../../../../contexts/AxiosContext";
+import NotificationsContext from "../../../contexts/NotificationsContext";
+import BankContext from "../../../contexts/BankContext";
+import UtilsContext from "../../../contexts/UtilsContext";
+import AxiosContext from "../../../contexts/AxiosContext";
 import AddBankAccountDialogContent from "./addBankAccountDialogContent";
 
 function AddBankAccountDialog({

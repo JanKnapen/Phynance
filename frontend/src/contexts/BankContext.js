@@ -79,7 +79,7 @@ export const BankProvider = ({children}) => {
         processTransactionsRequest(transactions, handleResponse, handleError);
     }
 
-    const getTransactions = ({bankAccountId, period, dateRange}, debug) => {
+    const getTransactions = ({bankAccountId, period, dateRange}) => {
         if (period === 'custom' && dateRange == null) return;
         const handleResponse = (response) => {
             setTransactions(response.data);
@@ -88,6 +88,17 @@ export const BankProvider = ({children}) => {
             enqueueErrorSnackbar('Unable to load transactions for the selected period, reload to try again.');
         }
         getTransactionsRequest({bankAccountId, period, dateRange}, handleResponse, handleError);
+    }
+
+    const getOverviewPeriod = ({bankAccountId, dateRange}) => {
+        if (dateRange == null) return;
+        const handleResponse = (response) => {
+
+        }
+        const handleError = (error) => {
+
+        }
+
     }
 
     const contextData = {
@@ -102,6 +113,7 @@ export const BankProvider = ({children}) => {
         setProcessedTransactions,
         getTransactions,
         transactions,
+        getOverviewPeriod,
     };
 
     return (

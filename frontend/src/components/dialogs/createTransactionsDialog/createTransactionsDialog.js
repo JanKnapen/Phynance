@@ -2,11 +2,11 @@ import DialogTemplate from "../dialogTemplate";
 import {Receipt} from "@mui/icons-material";
 import CreateTransactionsDialogContent from "./createTransactionsDialogContent";
 import {useContext} from "react";
-import BankContext from "../../../../contexts/BankContext";
-import NotificationsContext from "../../../../contexts/NotificationsContext";
-import AxiosContext from "../../../../contexts/AxiosContext";
+import BankContext from "../../../contexts/BankContext";
+import NotificationsContext from "../../../contexts/NotificationsContext";
+import AxiosContext from "../../../contexts/AxiosContext";
 import {useParams} from "react-router-dom";
-import UtilsContext from "../../../../contexts/UtilsContext";
+import UtilsContext from "../../../contexts/UtilsContext";
 
 function CreateTransactionsDialog({open, onClose, maxWidth}) {
     const {id} = useParams();

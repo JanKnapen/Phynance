@@ -65,7 +65,7 @@ function TopBar({isPrivate}) {
                     >
                         Phynance
                     </Typography>
-                    <div style={{width: "80vw"}}></div>
+                    <div style={{width: "80vw"}}>{}</div>
                     {isPrivate ?
                         <div>
                             <IconButton

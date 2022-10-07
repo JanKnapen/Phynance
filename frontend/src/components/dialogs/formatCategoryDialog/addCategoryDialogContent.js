@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import {MenuItem, Select, TextField} from "@mui/material";
 import {createElement, useContext} from "react";
-import UtilsContext from "../../../../contexts/UtilsContext";
+import UtilsContext from "../../../contexts/UtilsContext";
 
 function AddCategoryDialogContent({
                                       onInputChange,

@@ -2,10 +2,10 @@ import DialogTemplate from "../dialogTemplate";
 import {Category} from "@mui/icons-material";
 import EditCategoryDialogContent from "./editCategoryDialogContent";
 import {useContext} from "react";
-import NotificationsContext from "../../../../contexts/NotificationsContext";
-import UtilsContext from "../../../../contexts/UtilsContext";
-import BankContext from "../../../../contexts/BankContext";
-import AxiosContext from "../../../../contexts/AxiosContext";
+import NotificationsContext from "../../../contexts/NotificationsContext";
+import UtilsContext from "../../../contexts/UtilsContext";
+import BankContext from "../../../contexts/BankContext";
+import AxiosContext from "../../../contexts/AxiosContext";
 
 function EditCategoryDialog({
                                 maxWidth,

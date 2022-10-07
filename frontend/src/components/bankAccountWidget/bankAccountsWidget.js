@@ -5,8 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import {useEffect, useRef, useState} from "react";
 import BankAccountsWidgetSettings from "./bankAccountsWidgetSettings";
 import BankAccountsWidgetTable from "./bankAccountsWidgetTable";
-import CategoriesDialog from "./categoriesDialog/categoriesDialog";
-import AddBankAccountDialog from "../dialogs/inputDialogs/addBankAccountDialog/addBankAccountDialog";
+import CategoriesDialog from "../dialogs/categoriesDialog/categoriesDialog";
+import AddBankAccountDialog from "../dialogs/addBankAccountDialog/addBankAccountDialog";
 import {CardHeader, IconButton} from "@mui/material";
 
 function BankAccountsWidget() {
@@ -61,6 +61,7 @@ function BankAccountsWidget() {
                             open={openAddBankAccount}
                         />
                         <CategoriesDialog
+                            maxWidth='md'
                             setOpenCategories={setOpenCategories}
                             openCategories={openCategories}
                         />

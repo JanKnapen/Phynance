@@ -8,7 +8,7 @@ function ButtonSelector({options, currentOption}) {
                 justifyContent: 'space-evenly',
             }}
         >
-            {options.map((option, index) => (
+            {options.map((option) => (
                 <Button
                     variant={currentOption === option.name ? 'contained' : 'text'}
                     disabled={option.disable && currentOption === option.name}

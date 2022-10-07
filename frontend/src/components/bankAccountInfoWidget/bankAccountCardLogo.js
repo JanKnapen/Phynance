@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import MastercardLogo from "../../utils/mastercardLogo";
+import mastercardLogo from '../../utils/MastercardLogo.png';
 
 function BankAccountCardLogo({IBAN}) {
     return (
@@ -12,7 +12,10 @@ function BankAccountCardLogo({IBAN}) {
         >
             <Grid container>
                 <Grid item xs={12} pt={3} pl={3}>
-                    <MastercardLogo size={'1.5vw'} halfSize={'0.75vw'} oneHalfSize={'1.5vw'}/>
+                    <img src={mastercardLogo} style={{
+                        height: '1.5vw',
+                        float: 'left',
+                    }}/>
                 </Grid>
                 <Grid item xs={12} pt={5}>
                     <div

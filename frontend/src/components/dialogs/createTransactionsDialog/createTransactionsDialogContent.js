@@ -1,6 +1,6 @@
 import {useContext} from "react";
-import BankContext from "../../../../contexts/BankContext";
-import TransactionsTable from "../../../transactionsTable/transactionsTable";
+import BankContext from "../../../contexts/BankContext";
+import TransactionsTable from "../../transactionsTable/transactionsTable";
 
 function CreateTransactionsDialogContent() {
     const {
