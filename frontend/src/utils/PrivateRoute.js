@@ -5,18 +5,18 @@ import Sidebar from "../components/sidebar";
 import {Box, Toolbar} from "@mui/material";
 import AxiosContext from "../contexts/AxiosContext";
 
-const PrivateRoute = ({children }) => {
-    const { authUser } = useContext(AxiosContext);
+const PrivateRoute = ({children}) => {
+    const {authUser} = useContext(AxiosContext);
 
-    return !authUser.authToken ? <Navigate to="/login" /> : (
+    return !authUser.authToken ? <Navigate to="/login"/> : (
         <>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{display: 'flex'}}>
                 <TopBar
                     isPrivate={true}
                 />
-                <Sidebar />
+                <Sidebar/>
             </Box>
-            <Toolbar />
+            <Toolbar/>
             {children}
         </>
     );

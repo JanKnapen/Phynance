@@ -1,11 +1,11 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {DialogTitle, IconButton} from "@mui/material";
 
-function InputDialogTemplateTitle({
-    onClose,
-    titleIcon,
-    titleText,
-                                  }) {
+function DialogTemplateTitle({
+                                 onClose,
+                                 titleIcon,
+                                 titleText,
+                             }) {
     return (
         <DialogTitle
             onClose={onClose}
@@ -31,10 +31,10 @@ function InputDialogTemplateTitle({
                     top: 12,
                 }}
             >
-                <CloseIcon />
+                <CloseIcon/>
             </IconButton>
         </DialogTitle>
     )
 }
 
-export default InputDialogTemplateTitle;
+export default DialogTemplateTitle;

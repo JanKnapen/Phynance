@@ -3,28 +3,15 @@ import {Typography} from "@mui/material";
 import {useContext, useState} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import BankContext from "../../contexts/BankContext";
-import ButtonSelector from "../../utils/buttonSelector";
+import PeriodSelector from "../../utils/periodSelector";
 
 function BankAccountOverviewWidget() {
-    const { theme } = useContext(CustomThemeContext);
-    const { bankAccount } = useContext(BankContext);
-    const currencyFormatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: bankAccount.currency ? bankAccount.currency : 'EUR',
-    });
-    const periodOptions = [
-        {
-            name: 'month',
-            disable: true,
-            onClick: () => setPeriod('month'),
-        },
-        {
-            name: 'year',
-            disable: true,
-            onClick: () => setPeriod('year'),
-        }
-    ];
-    const [period, setPeriod] = useState(periodOptions[0].name);
+    const {theme} = useContext(CustomThemeContext);
+    const {
+        bankAccount,
+        getOverviewPeriod,
+    } = useContext(BankContext);
+    const [period, setPeriod] = useState(null);
 
     return (
         <div
@@ -37,7 +24,7 @@ function BankAccountOverviewWidget() {
             <Grid container
                   padding={5}
             >
-                <Grid item xs={11}>
+                <Grid item xs={10}>
                     <Typography
                         variant='h4'
                         style={{
@@ -49,10 +36,18 @@ function BankAccountOverviewWidget() {
                         Overview
                     </Typography>
                 </Grid>
-                <Grid item xs={1}>
-                    <ButtonSelector
-                        options={periodOptions}
-                        currentOption={period}
+                <Grid item xs={2}>
+                    <PeriodSelector
+                        period={period}
+                        setPeriod={setPeriod}
+                        action={(period, dateRange) => {
+                            if (bankAccount.id != null && period === 'custom') {
+                                getOverviewPeriod({
+                                    bankAccountId: bankAccount.id,
+                                    dateRange: dateRange,
+                                });
+                            }
+                        }}
                     />
                 </Grid>
                 <Grid item xs={2}>
@@ -73,7 +68,7 @@ function BankAccountOverviewWidget() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {bankAccount.expenses != null ? currencyFormatter.format(bankAccount.expenses[period]) : null}
+                        {bankAccount.expenses != null ? bankAccount.currencyFormatter.format(bankAccount.expenses[period]) : null}
                     </Typography>
                     <br/>
                     <Typography
@@ -93,7 +88,7 @@ function BankAccountOverviewWidget() {
                             fontWeight: 'bold',
                         }}
                     >
-                        {bankAccount.income != null ? currencyFormatter.format(bankAccount.income[period]) : null}
+                        {bankAccount.income != null ? bankAccount.currencyFormatter.format(bankAccount.income[period]) : null}
                     </Typography>
                 </Grid>
             </Grid>

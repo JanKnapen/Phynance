@@ -4,7 +4,7 @@ import {useContext} from "react";
 import BankContext from "../../contexts/BankContext";
 
 function BankAccountsWidgetTable() {
-    const { bankAccountsInfo } = useContext(BankContext);
+    const {bankAccountsInfo} = useContext(BankContext);
     const navigate = useNavigate();
 
     return (
@@ -21,10 +21,10 @@ function BankAccountsWidgetTable() {
                     </TableRow>
                 </TableHead>
             </Table>
-            <TableContainer style={{ minHeight: 200, maxHeight: 200}}>
+            <TableContainer style={{minHeight: 200, maxHeight: 200}}>
                 <Table>
                     <TableBody>
-                        { bankAccountsInfo && bankAccountsInfo.map((bankAccount, index) => (
+                        {bankAccountsInfo && bankAccountsInfo.map((bankAccount, index) => (
                             <TableRow
                                 onClick={(event) => navigate('/bank_account/' + bankAccount.id)}
                                 hover
@@ -38,7 +38,7 @@ function BankAccountsWidgetTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Divider />
+            <Divider/>
             <Table>
                 <TableHead>
                     <TableRow>

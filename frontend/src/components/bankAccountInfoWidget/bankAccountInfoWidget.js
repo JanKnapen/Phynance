@@ -5,12 +5,12 @@ import BankAccountCardLogo from "./bankAccountCardLogo";
 import {Button} from "@mui/material";
 import BankAccountInfo from "./bankAccountInfo";
 import BankContext from "../../contexts/BankContext";
-import UploadTransactionsDialog from "../dialogs/inputDialogs/uploadTransactionsDialog/uploadTransactionsDialog";
-import CreateTransactionsDialog from "../dialogs/inputDialogs/createTransactionsDialog/createTransactionsDialog";
+import UploadTransactionsDialog from "../dialogs/uploadTransactionsDialog/uploadTransactionsDialog";
+import CreateTransactionsDialog from "../dialogs/createTransactionsDialog/createTransactionsDialog";
 
 function BankAccountInfoWidget() {
-    const { theme } = useContext(CustomThemeContext);
-    const { bankAccount } = useContext(BankContext);
+    const {theme} = useContext(CustomThemeContext);
+    const {bankAccount} = useContext(BankContext);
     const [openUploadTransactionsDialog, setOpenUploadTransactionsDialog] = useState(false);
     const [openCreateTransactionsDialog, setOpenCreateTransactionsDialog] = useState(false);
 
@@ -47,7 +47,7 @@ function BankAccountInfoWidget() {
                     paddingRight={3}
                     paddingBottom={5}
                 >
-                    <BankAccountInfo />
+                    <BankAccountInfo/>
                 </Grid>
                 <Grid item xs={12}>
                     <Button

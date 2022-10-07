@@ -1,13 +1,13 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {
-    MedicalInformation,
-    FlightTakeoff,
     DriveEta,
-    SportsEsports,
-    School,
-    Savings,
-    LocalGroceryStore,
     Fastfood,
+    FlightTakeoff,
+    LocalGroceryStore,
+    MedicalInformation,
+    Savings,
+    School,
+    SportsEsports,
 } from "@mui/icons-material";
 import AxiosContext from "./AxiosContext";
 import NotificationsContext from "./NotificationsContext";
@@ -17,8 +17,8 @@ const UtilsContext = createContext(null);
 export default UtilsContext;
 
 export const UtilsProvider = ({children}) => {
-    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
-    const { getMUIIconsRequest } = useContext(AxiosContext);
+    const {enqueueErrorSnackbar} = useContext(NotificationsContext);
+    const {getMUIIconsRequest} = useContext(AxiosContext);
     const [MUIIcons, setMUIIcons] = useState([]);
     const currencies = ['EUR', 'USD'];
 
@@ -35,14 +35,14 @@ export const UtilsProvider = ({children}) => {
 
     const getMUIIcons = () => {
         const handleResponse = (response) => {
-            response.data.forEach(({ id, mui_name }) => setMUIIcons(prevState => ([
+            response.data.forEach(({id, mui_name}) => setMUIIcons(prevState => ([
                 ...prevState,
                 {
                     id: id,
                     name: mui_name,
                     icon: MUIIconComponents[mui_name],
                 }
-                ])))
+            ])))
         }
         const handleError = (error) => {
             enqueueErrorSnackbar('Unable to load the Icon options, reload to try again.')

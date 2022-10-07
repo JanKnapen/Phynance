@@ -1,17 +1,17 @@
 import Grid from "@mui/material/Grid";
 import {MenuItem, Select, TextField} from "@mui/material";
 import {createElement, useContext} from "react";
-import UtilsContext from "../../../../contexts/UtilsContext";
+import UtilsContext from "../../../contexts/UtilsContext";
 
 function AddCategoryDialogContent({
-    onInputChange,
+                                      onInputChange,
                                   }) {
-    const { MUIIcons } = useContext(UtilsContext);
+    const {MUIIcons} = useContext(UtilsContext);
 
     return (
         <Grid container spacing={2} pl={2} pt={2} pr={2}>
-            <Grid item xs={3} >
-                <div style={{ marginTop: 20, fontWeight: 'bold' }}>
+            <Grid item xs={3}>
+                <div style={{marginTop: 20, fontWeight: 'bold'}}>
                     Name:
                 </div>
             </Grid>
@@ -31,7 +31,7 @@ function AddCategoryDialogContent({
                 />
             </Grid>
             <Grid item xs={3}>
-                <div style={{ marginTop: 10, fontWeight: 'bold' }}>
+                <div style={{marginTop: 10, fontWeight: 'bold'}}>
                     Description:
                 </div>
             </Grid>
@@ -47,7 +47,7 @@ function AddCategoryDialogContent({
                 />
             </Grid>
             <Grid item xs={3}>
-                <div style={{ marginTop: 10, fontWeight: 'bold' }}>
+                <div style={{marginTop: 10, fontWeight: 'bold'}}>
                     Icon:
                 </div>
             </Grid>

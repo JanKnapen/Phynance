@@ -8,7 +8,7 @@ const AuthContext = createContext(null);
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
-    const { enqueueErrorSnackbar, enqueueSuccessSnackbar } = useContext(NotificationsContext);
+    const {enqueueErrorSnackbar, enqueueSuccessSnackbar} = useContext(NotificationsContext);
     const {
         setAuthUser,
         loginUserRequest,

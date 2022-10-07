@@ -1,17 +1,17 @@
 import {Button, DialogActions} from "@mui/material";
 
-function InputDialogTemplateActions({
-    actionWidth,
-    action,
-    actionText,
-                                    }) {
+function DialogTemplateActions({
+                                   actionWidth,
+                                   action,
+                                   actionText,
+                               }) {
     return (
         <DialogActions style={{justifyContent: 'center'}}>
             <Button
                 autoFocus
                 onClick={action}
                 variant='contained'
-                style={{ width: actionWidth }}
+                style={{width: actionWidth}}
             >
                 {actionText}
             </Button>
@@ -19,4 +19,4 @@ function InputDialogTemplateActions({
     )
 }
 
-export default InputDialogTemplateActions;
+export default DialogTemplateActions;

@@ -4,8 +4,14 @@ import {AddCard, Category} from "@mui/icons-material";
 import {useContext} from "react";
 import BankContext from "../../contexts/BankContext";
 
-function BankAccountsWidgetSettings({ openSettings, setOpenSettings, setOpenAddBankAccount, setOpenCategories, anchorRefSettings }) {
-    const { getCategories } = useContext(BankContext);
+function BankAccountsWidgetSettings({
+                                        openSettings,
+                                        setOpenSettings,
+                                        setOpenAddBankAccount,
+                                        setOpenCategories,
+                                        anchorRefSettings
+                                    }) {
+    const {getCategories} = useContext(BankContext);
 
     const handleOpenAddBankAccount = () => {
         setOpenSettings(false);
@@ -42,38 +48,38 @@ function BankAccountsWidgetSettings({ openSettings, setOpenSettings, setOpenAddB
             transition
             disablePortal
         >
-        {({TransitionProps }) => (
-            <Grow
-                {...TransitionProps}
-                style={{ transformOrigin: 'right top' }}
-            >
-                <Paper>
-                    <ClickAwayListener onClickAway={handleCloseSettings}>
-                        <MenuList
-                            autoFocusItem={openSettings}
-                            onKeyDown={handleListKeyDown}
-                        >
-                            <MenuItem onClick={handleOpenAddBankAccount}>
-                                <ListItemIcon>
-                                    <AddCard />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    <div style={{ textAlign: 'left' }}>Add Bank Account</div>
-                                </ListItemText>
-                            </MenuItem>
-                            <MenuItem onClick={handleOpenCategories}>
-                                <ListItemIcon>
-                                    <Category />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    <div style={{ textAlign: 'left' }}>Categories</div>
-                                </ListItemText>
-                            </MenuItem>
-                        </MenuList>
-                    </ClickAwayListener>
-                </Paper>
-            </Grow>
-        )}
+            {({TransitionProps}) => (
+                <Grow
+                    {...TransitionProps}
+                    style={{transformOrigin: 'right top'}}
+                >
+                    <Paper>
+                        <ClickAwayListener onClickAway={handleCloseSettings}>
+                            <MenuList
+                                autoFocusItem={openSettings}
+                                onKeyDown={handleListKeyDown}
+                            >
+                                <MenuItem onClick={handleOpenAddBankAccount}>
+                                    <ListItemIcon>
+                                        <AddCard/>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <div style={{textAlign: 'left'}}>Add Bank Account</div>
+                                    </ListItemText>
+                                </MenuItem>
+                                <MenuItem onClick={handleOpenCategories}>
+                                    <ListItemIcon>
+                                        <Category/>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <div style={{textAlign: 'left'}}>Categories</div>
+                                    </ListItemText>
+                                </MenuItem>
+                            </MenuList>
+                        </ClickAwayListener>
+                    </Paper>
+                </Grow>
+            )}
         </Popper>
     );
 }

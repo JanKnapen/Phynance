@@ -4,9 +4,9 @@ import {createElement, useContext} from "react";
 import BankContext from "../../../contexts/BankContext";
 import UtilsContext from "../../../contexts/UtilsContext";
 
-function CategoriesDialogTable({ setOpenEditCategory, setEditCategory }) {
-    const { categories } = useContext(BankContext);
-    const { MUIIcons } = useContext(UtilsContext);
+function CategoriesDialogTable({setOpenEditCategory, setEditCategory}) {
+    const {categories} = useContext(BankContext);
+    const {MUIIcons} = useContext(UtilsContext);
 
     const getIcon = (iconId) => {
         const icon = MUIIcons.filter(MUIIcon => MUIIcon.id === iconId)[0].icon;
@@ -34,10 +34,10 @@ function CategoriesDialogTable({ setOpenEditCategory, setEditCategory }) {
                     </TableRow>
                 </TableHead>
             </Table>
-            <TableContainer style={{ minHeight: 500, maxHeight: 500}}>
+            <TableContainer style={{minHeight: 500, maxHeight: 500}}>
                 <Table>
                     <TableBody>
-                        { categories && categories.map((category, index) => (
+                        {categories && categories.map((category, index) => (
                             <TableRow
                                 key={category.id}
                             >
@@ -53,7 +53,7 @@ function CategoriesDialogTable({ setOpenEditCategory, setEditCategory }) {
                                             setEditCategory(editCategory);
                                         }}
                                     >
-                                        <EditIcon />
+                                        <EditIcon/>
                                     </Button>
                                 </TableCell>
                             </TableRow>

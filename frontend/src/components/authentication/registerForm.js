@@ -6,11 +6,9 @@ import NotificationsContext from "../../contexts/NotificationsContext";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 
 function RegisterForm() {
-    const { theme } = useContext(CustomThemeContext);
-    const { enqueueErrorSnackbar } = useContext(NotificationsContext);
-    const {
-        registerUser,
-    } = useContext(AuthContext);
+    const {theme} = useContext(CustomThemeContext);
+    const {enqueueErrorSnackbar} = useContext(NotificationsContext);
+    const {registerUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState({
@@ -19,7 +17,7 @@ function RegisterForm() {
         confirmPassword: '',
     });
 
-    const register = event => {
+    const register = () => {
         if (credentials.password === credentials.confirmPassword) {
             registerUser(credentials.username, credentials.password)
         } else {
@@ -43,14 +41,14 @@ function RegisterForm() {
     return (
         <>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
-                  sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
                 >
                     <Typography
                         component="h1"
@@ -58,45 +56,45 @@ function RegisterForm() {
                     >
                         Create an account for Phynance
                     </Typography>
-                    <Box noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{mt: 1}}>
                         <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          label="Username"
-                          name="username"
-                          autoFocus
-                          onChange={inputChanged}
-                          onKeyDown={keyPress}
+                            margin="normal"
+                            required
+                            fullWidth
+                            label="Username"
+                            name="username"
+                            autoFocus
+                            onChange={inputChanged}
+                            onKeyDown={keyPress}
                         />
                         <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          name="password"
-                          label="Password"
-                          type="password"
-                          onChange={inputChanged}
-                          onKeyDown={keyPress}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            onChange={inputChanged}
+                            onKeyDown={keyPress}
                         />
                         <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          name="confirmPassword"
-                          label="New Password"
-                          type="password"
-                          onChange={inputChanged}
-                          onKeyDown={keyPress}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmPassword"
+                            label="New Password"
+                            type="password"
+                            onChange={inputChanged}
+                            onKeyDown={keyPress}
                         />
                         <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                          onClick={register}
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{mt: 3, mb: 2}}
+                            onClick={register}
                         >
-                          Create Account
+                            Create Account
                         </Button>
                         <div
                             style={{
@@ -109,7 +107,7 @@ function RegisterForm() {
                             </div>
                             <div
                                 style={theme.palette.link_div}
-                                onClick={event => navigate('/login')}
+                                onClick={() => navigate('/login')}
                             >
                                 Sing in
                             </div>

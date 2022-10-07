@@ -8,8 +8,8 @@ import BankContext from "../contexts/BankContext";
 import BankAccountMainWidget from "./bankAccountMainWidget/bankAccountMainWidget";
 
 function BankAccount() {
-    const { id } = useParams();
-    const { getBankAccount, getCategories } = useContext(BankContext);
+    const {id} = useParams();
+    const {getBankAccount, getCategories} = useContext(BankContext);
 
     useEffect(() => {
         getBankAccount(id);
@@ -37,13 +37,13 @@ function BankAccount() {
                         item
                         xs={12}
                     >
-                        <BankAccountOverviewWidget />
+                        <BankAccountOverviewWidget/>
                     </Grid>
                     <Grid
                         item
                         xs={12}
                     >
-                        <BankAccountMainWidget />
+                        <BankAccountMainWidget/>
                     </Grid>
                 </Grid>
                 <Grid
@@ -59,7 +59,7 @@ function BankAccount() {
                         item
                         xs={12}
                     >
-                        <BankAccountInfoWidget />
+                        <BankAccountInfoWidget/>
                     </Grid>
                 </Grid>
             </Grid>

@@ -5,8 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import {useEffect, useRef, useState} from "react";
 import BankAccountsWidgetSettings from "./bankAccountsWidgetSettings";
 import BankAccountsWidgetTable from "./bankAccountsWidgetTable";
-import CategoriesDialog from "./categoriesDialog/categoriesDialog";
-import AddBankAccountDialog from "../dialogs/inputDialogs/addBankAccountDialog/addBankAccountDialog";
+import CategoriesDialog from "../dialogs/categoriesDialog/categoriesDialog";
+import AddBankAccountDialog from "../dialogs/addBankAccountDialog/addBankAccountDialog";
 import {CardHeader, IconButton} from "@mui/material";
 
 function BankAccountsWidget() {
@@ -37,7 +37,7 @@ function BankAccountsWidget() {
         <Card>
             <CardHeader
                 avatar={
-                    <AccountBalanceIcon />
+                    <AccountBalanceIcon/>
                 }
                 action={
                     <>
@@ -45,7 +45,7 @@ function BankAccountsWidget() {
                             ref={anchorRefSettings}
                             onClick={handleToggleSettings}
                         >
-                            <MoreVertIcon />
+                            <MoreVertIcon/>
                         </IconButton>
                         <BankAccountsWidgetSettings
                             openSettings={openSettings}
@@ -61,16 +61,17 @@ function BankAccountsWidget() {
                             open={openAddBankAccount}
                         />
                         <CategoriesDialog
+                            maxWidth='md'
                             setOpenCategories={setOpenCategories}
                             openCategories={openCategories}
                         />
                     </>
                 }
                 title="Bank Accounts"
-                titleTypographyProps={{ variant:'h6' }}
+                titleTypographyProps={{variant: 'h6'}}
             />
             <CardContent>
-                <BankAccountsWidgetTable />
+                <BankAccountsWidgetTable/>
             </CardContent>
         </Card>
     );

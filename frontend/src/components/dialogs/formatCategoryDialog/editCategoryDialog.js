@@ -1,25 +1,25 @@
-import InputDialogTemplate from "../inputDialogTemplate";
+import DialogTemplate from "../dialogTemplate";
 import {Category} from "@mui/icons-material";
 import EditCategoryDialogContent from "./editCategoryDialogContent";
 import {useContext} from "react";
-import NotificationsContext from "../../../../contexts/NotificationsContext";
-import UtilsContext from "../../../../contexts/UtilsContext";
-import BankContext from "../../../../contexts/BankContext";
-import AxiosContext from "../../../../contexts/AxiosContext";
+import NotificationsContext from "../../../contexts/NotificationsContext";
+import UtilsContext from "../../../contexts/UtilsContext";
+import BankContext from "../../../contexts/BankContext";
+import AxiosContext from "../../../contexts/AxiosContext";
 
 function EditCategoryDialog({
-    maxWidth,
-    actionWidth,
-    open,
-    onClose,
-    editCategory,
-    setEditCategory,
+                                maxWidth,
+                                actionWidth,
+                                open,
+                                onClose,
+                                editCategory,
+                                setEditCategory,
                             }) {
-    const { enqueueSuccessSnackbar } = useContext(NotificationsContext);
-    const { handleSaveRequestError } = useContext(UtilsContext);
-    const { getCategories } = useContext(BankContext);
-    const { updateCategoryRequest } = useContext(AxiosContext);
-    const { MUIIcons } = useContext(UtilsContext);
+    const {enqueueSuccessSnackbar} = useContext(NotificationsContext);
+    const {handleSaveRequestError} = useContext(UtilsContext);
+    const {getCategories} = useContext(BankContext);
+    const {updateCategoryRequest} = useContext(AxiosContext);
+    const {MUIIcons} = useContext(UtilsContext);
 
     const updateCategory = () => {
         const handleResponse = (response) => {
@@ -46,12 +46,12 @@ function EditCategoryDialog({
     }
 
     return (
-        <InputDialogTemplate
+        <DialogTemplate
             maxWidth={maxWidth}
             actionWidth={actionWidth}
             open={open}
             onClose={onClose}
-            titleIcon={<Category />}
+            titleIcon={<Category/>}
             titleText='Edit Category'
             content={<EditCategoryDialogContent
                 editCategory={editCategory}

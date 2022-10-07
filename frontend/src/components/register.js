@@ -9,10 +9,10 @@ function Register() {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            style={{ minHeight: '70vh' }}
+            style={{minHeight: '70vh'}}
         >
             <Grid item xs={3}>
-                <RegisterForm />
+                <RegisterForm/>
             </Grid>
         </Grid>
     );
