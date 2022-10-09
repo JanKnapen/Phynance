@@ -6,9 +6,8 @@ from .definitions import BANK_ACCOUNT_INFO_KEYS
 from .models import BankTransaction
 
 
-def get_balance(bank_account, user):
-    last_transaction = BankTransaction.objects.filter(bank_account__owner=user.id)\
-        .filter(bank_account__id=bank_account['id'])\
+def get_balance(bank_account):
+    last_transaction = BankTransaction.objects.filter(bank_account__id=bank_account['id'])\
         .order_by('-serial_number')\
         .first()
     balance = last_transaction.balance_after if last_transaction else 0
@@ -64,9 +63,21 @@ def get_expenses_and_income(bank_account):
     return expenses, income
 
 
-def select_info(bank_account, user):
+def get_expenses_and_income_period(bank_account, date_range):
+    transactions = get_transactions_by_period(bank_account, 'custom', date_range)
+
+    expenses = {
+        'custom': get_expenses(transactions),
+    }
+    income = {
+        'custom': get_income(transactions),
+    }
+    return expenses, income
+
+
+def select_info(bank_account):
     info = {info_key: bank_account[info_key] for info_key in BANK_ACCOUNT_INFO_KEYS}
-    info['balance'] = get_balance(bank_account, user)
+    info['balance'] = get_balance(bank_account)
     return info
 
 
@@ -85,10 +96,10 @@ def suggest_category(transaction):
 def get_transactions_by_period(bank_account, period, date_range):
     if period in ['month', 'year']:
         month_transactions, year_transactions = get_month_and_year_transaction(bank_account)
-        return month_transactions.values() if period == 'month' else year_transactions.values()
+        return month_transactions if period == 'month' else year_transactions
     if period == 'custom':
         start_date = datetime.strptime(date_range['startDate'], '%Y/%m/%d').date()
         end_date = datetime.strptime(date_range['endDate'], '%Y/%m/%d').date()
         transactions = get_transactions_by_date_range(bank_account, start_date, end_date)
-        return transactions.values()
+        return transactions
     return []

@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import {Typography} from "@mui/material";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import CustomThemeContext from "../../contexts/CustomThemeProvider";
 import BankContext from "../../contexts/BankContext";
 import PeriodSelector from "../../utils/periodSelector";
@@ -12,6 +12,10 @@ function BankAccountOverviewWidget() {
         getOverviewPeriod,
     } = useContext(BankContext);
     const [period, setPeriod] = useState(null);
+
+    useEffect(() => {
+        setPeriod('month');
+    }, [bankAccount.id]);
 
     return (
         <div

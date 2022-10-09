@@ -24,6 +24,8 @@ function BankAccountMainWidget() {
     const [overview, setOverview] = useState(overviewOptions[0].name);
 
     useEffect(() => {
+        setPeriod('month');
+        setOverview('transactions');
         if (bankAccount.id != null && period != null) {
             getTransactions({
                 bankAccountId: bankAccount.id,

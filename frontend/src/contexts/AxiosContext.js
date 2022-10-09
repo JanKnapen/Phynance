@@ -178,6 +178,18 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/accounts/' + bankAccountId + '/transactions/period/', postData, handleResponse, handleError);
     }
 
+    const getOverviewPeriodRequest = async ({
+                                                bankAccountId,
+                                                dateRange,
+                                            }, handleResponse, handleError) => {
+        const postData = {
+            dateRange: {
+                startDate: dateRange.startDate.format('YYYY/MM/DD'),
+                endDate: dateRange.endDate.format('YYYY/MM/DD'),
+            }
+        }
+        postRequest('/bank/accounts/' + bankAccountId + '/overview/period/', postData, handleResponse, handleError);
+    }
     const contextData = {
         authUser,
         setAuthUser,
@@ -193,6 +205,7 @@ export const AxiosProvider = ({children}) => {
         processTransactionsRequest,
         createTransactionsRequest,
         getTransactionsRequest,
+        getOverviewPeriodRequest,
     };
 
     return (

@@ -14,6 +14,7 @@ export const BankProvider = ({children}) => {
         getCategoriesRequest,
         processTransactionsRequest,
         getTransactionsRequest,
+        getOverviewPeriodRequest,
     } = useContext(AxiosContext);
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -30,7 +31,7 @@ export const BankProvider = ({children}) => {
         const handleResponse = (response) => {
             setBankAccountsInfo(response.data);
         }
-        const handleError = (error) => {
+        const handleError = () => {
             enqueueErrorSnackbar('Unable to load your bank accounts, eload to try again.')
         }
         getBankAccountsInfoRequest(handleResponse, handleError);
@@ -40,7 +41,7 @@ export const BankProvider = ({children}) => {
         const handleResponse = (response) => {
             setCategories(response.data);
         }
-        const handleError = (error) => {
+        const handleError = () => {
             enqueueErrorSnackbar('Unable to load your categories, reload to try again.')
         }
         getCategoriesRequest(handleResponse, handleError);
@@ -48,15 +49,16 @@ export const BankProvider = ({children}) => {
 
     const getBankAccount = (id) => {
         const handleResponse = (response) => {
-            setBankAccount({
+            setBankAccount(prevBankAccount => ({
+                ...prevBankAccount,
                 ...response.data,
                 currencyFormatter: new Intl.NumberFormat('en-US', {
                     style: 'currency',
                     currency: response.data.currency,
                 }),
-            });
+            }));
         }
-        const handleError = (error) => {
+        const handleError = () => {
             enqueueErrorSnackbar('Unable to load bank account, reload to try again.');
         }
         getBankAccountRequest(id, handleResponse, handleError);
@@ -73,7 +75,7 @@ export const BankProvider = ({children}) => {
                 setOpenCreateTransactionsDialog(true);
             }
         }
-        const handleError = (error) => {
+        const handleError = () => {
             enqueueErrorSnackbar('Unable to process uploaded transactions.');
         }
         processTransactionsRequest(transactions, handleResponse, handleError);
@@ -84,7 +86,7 @@ export const BankProvider = ({children}) => {
         const handleResponse = (response) => {
             setTransactions(response.data);
         }
-        const handleError = (error) => {
+        const handleError = () => {
             enqueueErrorSnackbar('Unable to load transactions for the selected period, reload to try again.');
         }
         getTransactionsRequest({bankAccountId, period, dateRange}, handleResponse, handleError);
@@ -93,12 +95,24 @@ export const BankProvider = ({children}) => {
     const getOverviewPeriod = ({bankAccountId, dateRange}) => {
         if (dateRange == null) return;
         const handleResponse = (response) => {
-
+            setBankAccount(prevBankAccount => {
+                return ({
+                    ...prevBankAccount,
+                    expenses: {
+                        ...prevBankAccount.expenses,
+                        'custom': response.data.expenses.custom,
+                    },
+                    income: {
+                        ...prevBankAccount.income,
+                        'custom': response.data.income.custom,
+                    },
+                })
+            });
         }
-        const handleError = (error) => {
-
+        const handleError = () => {
+            enqueueErrorSnackbar('Unable to load bank account overview for this period, reload to try again.');
         }
-
+        getOverviewPeriodRequest({bankAccountId, dateRange}, handleResponse, handleError);
     }
 
     const contextData = {

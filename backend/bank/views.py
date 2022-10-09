@@ -10,7 +10,7 @@ from .models import BankAccount, \
 from .serializers import BankAccountSerializer, \
     BankCategorySerializer, BankTransactionSerializer
 from .utils import select_info, get_balance, transaction_exists, suggest_category, get_expenses_and_income, \
-    get_transactions_by_period
+    get_transactions_by_period, get_expenses_and_income_period
 
 
 class BankAccountViewSet(ModelViewSet):
@@ -30,7 +30,7 @@ class BankAccountViewSet(ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
-        bank_account['balance'] = get_balance(bank_account, self.request.user)
+        bank_account['balance'] = get_balance(bank_account)
         bank_account['expenses'], bank_account['income'] = get_expenses_and_income(bank_account)
         return Response(bank_account)
 
@@ -39,7 +39,7 @@ class BankAccountViewSet(ModelViewSet):
         queryset = self.get_queryset()
 
         serializer = self.get_serializer(queryset, many=True)
-        info_data = [select_info(bank_account, self.request.user) for bank_account in serializer.data]
+        info_data = [select_info(bank_account) for bank_account in serializer.data]
         return Response(info_data)
 
 
@@ -60,7 +60,26 @@ class TransactionsPeriodViewSet(ModelViewSet):
         period = request.data['period']
         date_range = request.data['dateRange']
         transactions = get_transactions_by_period(bank_account, period, date_range)
-        return Response(transactions)
+        return Response(transactions.values())
+
+
+class OverviewPeriodViewSet(ModelViewSet):
+    queryset = BankAccount.objects.all()
+    serializer_class = BankAccountSerializer
+    authentication_classes = [TokenAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        user = self.request.user
+        return BankAccount.objects.filter(owner=user)
+
+    def list(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        bank_account = serializer.data
+        date_range = request.data['dateRange']
+        bank_account['expenses'], bank_account['income'] = get_expenses_and_income_period(bank_account, date_range)
+        return Response(bank_account)
 
 
 class BankCategoryViewSet(ModelViewSet):
