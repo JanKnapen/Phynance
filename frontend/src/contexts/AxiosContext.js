@@ -66,10 +66,10 @@ export const AxiosProvider = ({children}) => {
             .catch(error => handleError(error));
     }
 
-    const getRequest = (url, handleResponse, handleError) => {
+    const getRequest = (url, handleResponse, handleError, newAuthUser) => {
         axiosClient.get(url, {
             headers: {
-                'Authorization': `token ${authUser.authToken}`,
+                'Authorization': `token ${newAuthUser ? newAuthUser.authToken : authUser.authToken}`,
             },
         })
             .then(response => handleResponse(response))
@@ -111,8 +111,8 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/accounts/', postData, handleResponse, handleError);
     }
 
-    const getBankAccountsInfoRequest = async (handleResponse, handleError) => {
-        getRequest('/bank/accounts/info/', handleResponse, handleError);
+    const getBankAccountsInfoRequest = async (handleResponse, handleError, newAuthUser) => {
+        getRequest('/bank/accounts/info/', handleResponse, handleError, newAuthUser);
     }
 
     const getBankAccountRequest = async (id, handleResponse, handleError) => {

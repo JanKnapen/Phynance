@@ -12,13 +12,13 @@ function Contexts({children}) {
             <SnackbarProvider maxSnack={5}>
                 <NotificationsProvider>
                     <AxiosProvider>
-                        <AuthProvider>
-                            <UtilsProvider>
-                                <BankProvider>
-                                        {children}
-                                </BankProvider>
-                            </UtilsProvider>
-                        </AuthProvider>
+                        <UtilsProvider>
+                            <BankProvider>
+                                <AuthProvider>
+                                    {children}
+                                </AuthProvider>
+                            </BankProvider>
+                        </UtilsProvider>
                     </AxiosProvider>
                 </NotificationsProvider>
             </SnackbarProvider>

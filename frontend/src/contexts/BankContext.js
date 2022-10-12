@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import AxiosContext from "./AxiosContext";
 import NotificationsContext from "./NotificationsContext";
 import UtilsContext from "./UtilsContext";
@@ -55,14 +55,14 @@ export const BankProvider = ({children}) => {
         createBankAccountRequest(newBankAccount, handleResponse, handleError);
     }
 
-    const getBankAccountsInfo = () => {
+    const getBankAccountsInfo = (newAuthUser) => {
         const handleResponse = (response) => {
             setBankAccountsInfo(response.data);
         }
         const handleError = () => {
             enqueueErrorSnackbar('Unable to load your bank accounts, reload to try again.')
         }
-        getBankAccountsInfoRequest(handleResponse, handleError);
+        getBankAccountsInfoRequest(handleResponse, handleError, newAuthUser);
     }
 
     const getCategories = () => {
@@ -142,6 +142,10 @@ export const BankProvider = ({children}) => {
         }
         getOverviewPeriodRequest({bankAccountId, dateRange}, handleResponse, handleError);
     }
+
+    useEffect(() => {
+        getBankAccountsInfo();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const contextData = {
         createBankAccount,

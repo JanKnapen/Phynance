@@ -5,7 +5,7 @@ import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import HomeIcon from '@mui/icons-material/Home';
 import Toolbar from "@mui/material/Toolbar";
 import {useNavigate} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import BankContext from "../contexts/BankContext";
 import CustomThemeContext from "../contexts/CustomThemeProvider";
 
@@ -13,10 +13,6 @@ function Sidebar() {
     const {theme} = useContext(CustomThemeContext);
     const {bankAccountsInfo, getBankAccountsInfo} = useContext(BankContext);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        getBankAccountsInfo();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Drawer
@@ -32,7 +28,8 @@ function Sidebar() {
                 <List>
                     <ListItem key="Home" disablePadding>
                         <ListItemButton
-                            onClick={event => {
+                            onClick={() => {
+                                getBankAccountsInfo();
                                 navigate('/home');
                             }}
                         >
@@ -66,10 +63,10 @@ function Sidebar() {
                 <Divider/>
                 {bankAccountsInfo.length > 0 && (
                     <List style={{backgroundColor: theme.palette.sidebar.menuItem}}>
-                        {bankAccountsInfo.map((bankAccount, index) => (
+                        {bankAccountsInfo.map((bankAccount) => (
                             <ListItem key={bankAccount.name} disablePadding>
                                 <ListItemButton
-                                    onClick={event => {
+                                    onClick={() => {
                                         navigate('/bank_account/' + bankAccount.id);
                                     }}
                                 >

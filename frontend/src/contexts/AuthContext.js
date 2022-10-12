@@ -2,6 +2,7 @@ import {createContext, useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import AxiosContext from "./AxiosContext";
 import NotificationsContext from "./NotificationsContext";
+import BankContext from "./BankContext";
 
 const AuthContext = createContext(null);
 
@@ -9,6 +10,7 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
     const {enqueueErrorSnackbar, enqueueSuccessSnackbar} = useContext(NotificationsContext);
+    const {getBankAccountsInfo} = useContext(BankContext);
     const {
         setAuthUser,
         loginUserRequest,
@@ -23,17 +25,16 @@ export const AuthProvider = ({children}) => {
             password: password,
         }
         const handleResponse = (response) => {
-            setAuthUser({
+            const newAuthUser = {
                 username: username,
                 authToken: response.data.token,
-            })
-            sessionStorage.setItem('authUserPhynance', JSON.stringify({
-                username: username,
-                authToken: response.data.token,
-            }))
+            }
+            setAuthUser(newAuthUser);
+            sessionStorage.setItem('authUserPhynance', JSON.stringify(newAuthUser))
+            getBankAccountsInfo(newAuthUser);
             navigate("/home");
         }
-        const handleError = (error) => {
+        const handleError = () => {
             enqueueErrorSnackbar("Combination of username & password doesn't exist");
         }
 
@@ -45,7 +46,7 @@ export const AuthProvider = ({children}) => {
             username: username,
             password: password,
         }
-        const handleResponse = (response) => {
+        const handleResponse = () => {
             enqueueSuccessSnackbar('Successfully created account!');
             navigate("/login");
         }
