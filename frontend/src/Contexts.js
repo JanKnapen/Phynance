@@ -13,11 +13,11 @@ function Contexts({children}) {
                 <NotificationsProvider>
                     <AxiosProvider>
                         <AuthProvider>
-                            <BankProvider>
-                                <UtilsProvider>
-                                    {children}
-                                </UtilsProvider>
-                            </BankProvider>
+                            <UtilsProvider>
+                                <BankProvider>
+                                        {children}
+                                </BankProvider>
+                            </UtilsProvider>
                         </AuthProvider>
                     </AxiosProvider>
                 </NotificationsProvider>

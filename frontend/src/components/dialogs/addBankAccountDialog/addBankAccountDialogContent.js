@@ -5,6 +5,7 @@ import UtilsContext from "../../../contexts/UtilsContext";
 
 function AddBankAccountDialogContent({
                                          onInputChange,
+                                         defaultCurrency,
                                      }) {
     const {currencies} = useContext(UtilsContext);
 
@@ -83,7 +84,7 @@ function AddBankAccountDialogContent({
                         width: '15%',
                     }}
                     onChange={onInputChange}
-                    defaultValue={currencies[0]}
+                    defaultValue={defaultCurrency}
                 >
                     {currencies.map(currency => (
                         <MenuItem

@@ -1,11 +1,9 @@
 import DialogTemplate from "../dialogTemplate";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import {useContext, useState} from "react";
-import NotificationsContext from "../../../contexts/NotificationsContext";
 import BankContext from "../../../contexts/BankContext";
-import UtilsContext from "../../../contexts/UtilsContext";
-import AxiosContext from "../../../contexts/AxiosContext";
 import AddBankAccountDialogContent from "./addBankAccountDialogContent";
+import UtilsContext from "../../../contexts/UtilsContext";
 
 function AddBankAccountDialog({
                                   maxWidth,
@@ -13,35 +11,20 @@ function AddBankAccountDialog({
                                   open,
                                   onClose,
                               }) {
-    const {enqueueSuccessSnackbar} = useContext(NotificationsContext);
-    const {getBankAccountsInfo} = useContext(BankContext);
-    const {handleSaveRequestError} = useContext(UtilsContext);
-    const {createBankAccountRequest} = useContext(AxiosContext);
+    const {
+        createBankAccount,
+    } = useContext(BankContext);
+    const {currencies} = useContext(UtilsContext);
 
     const [newBankAccount, setNewBankAccount] = useState({
         name: null,
         description: null,
         IBAN: null,
-        currency: null,
+        currency: currencies[0],
     });
 
     const addBankAccount = () => {
-        const handleResponse = (response) => {
-            enqueueSuccessSnackbar('Successfully created bank account!');
-            setNewBankAccount({
-                name: null,
-                description: null,
-                IBAN: null,
-                currency: null,
-            });
-            getBankAccountsInfo();
-            onClose();
-        }
-        const handleError = (error) => {
-            handleSaveRequestError(error, 'bank account');
-        }
-
-        createBankAccountRequest(newBankAccount, handleResponse, handleError);
+        createBankAccount(newBankAccount, setNewBankAccount, onClose);
     }
 
     const inputChanged = event => {
@@ -59,7 +42,7 @@ function AddBankAccountDialog({
             onClose={onClose}
             titleIcon={<AccountBalanceIcon/>}
             titleText='Add Bank Account'
-            content={<AddBankAccountDialogContent onInputChange={inputChanged}/>}
+            content={<AddBankAccountDialogContent onInputChange={inputChanged} defaultCurrency={currencies[0]}/>}
             action={addBankAccount}
             actionText='Add'
         />

@@ -1,14 +1,23 @@
 import {createContext, useContext, useState} from "react";
 import AxiosContext from "./AxiosContext";
 import NotificationsContext from "./NotificationsContext";
+import UtilsContext from "./UtilsContext";
 
 const   BankContext = createContext(null);
 
 export default BankContext;
 
 export const BankProvider = ({children}) => {
-    const {enqueueErrorSnackbar} = useContext(NotificationsContext);
     const {
+        enqueueErrorSnackbar,
+        enqueueSuccessSnackbar,
+    } = useContext(NotificationsContext);
+    const {
+        handleSaveRequestError,
+        currencies,
+    } = useContext(UtilsContext);
+    const {
+        createBankAccountRequest,
         getBankAccountsInfoRequest,
         getBankAccountRequest,
         getCategoriesRequest,
@@ -27,12 +36,31 @@ export const BankProvider = ({children}) => {
     const [transactions, setTransactions] = useState([]);
     const [processedTransactions, setProcessedTransactions] = useState([]);
 
+    const createBankAccount = (newBankAccount, setNewBankAccount, onClose) => {
+        const handleResponse = () => {
+            enqueueSuccessSnackbar('Successfully created bank account!');
+            setNewBankAccount({
+                name: null,
+                description: null,
+                IBAN: null,
+                currency: currencies[0],
+            });
+            getBankAccountsInfo();
+            onClose();
+        }
+        const handleError = (error) => {
+            handleSaveRequestError(error, 'bank account');
+        }
+
+        createBankAccountRequest(newBankAccount, handleResponse, handleError);
+    }
+
     const getBankAccountsInfo = () => {
         const handleResponse = (response) => {
             setBankAccountsInfo(response.data);
         }
         const handleError = () => {
-            enqueueErrorSnackbar('Unable to load your bank accounts, eload to try again.')
+            enqueueErrorSnackbar('Unable to load your bank accounts, reload to try again.')
         }
         getBankAccountsInfoRequest(handleResponse, handleError);
     }
@@ -116,6 +144,7 @@ export const BankProvider = ({children}) => {
     }
 
     const contextData = {
+        createBankAccount,
         bankAccountsInfo,
         getBankAccountsInfo,
         categories,
