@@ -10,7 +10,10 @@ export default AuthContext;
 
 export const AuthProvider = ({children}) => {
     const {enqueueErrorSnackbar, enqueueSuccessSnackbar} = useContext(NotificationsContext);
-    const {getBankAccountsInfo} = useContext(BankContext);
+    const {
+        getBankAccountsInfo,
+        resetBankAccountsInfo,
+    } = useContext(BankContext);
     const {
         setAuthUser,
         loginUserRequest,
@@ -65,6 +68,7 @@ export const AuthProvider = ({children}) => {
             authToken: null,
         });
         sessionStorage.removeItem('authUserPhynance');
+        resetBankAccountsInfo();
         navigate("/login");
     };
 

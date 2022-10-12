@@ -65,6 +65,10 @@ export const BankProvider = ({children}) => {
         getBankAccountsInfoRequest(handleResponse, handleError, newAuthUser);
     }
 
+    const resetBankAccountsInfo = () => {
+        setBankAccountsInfo([]);
+    }
+
     const getCategories = () => {
         const handleResponse = (response) => {
             setCategories(response.data);
@@ -151,6 +155,7 @@ export const BankProvider = ({children}) => {
         createBankAccount,
         bankAccountsInfo,
         getBankAccountsInfo,
+        resetBankAccountsInfo,
         categories,
         getCategories,
         bankAccount,
