@@ -36,6 +36,16 @@ export const BankProvider = ({children}) => {
     const [transactions, setTransactions] = useState([]);
     const [processedTransactions, setProcessedTransactions] = useState([]);
 
+    const getBankAccountsInfo = (newAuthUser) => {
+        const handleResponse = (response) => {
+            setBankAccountsInfo(response.data);
+        }
+        const handleError = () => {
+            enqueueErrorSnackbar('Unable to load your bank accounts, reload to try again.')
+        }
+        getBankAccountsInfoRequest(handleResponse, handleError, newAuthUser);
+    }
+
     const createBankAccount = (newBankAccount, setNewBankAccount, onClose) => {
         const handleResponse = () => {
             enqueueSuccessSnackbar('Successfully created bank account!');
@@ -53,16 +63,6 @@ export const BankProvider = ({children}) => {
         }
 
         createBankAccountRequest(newBankAccount, handleResponse, handleError);
-    }
-
-    const getBankAccountsInfo = (newAuthUser) => {
-        const handleResponse = (response) => {
-            setBankAccountsInfo(response.data);
-        }
-        const handleError = () => {
-            enqueueErrorSnackbar('Unable to load your bank accounts, reload to try again.')
-        }
-        getBankAccountsInfoRequest(handleResponse, handleError, newAuthUser);
     }
 
     const resetBankAccountsInfo = () => {
@@ -147,13 +147,9 @@ export const BankProvider = ({children}) => {
         getOverviewPeriodRequest({bankAccountId, dateRange}, handleResponse, handleError);
     }
 
-    useEffect(() => {
-        getBankAccountsInfo();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     const contextData = {
-        createBankAccount,
         bankAccountsInfo,
+        createBankAccount,
         getBankAccountsInfo,
         resetBankAccountsInfo,
         categories,
