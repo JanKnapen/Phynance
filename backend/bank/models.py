@@ -3,9 +3,7 @@ from django.db.models import Model, ForeignKey, CASCADE, TextField, PROTECT, Dat
     FloatField
 from rest_framework.exceptions import ValidationError
 
-from utils.models import MUIIcon
-
-from .definitions import CURRENCIES
+from utils.models import Currency, MUIIcon
 
 User = get_user_model()
 
@@ -15,7 +13,7 @@ class BankAccount(Model):
     name = CharField(max_length=32, blank=False, null=False, unique=True)
     description = TextField(max_length=128, blank=False, null=False)
     IBAN = CharField(max_length=32, blank=False, null=False)
-    currency = CharField(max_length=3, choices=CURRENCIES, default='EUR', blank=False, null=False)
+    currency = ForeignKey(Currency, on_delete=PROTECT)
 
     def __str__(self):
         return self.owner.username + ': ' + self.name

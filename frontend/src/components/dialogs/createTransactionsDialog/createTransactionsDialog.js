@@ -22,7 +22,7 @@ function CreateTransactionsDialog({open, onClose, maxWidth}) {
         if (processedTransactions.some(transaction => transaction.category == null)) {
             enqueueErrorSnackbar('Please select a category for each transaction.');
         } else {
-            const handleResponse = (response) => {
+            const handleResponse = () => {
                 enqueueSuccessSnackbar('Successfully uploaded new transactions');
                 onClose();
                 getBankAccount(id);
