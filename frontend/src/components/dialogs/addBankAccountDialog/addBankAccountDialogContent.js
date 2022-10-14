@@ -89,9 +89,9 @@ function AddBankAccountDialogContent({
                     {currencies.map(currency => (
                         <MenuItem
                             value={currency}
-                            key={currency}
+                            key={currency.id}
                         >
-                            {currency}
+                            {currency.name}
                         </MenuItem>
                     ))}
                 </Select>

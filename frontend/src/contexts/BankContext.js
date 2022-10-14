@@ -29,10 +29,7 @@ export const BankProvider = ({children}) => {
     const [bankAccountsInfo, setBankAccountsInfo] = useState([]);
     const [categories, setCategories] = useState([]);
     const [bankAccount, setBankAccount] = useState({
-        currencyFormatter: new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'EUR',
-        }),
+        currencyFormatter: null,
     });
     const [transactions, setTransactions] = useState([]);
     const [processedTransactions, setProcessedTransactions] = useState([]);
@@ -107,7 +104,7 @@ export const BankProvider = ({children}) => {
                 ...response.data,
                 currencyFormatter: new Intl.NumberFormat('en-US', {
                     style: 'currency',
-                    currency: response.data.currency,
+                    currency: response.data.currency.symbol,
                 }),
             }));
         }
