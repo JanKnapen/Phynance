@@ -14,7 +14,7 @@ function AddCategoryDialog({
                                onClose,
                            }) {
     const {enqueueSuccessSnackbar} = useContext(NotificationsContext);
-    const {getCategories} = useContext(BankContext);
+    const {addCategory} = useContext(BankContext);
     const {handleSaveRequestError} = useContext(UtilsContext);
     const {createCategoryRequest} = useContext(AxiosContext);
     const {MUIIcons} = useContext(UtilsContext);
@@ -25,10 +25,10 @@ function AddCategoryDialog({
         icon: null,
     });
 
-    const addCategory = () => {
+    const addCategoryAction = () => {
         const handleResponse = (response) => {
-            enqueueSuccessSnackbar('Successfully created category!')
-            getCategories();
+            enqueueSuccessSnackbar('Successfully created category!');
+            addCategory(response.data);
             onClose();
         }
         const handleError = (error) => {
@@ -60,7 +60,7 @@ function AddCategoryDialog({
             content={<AddCategoryDialogContent
                 onInputChange={inputChanged}
             />}
-            action={addCategory}
+            action={addCategoryAction}
             actionText='Add'
         />
     )

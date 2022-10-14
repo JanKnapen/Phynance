@@ -12,6 +12,8 @@ export const AuthProvider = ({children}) => {
     const {enqueueErrorSnackbar, enqueueSuccessSnackbar} = useContext(NotificationsContext);
     const {
         getBankAccountsInfo,
+        getCategories,
+        resetCategories,
         resetBankAccountsInfo,
     } = useContext(BankContext);
     const {
@@ -35,6 +37,7 @@ export const AuthProvider = ({children}) => {
             setAuthUser(newAuthUser);
             sessionStorage.setItem('authUserPhynance', JSON.stringify(newAuthUser))
             getBankAccountsInfo(newAuthUser);
+            getCategories(newAuthUser);
             navigate("/home");
         }
         const handleError = () => {
@@ -69,6 +72,7 @@ export const AuthProvider = ({children}) => {
         });
         sessionStorage.removeItem('authUserPhynance');
         resetBankAccountsInfo();
+        resetCategories();
         navigate("/login");
     };
 

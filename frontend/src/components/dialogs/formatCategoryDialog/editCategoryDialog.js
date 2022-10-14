@@ -17,14 +17,14 @@ function EditCategoryDialog({
                             }) {
     const {enqueueSuccessSnackbar} = useContext(NotificationsContext);
     const {handleSaveRequestError} = useContext(UtilsContext);
-    const {getCategories} = useContext(BankContext);
+    const {updateCategory} = useContext(BankContext);
     const {updateCategoryRequest} = useContext(AxiosContext);
     const {MUIIcons} = useContext(UtilsContext);
 
-    const updateCategory = () => {
+    const updateCategoryAction = () => {
         const handleResponse = (response) => {
             enqueueSuccessSnackbar('Successfully updated category!');
-            getCategories();
+            updateCategory(response.data);
             onClose();
         }
         const handleError = (error) => {
@@ -57,7 +57,7 @@ function EditCategoryDialog({
                 editCategory={editCategory}
                 onInputChange={inputChanged}
             />}
-            action={updateCategory}
+            action={updateCategoryAction}
             actionText='Save & Close'
         />
     )

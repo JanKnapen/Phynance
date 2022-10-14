@@ -17,6 +17,7 @@ export const BankProvider = ({children}) => {
         currencies,
     } = useContext(UtilsContext);
     const {
+        authUser,
         createBankAccountRequest,
         getBankAccountsInfoRequest,
         getBankAccountRequest,
@@ -69,14 +70,34 @@ export const BankProvider = ({children}) => {
         setBankAccountsInfo([]);
     }
 
-    const getCategories = () => {
+    const addCategory = (category) => {
+        setCategories(prevCategories => [
+            ...prevCategories,
+            category,
+        ]);
+    }
+
+    const updateCategory = (updateCategory) => {
+        setCategories(prevCategories => prevCategories.map(category => {
+            if (category.id === updateCategory.id) {
+                return updateCategory;
+            }
+            return category;
+        }))
+    }
+
+    const getCategories = (newAuthUser) => {
         const handleResponse = (response) => {
             setCategories(response.data);
         }
         const handleError = () => {
             enqueueErrorSnackbar('Unable to load your categories, reload to try again.')
         }
-        getCategoriesRequest(handleResponse, handleError);
+        getCategoriesRequest(handleResponse, handleError, newAuthUser);
+    }
+
+    const resetCategories = () => {
+        setCategories([]);
     }
 
     const getBankAccount = (id) => {
@@ -147,13 +168,23 @@ export const BankProvider = ({children}) => {
         getOverviewPeriodRequest({bankAccountId, dateRange}, handleResponse, handleError);
     }
 
+    useEffect(() => {
+        if (authUser.authToken) {
+            getBankAccountsInfo();
+            getCategories();
+        }
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
     const contextData = {
         bankAccountsInfo,
         createBankAccount,
         getBankAccountsInfo,
         resetBankAccountsInfo,
         categories,
+        addCategory,
+        updateCategory,
         getCategories,
+        resetCategories,
         bankAccount,
         getBankAccount,
         processTransactions,

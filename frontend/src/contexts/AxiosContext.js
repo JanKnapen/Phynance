@@ -76,20 +76,20 @@ export const AxiosProvider = ({children}) => {
             .catch(error => handleError(error));
     }
 
-    const postRequest = (url, data, handleResponse, handleError) => {
+    const postRequest = (url, data, handleResponse, handleError, newAuthUser) => {
         axiosClient.post(url, data, {
             headers: {
-                'Authorization': `token ${authUser.authToken}`,
+                'Authorization': `token ${newAuthUser ? newAuthUser.authToken : authUser.authToken}`,
             },
         })
             .then(response => handleResponse(response))
             .catch(error => handleError(error));
     }
 
-    const putRequest = (url, data, handleResponse, handleError) => {
+    const putRequest = (url, data, handleResponse, handleError, newAuthUser) => {
         axiosClient.put(url, data, {
             headers: {
-                'Authorization': `token ${authUser.authToken}`,
+                'Authorization': `token ${newAuthUser ? newAuthUser.authToken : authUser.authToken}`,
             },
         })
             .then(response => handleResponse(response))
@@ -147,8 +147,8 @@ export const AxiosProvider = ({children}) => {
         putRequest('/bank/categories/' + id + '/', putData, handleResponse, handleError);
     }
 
-    const getCategoriesRequest = async (handleResponse, handleError) => {
-        getRequest('/bank/categories/', handleResponse, handleError);
+    const getCategoriesRequest = async (handleResponse, handleError, newAuthUser) => {
+        getRequest('/bank/categories/', handleResponse, handleError, newAuthUser);
     }
 
     const getMUIIconsRequest = async (handleResponse, handleError) => {

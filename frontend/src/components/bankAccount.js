@@ -9,11 +9,10 @@ import BankAccountMainWidget from "./bankAccountMainWidget/bankAccountMainWidget
 
 function BankAccount() {
     const {id} = useParams();
-    const {getBankAccount, getCategories} = useContext(BankContext);
+    const {getBankAccount} = useContext(BankContext);
 
     useEffect(() => {
         getBankAccount(id);
-        getCategories();
     }, [id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
