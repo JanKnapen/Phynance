@@ -1,4 +1,4 @@
-import DialogTemplate from "../dialogTemplate";
+import DialogTemplate from "../templates/dialog/dialogTemplate";
 import {Receipt} from "@mui/icons-material";
 import CreateTransactionsDialogContent from "./createTransactionsDialogContent";
 import {useContext} from "react";

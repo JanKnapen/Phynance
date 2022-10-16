@@ -96,6 +96,16 @@ export const AxiosProvider = ({children}) => {
             .catch(error => handleError(error));
     }
 
+    const deleteRequest = (url, handleResponse, handleError, newAuthUser) => {
+        axiosClient.delete(url, {
+            headers: {
+                'Authorization': `token ${newAuthUser ? newAuthUser.authToken : authUser.authToken}`,
+            },
+        })
+            .then(response => handleResponse(response))
+            .catch(error => handleError(error));
+    }
+
     const createBankAccountRequest = async ({
                                                 name,
                                                 description,
@@ -117,6 +127,10 @@ export const AxiosProvider = ({children}) => {
 
     const getBankAccountRequest = async (id, handleResponse, handleError) => {
         getRequest('/bank/accounts/' + id + '/', handleResponse, handleError);
+    }
+
+    const deleteBankAccountRequest = async (id, handleResponse, handleError) => {
+        deleteRequest('/bank/accounts/' + id + '/', handleResponse, handleError);
     }
 
     const createCategoryRequest = async ({
@@ -194,6 +208,7 @@ export const AxiosProvider = ({children}) => {
         }
         postRequest('/bank/accounts/' + bankAccountId + '/overview/period/', postData, handleResponse, handleError);
     }
+
     const contextData = {
         authUser,
         setAuthUser,
@@ -202,6 +217,7 @@ export const AxiosProvider = ({children}) => {
         createBankAccountRequest,
         getBankAccountsInfoRequest,
         getBankAccountRequest,
+        deleteBankAccountRequest,
         createCategoryRequest,
         updateCategoryRequest,
         getCategoriesRequest,

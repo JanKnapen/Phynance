@@ -7,12 +7,14 @@ import BankAccountInfo from "./bankAccountInfo";
 import BankContext from "../../contexts/BankContext";
 import UploadTransactionsDialog from "../dialogs/uploadTransactionsDialog/uploadTransactionsDialog";
 import CreateTransactionsDialog from "../dialogs/createTransactionsDialog/createTransactionsDialog";
+import DeleteBankAccountDialog from "../dialogs/deleteBankAccountDialog/deleteBankAccountDialog";
 
 function BankAccountInfoWidget() {
     const {theme} = useContext(CustomThemeContext);
     const {bankAccount} = useContext(BankContext);
     const [openUploadTransactionsDialog, setOpenUploadTransactionsDialog] = useState(false);
     const [openCreateTransactionsDialog, setOpenCreateTransactionsDialog] = useState(false);
+    const [openDeleteBankAccountDialog, setOpenDeleteBankAccountDialog] = useState(false);
 
     const handleCloseUploadTransactionsDialog = () => {
         setOpenUploadTransactionsDialog(false);
@@ -20,6 +22,10 @@ function BankAccountInfoWidget() {
 
     const handleCloseCreateTransactionsDialog = () => {
         setOpenCreateTransactionsDialog(false);
+    }
+
+    const handleCloseDeleteBankAccountDialog = () => {
+        setOpenDeleteBankAccountDialog(false);
     }
 
     return (
@@ -49,7 +55,11 @@ function BankAccountInfoWidget() {
                 >
                     <BankAccountInfo/>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid
+                    item
+                    xs={12}
+                    paddingBottom={2}
+                >
                     <Button
                         variant='contained'
                         style={{
@@ -58,6 +68,18 @@ function BankAccountInfoWidget() {
                         onClick={() => setOpenUploadTransactionsDialog(true)}
                     >
                         Upload Transactions
+                    </Button>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button
+                        variant='contained'
+                        color='warning'
+                        style={{
+                            width: '60%',
+                        }}
+                        onClick={() => setOpenDeleteBankAccountDialog(true)}
+                    >
+                        Delete Bank Account
                     </Button>
                 </Grid>
                 <UploadTransactionsDialog
@@ -70,6 +92,10 @@ function BankAccountInfoWidget() {
                     open={openCreateTransactionsDialog}
                     onClose={handleCloseCreateTransactionsDialog}
                     maxWidth='xl'
+                />
+                <DeleteBankAccountDialog
+                    open={openDeleteBankAccountDialog}
+                    onClose={handleCloseDeleteBankAccountDialog}
                 />
             </Grid>
         </div>

@@ -3,7 +3,7 @@ import {useContext, useState} from "react";
 import BankContext from "../../../contexts/BankContext";
 import {Receipt} from "@mui/icons-material";
 import UploadTransactionsDialogContent from "./uploadTransactionsDialogContent";
-import DialogTemplate from "../dialogTemplate";
+import DialogTemplate from "../templates/dialog/dialogTemplate";
 import NotificationsContext from "../../../contexts/NotificationsContext";
 
 function UploadTransactionsDialog({open, onClose, maxWidth, setOpenCreateTransactionsDialog}) {

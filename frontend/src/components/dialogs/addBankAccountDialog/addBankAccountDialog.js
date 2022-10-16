@@ -1,4 +1,4 @@
-import DialogTemplate from "../dialogTemplate";
+import DialogTemplate from "../templates/dialog/dialogTemplate";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import {useContext, useState} from "react";
 import BankContext from "../../../contexts/BankContext";

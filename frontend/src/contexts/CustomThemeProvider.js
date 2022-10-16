@@ -84,6 +84,13 @@ export const CustomThemeProvider = ({children}) => {
                             backgroundColor: '#0d0d0d',
                         },
                     },
+                    containedWarning: {
+                        color: 'white',
+                        backgroundColor: 'red',
+                        ":hover": {
+                            backgroundColor: '#e73629',
+                        },
+                    },
                 }
             },
             MuiCard: {

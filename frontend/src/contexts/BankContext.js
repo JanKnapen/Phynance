@@ -2,12 +2,14 @@ import {createContext, useContext, useEffect, useState} from "react";
 import AxiosContext from "./AxiosContext";
 import NotificationsContext from "./NotificationsContext";
 import UtilsContext from "./UtilsContext";
+import {useNavigate} from "react-router-dom";
 
 const   BankContext = createContext(null);
 
 export default BankContext;
 
 export const BankProvider = ({children}) => {
+    const navigate = useNavigate();
     const {
         enqueueErrorSnackbar,
         enqueueSuccessSnackbar,
@@ -21,6 +23,7 @@ export const BankProvider = ({children}) => {
         createBankAccountRequest,
         getBankAccountsInfoRequest,
         getBankAccountRequest,
+        deleteBankAccountRequest,
         getCategoriesRequest,
         processTransactionsRequest,
         getTransactionsRequest,
@@ -45,6 +48,10 @@ export const BankProvider = ({children}) => {
     }
 
     const createBankAccount = (newBankAccount, setNewBankAccount, onClose) => {
+        newBankAccount = {
+            ...newBankAccount,
+            currency: newBankAccount.currency.id,
+        }
         const handleResponse = () => {
             enqueueSuccessSnackbar('Successfully created bank account!');
             setNewBankAccount({
@@ -112,6 +119,20 @@ export const BankProvider = ({children}) => {
             enqueueErrorSnackbar('Unable to load bank account, reload to try again.');
         }
         getBankAccountRequest(id, handleResponse, handleError);
+    }
+
+    const deleteBankAccount = (onClose) => {
+        const handleResponse = () => {
+            enqueueSuccessSnackbar('Successfully deleted bank account!');
+            setBankAccountsInfo(bankAccountsInfo.filter(obj => obj.id !== bankAccount.id));
+            navigate('/home');
+            onClose();
+        }
+        const handleError = () => {
+            enqueueErrorSnackbar('Unable to delete bank account, please try again.');
+        }
+
+        deleteBankAccountRequest(bankAccount.id, handleResponse, handleError);
     }
 
     const processTransactions = (transactions, closeUploadTransactionsDialog, setOpenCreateTransactionsDialog) => {
@@ -184,6 +205,7 @@ export const BankProvider = ({children}) => {
         resetCategories,
         bankAccount,
         getBankAccount,
+        deleteBankAccount,
         processTransactions,
         processedTransactions,
         setProcessedTransactions,

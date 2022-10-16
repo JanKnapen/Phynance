@@ -1,7 +1,7 @@
 import {Receipt} from "@mui/icons-material";
 import CategoriesDialogTable from "./categoriesDialogTable";
 import {useState} from "react";
-import DialogTemplate from "../dialogTemplate";
+import DialogTemplate from "../templates/dialog/dialogTemplate";
 import EditCategoryDialog from "../formatCategoryDialog/editCategoryDialog";
 import AddCategoryDialog from "../formatCategoryDialog/addCategoryDialog";
 

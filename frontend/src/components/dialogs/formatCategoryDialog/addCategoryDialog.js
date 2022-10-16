@@ -1,4 +1,4 @@
-import DialogTemplate from "../dialogTemplate";
+import DialogTemplate from "../templates/dialog/dialogTemplate";
 import {Category} from "@mui/icons-material";
 import AddCategoryDialogContent from "./addCategoryDialogContent";
 import {useContext, useState} from "react";
