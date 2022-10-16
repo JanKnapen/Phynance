@@ -12,6 +12,9 @@ from .serializers import BankAccountSerializer, \
 from .utils import select_info, get_balance, transaction_exists, suggest_category, get_expenses_and_income, \
     get_transactions_by_period, get_expenses_and_income_period
 
+from utils.models import Currency
+from utils.serializers import CurrencySerializer
+
 
 class BankAccountViewSet(ModelViewSet):
     queryset = BankAccount.objects.all()
@@ -32,10 +35,15 @@ class BankAccountViewSet(ModelViewSet):
         bank_account = serializer.data
         bank_account['balance'] = get_balance(bank_account)
         bank_account['expenses'], bank_account['income'] = get_expenses_and_income(bank_account)
+
+        currency = Currency.objects.get(pk=bank_account['currency'])
+        currency_serializer = CurrencySerializer(currency)
+        bank_account['currency'] = currency_serializer.data
+
         return Response(bank_account)
 
     @action(detail=False, methods=['GET'])
-    def info(self, request, *args, **kwargs):
+    def info(self):
         queryset = self.get_queryset()
 
         serializer = self.get_serializer(queryset, many=True)
@@ -114,7 +122,7 @@ class BankTransactionViewSet(ModelViewSet):
         return BankTransaction.objects.filter(bank_account__owner=user)
 
     @action(detail=False, methods=['POST'])
-    def process(self, request, *args, **kwargs):
+    def process(self, request):
         transactions = request.data
         new_transactions = [suggest_category(transaction) for transaction in transactions if not transaction_exists(transaction)]
         return Response(new_transactions)

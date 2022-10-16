@@ -155,6 +155,10 @@ export const AxiosProvider = ({children}) => {
         getRequest('/utils/mui_icons/', handleResponse, handleError);
     }
 
+    const getCurrenciesRequest = async (handleResponse, handleError) => {
+        getRequest('/utils/currencies/', handleResponse, handleError);
+    }
+
     const processTransactionsRequest = async (transactions, handleResponse, handleError) => {
         postRequest('/bank/transactions/process/', transactions, handleResponse, handleError);
     }
@@ -202,6 +206,7 @@ export const AxiosProvider = ({children}) => {
         updateCategoryRequest,
         getCategoriesRequest,
         getMUIIconsRequest,
+        getCurrenciesRequest,
         processTransactionsRequest,
         createTransactionsRequest,
         getTransactionsRequest,

@@ -18,9 +18,12 @@ export default UtilsContext;
 
 export const UtilsProvider = ({children}) => {
     const {enqueueErrorSnackbar} = useContext(NotificationsContext);
-    const {getMUIIconsRequest} = useContext(AxiosContext);
+    const {
+        getMUIIconsRequest,
+        getCurrenciesRequest,
+    } = useContext(AxiosContext);
     const [MUIIcons, setMUIIcons] = useState([]);
-    const currencies = ['EUR', 'USD'];
+    const [currencies, setCurrencies] = useState([]);
 
     const MUIIconComponents = {
         'MedicalInformation': MedicalInformation,
@@ -44,10 +47,20 @@ export const UtilsProvider = ({children}) => {
                 }
             ])))
         }
-        const handleError = (error) => {
-            enqueueErrorSnackbar('Unable to load the Icon options, reload to try again.')
+        const handleError = () => {
+            enqueueErrorSnackbar('Unable to load the Icon options, reload to try again.');
         }
         getMUIIconsRequest(handleResponse, handleError);
+    }
+
+    const getCurrencies = () => {
+        const handleResponse = (response) => {
+            setCurrencies(response.data);
+        }
+        const handleError = () => {
+            enqueueErrorSnackbar('Unable to load the currencies options, reload to try again.');
+        }
+        getCurrenciesRequest(handleResponse, handleError);
     }
 
     const handleSaveRequestError = (error, type) => {
@@ -70,6 +83,7 @@ export const UtilsProvider = ({children}) => {
 
     useEffect(() => {
         getMUIIcons();
+        getCurrencies();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const contextData = {

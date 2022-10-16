@@ -32,7 +32,7 @@ function BankAccountInfo() {
                         fontWeight: 'bold',
                     }}
                 >
-                    {bankAccount ? bankAccount.currencyFormatter.format(bankAccount.balance) : ''}
+                    {bankAccount && bankAccount.currencyFormatter ? bankAccount.currencyFormatter.format(bankAccount.balance) : ''}
                 </Typography>
             </Grid>
             <Grid
