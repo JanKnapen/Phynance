@@ -43,7 +43,7 @@ class BankAccountViewSet(ModelViewSet):
         return Response(bank_account)
 
     @action(detail=False, methods=['GET'])
-    def info(self):
+    def info(self, request, *args, **kwargs):
         queryset = self.get_queryset()
 
         serializer = self.get_serializer(queryset, many=True)
@@ -122,7 +122,7 @@ class BankTransactionViewSet(ModelViewSet):
         return BankTransaction.objects.filter(bank_account__owner=user)
 
     @action(detail=False, methods=['POST'])
-    def process(self, request):
+    def process(self, request, *args, **kwargs):
         transactions = request.data
         new_transactions = [suggest_category(transaction) for transaction in transactions if not transaction_exists(transaction)]
         return Response(new_transactions)
