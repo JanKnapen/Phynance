@@ -37,7 +37,7 @@ function EditCategoryDialog({
     const inputChanged = event => {
         let newInput = event.target.value;
         if (event.target.name === 'icon') {
-            newInput = MUIIcons.filter(MUIIcon => MUIIcon.name === event.target.value)[0].id;
+            newInput = MUIIcons.find(MUIIcon => MUIIcon.name === event.target.value).id;
         }
         setEditCategory(prevState => ({
             ...prevState,

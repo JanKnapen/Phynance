@@ -60,7 +60,7 @@ function AddCategoryDialogContent({
                     name='icon'
                     renderValue={(value) => {
                         if (value === '') return <></>
-                        const icon = MUIIcons.filter(MUIIcon => MUIIcon.name === value)[0].icon
+                        const icon = MUIIcons.find(MUIIcon => MUIIcon.name === value).icon
                         return (
                             createElement(icon, {key: icon}, null)
                         )

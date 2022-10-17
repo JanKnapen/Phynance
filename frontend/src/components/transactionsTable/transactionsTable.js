@@ -20,16 +20,16 @@ function TransactionsTable({transactions, setTransactions, editable, minHeight, 
     const {MUIIcons} = useContext(UtilsContext);
 
     const getMUIIcon = (category) => {
-        const MUIIcon = MUIIcons.filter(MUIIcon => MUIIcon.id === category.icon)[0];
+        const MUIIcon = MUIIcons.find(MUIIcon => MUIIcon.id === category.icon);
         return createElement(MUIIcon.icon, {key: MUIIcon.icon}, null);
     }
 
     const getCategory = (categoryId) => {
-        return categories.filter(category => category.id === categoryId)[0];
+        return categories.find(category => category.id === categoryId);
     }
 
     const getCategoryName = (categoryId) => {
-        const category = categories.filter(category => category.id === categoryId)[0];
+        const category = categories.find(category => category.id === categoryId);
         return category.name;
     }
 
@@ -92,7 +92,7 @@ function TransactionsTable({transactions, setTransactions, editable, minHeight, 
                                                 name={transaction.serial_number.toString()}
                                                 renderValue={(value) => {
                                                     if (value === '') return <div>None</div>
-                                                    const category = categories.filter(category => category.id === value)[0]
+                                                    const category = categories.find(category => category.id === value);
                                                     return getMUIIcon(category)
                                                 }}
                                                 defaultValue={transaction.category ?? ''}

@@ -10,7 +10,7 @@ function EditCategoryDialogContent({
     const {MUIIcons} = useContext(UtilsContext);
 
     const getIconName = (iconId) => {
-        return MUIIcons.filter(MUIIcon => MUIIcon.id === iconId)[0].name;
+        return MUIIcons.find(MUIIcon => MUIIcon.id === iconId).name;
     }
 
     return (
@@ -67,7 +67,7 @@ function EditCategoryDialogContent({
                     name='icon'
                     renderValue={(value) => {
                         if (value === '') return <></>
-                        const icon = MUIIcons.filter(MUIIcon => MUIIcon.name === value)[0].icon
+                        const icon = MUIIcons.find(MUIIcon => MUIIcon.name === value).icon
                         return (
                             createElement(icon, {key: icon}, null)
                         )

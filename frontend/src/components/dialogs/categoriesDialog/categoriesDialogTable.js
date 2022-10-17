@@ -9,7 +9,7 @@ function CategoriesDialogTable({setOpenEditCategory, setEditCategory}) {
     const {MUIIcons} = useContext(UtilsContext);
 
     const getIcon = (iconId) => {
-        const icon = MUIIcons.filter(MUIIcon => MUIIcon.id === iconId)[0].icon;
+        const icon = MUIIcons.find(MUIIcon => MUIIcon.id === iconId).icon;
         return (
             createElement(icon, {key: icon}, null)
         )
@@ -47,9 +47,9 @@ function CategoriesDialogTable({setOpenEditCategory, setEditCategory}) {
                                 <TableCell width={100}>
                                     <Button
                                         variant='contained'
-                                        onClick={(event) => {
+                                        onClick={() => {
                                             setOpenEditCategory(true);
-                                            const editCategory = categories.filter(cat => cat.id === category.id)[0]
+                                            const editCategory = categories.find(cat => cat.id === category.id);
                                             setEditCategory(editCategory);
                                         }}
                                     >
