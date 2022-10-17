@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Model, ForeignKey, CASCADE, TextField, PROTECT, DateField, CharField, IntegerField, \
-    FloatField
+    FloatField, SET_NULL
 from rest_framework.exceptions import ValidationError
 
 from utils.models import Currency, MUIIcon
@@ -46,3 +46,15 @@ class BankTransaction(Model):
 
     def __str__(self):
         return self.bank_account.owner.username + ', ' + self.bank_account.name + ': ' + str(self.date)
+
+
+class PaymentRequest(Model):
+    bank_account = ForeignKey(BankAccount, on_delete=CASCADE)
+    amount = FloatField(blank=False, null=False)
+    original_bank_transaction = ForeignKey(BankTransaction, on_delete=CASCADE)
+
+
+class Payment(Model):
+    amount = FloatField(blank=False, null=False)
+    original_bank_transaction = ForeignKey(BankTransaction, on_delete=CASCADE)
+    payment_request = ForeignKey(PaymentRequest, on_delete=CASCADE)
