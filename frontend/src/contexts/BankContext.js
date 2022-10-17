@@ -125,6 +125,9 @@ export const BankProvider = ({children}) => {
         const handleResponse = () => {
             enqueueSuccessSnackbar('Successfully deleted bank account!');
             setBankAccountsInfo(bankAccountsInfo.filter(obj => obj.id !== bankAccount.id));
+            setBankAccount({
+                currencyFormatter: null,
+            });
             navigate('/home');
             onClose();
         }
