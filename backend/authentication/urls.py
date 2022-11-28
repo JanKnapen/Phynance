@@ -5,9 +5,9 @@ from .views import UserViewSet
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
-router.register('users', UserViewSet)
+router.register("users", UserViewSet)
 
 urlpatterns = [
-    path('login/', obtain_auth_token),
-    path('', include(router.urls)),
+    path("login/", obtain_auth_token),
+    path("", include(router.urls)),
 ]

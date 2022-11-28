@@ -11,42 +11,95 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('utils', '0001_initial'),
+        ("utils", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BankAccount',
+            name="BankAccount",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=32)),
-                ('description', models.TextField(max_length=128)),
-                ('IBAN', models.CharField(max_length=32)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=32)),
+                ("description", models.TextField(max_length=128)),
+                ("IBAN", models.CharField(max_length=32)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='BankCategory',
+            name="BankCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=32)),
-                ('description', models.TextField(max_length=128)),
-                ('icon', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='utils.muiicon')),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=32)),
+                ("description", models.TextField(max_length=128)),
+                (
+                    "icon",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to="utils.muiicon"
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='BankTransaction',
+            name="BankTransaction",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateField()),
-                ('amount', models.IntegerField()),
-                ('serial_number', models.IntegerField()),
-                ('counter_party', models.TextField()),
-                ('balance_after', models.IntegerField()),
-                ('description', models.TextField()),
-                ('bank_account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bank.bankaccount')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='bank.bankcategory')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date", models.DateField()),
+                ("amount", models.IntegerField()),
+                ("serial_number", models.IntegerField()),
+                ("counter_party", models.TextField()),
+                ("balance_after", models.IntegerField()),
+                ("description", models.TextField()),
+                (
+                    "bank_account",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="bank.bankaccount",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="bank.bankcategory",
+                    ),
+                ),
             ],
         ),
     ]

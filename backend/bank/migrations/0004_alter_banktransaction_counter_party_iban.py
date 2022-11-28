@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bank', '0003_rename_counter_party_banktransaction_counter_party_name_and_more'),
+        (
+            "bank",
+            "0003_rename_counter_party_banktransaction_counter_party_name_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='banktransaction',
-            name='counter_party_IBAN',
+            model_name="banktransaction",
+            name="counter_party_IBAN",
             field=models.TextField(),
         ),
     ]

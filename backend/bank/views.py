@@ -4,13 +4,22 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import BankAccount, \
-    BankCategory, BankTransaction
+from .models import BankAccount, BankCategory, BankTransaction
 
-from .serializers import BankAccountSerializer, \
-    BankCategorySerializer, BankTransactionSerializer
-from .utils import select_info, get_balance, transaction_exists, suggest_category, get_expenses_and_income, \
-    get_transactions_by_period, get_expenses_and_income_period
+from .serializers import (
+    BankAccountSerializer,
+    BankCategorySerializer,
+    BankTransactionSerializer,
+)
+from .utils import (
+    select_info,
+    get_balance,
+    transaction_exists,
+    suggest_category,
+    get_expenses_and_income,
+    get_transactions_by_period,
+    get_expenses_and_income_period,
+)
 
 from utils.models import Currency
 from utils.serializers import CurrencySerializer
@@ -19,8 +28,12 @@ from utils.serializers import CurrencySerializer
 class BankAccountViewSet(ModelViewSet):
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_queryset(self):
         user = self.request.user
@@ -33,16 +46,18 @@ class BankAccountViewSet(ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
-        bank_account['balance'] = get_balance(bank_account)
-        bank_account['expenses'], bank_account['income'] = get_expenses_and_income(bank_account)
+        bank_account["balance"] = get_balance(bank_account)
+        bank_account["expenses"], bank_account["income"] = get_expenses_and_income(
+            bank_account
+        )
 
-        currency = Currency.objects.get(pk=bank_account['currency'])
+        currency = Currency.objects.get(pk=bank_account["currency"])
         currency_serializer = CurrencySerializer(currency)
-        bank_account['currency'] = currency_serializer.data
+        bank_account["currency"] = currency_serializer.data
 
         return Response(bank_account)
 
-    @action(detail=False, methods=['GET'])
+    @action(detail=False, methods=["GET"])
     def info(self, request, *args, **kwargs):
         queryset = self.get_queryset()
 
@@ -54,8 +69,12 @@ class BankAccountViewSet(ModelViewSet):
 class TransactionsPeriodViewSet(ModelViewSet):
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_queryset(self):
         user = self.request.user
@@ -65,8 +84,8 @@ class TransactionsPeriodViewSet(ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
-        period = request.data['period']
-        date_range = request.data['dateRange']
+        period = request.data["period"]
+        date_range = request.data["dateRange"]
         transactions = get_transactions_by_period(bank_account, period, date_range)
         return Response(transactions.values())
 
@@ -74,8 +93,12 @@ class TransactionsPeriodViewSet(ModelViewSet):
 class OverviewPeriodViewSet(ModelViewSet):
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_queryset(self):
         user = self.request.user
@@ -85,16 +108,23 @@ class OverviewPeriodViewSet(ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         bank_account = serializer.data
-        date_range = request.data['dateRange']
-        bank_account['expenses'], bank_account['income'] = get_expenses_and_income_period(bank_account, date_range)
+        date_range = request.data["dateRange"]
+        (
+            bank_account["expenses"],
+            bank_account["income"],
+        ) = get_expenses_and_income_period(bank_account, date_range)
         return Response(bank_account)
 
 
 class BankCategoryViewSet(ModelViewSet):
     queryset = BankCategory.objects.all()
     serializer_class = BankCategorySerializer
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_queryset(self):
         user = self.request.user
@@ -107,22 +137,30 @@ class BankCategoryViewSet(ModelViewSet):
 class BankTransactionViewSet(ModelViewSet):
     queryset = BankTransaction.objects.all()
     serializer_class = BankTransactionSerializer
-    authentication_classes = [TokenAuthentication, ]
-    permission_classes = [IsAuthenticated, ]
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_serializer(self, *args, **kwargs):
-        if isinstance(kwargs.get('data', {}), list):
-            kwargs['many'] = True
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
         serializer_class = self.get_serializer_class()
-        kwargs.setdefault('context', self.get_serializer_context())
+        kwargs.setdefault("context", self.get_serializer_context())
         return serializer_class(*args, **kwargs)
 
     def get_queryset(self):
         user = self.request.user
         return BankTransaction.objects.filter(bank_account__owner=user)
 
-    @action(detail=False, methods=['POST'])
+    @action(detail=False, methods=["POST"])
     def process(self, request, *args, **kwargs):
         transactions = request.data
-        new_transactions = [suggest_category(transaction) for transaction in transactions if not transaction_exists(transaction)]
+        new_transactions = [
+            suggest_category(transaction)
+            for transaction in transactions
+            if not transaction_exists(transaction)
+        ]
         return Response(new_transactions)

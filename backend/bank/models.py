@@ -1,6 +1,16 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Model, ForeignKey, CASCADE, TextField, PROTECT, DateField, CharField, IntegerField, \
-    FloatField, SET_NULL
+from django.db.models import (
+    Model,
+    ForeignKey,
+    CASCADE,
+    TextField,
+    PROTECT,
+    DateField,
+    CharField,
+    IntegerField,
+    FloatField,
+    SET_NULL,
+)
 from rest_framework.exceptions import ValidationError
 
 from utils.models import Currency, MUIIcon
@@ -16,7 +26,7 @@ class BankAccount(Model):
     currency = ForeignKey(Currency, on_delete=PROTECT)
 
     def __str__(self):
-        return self.owner.username + ': ' + self.name
+        return self.owner.username + ": " + self.name
 
 
 class BankCategory(Model):
@@ -42,10 +52,18 @@ class BankTransaction(Model):
 
     def clean(self):
         if self.bank_account.owner != self.category.owner:
-            raise ValidationError('Category owner is not equal to the bank account owner')
+            raise ValidationError(
+                "Category owner is not equal to the bank account owner"
+            )
 
     def __str__(self):
-        return self.bank_account.owner.username + ', ' + self.bank_account.name + ': ' + str(self.date)
+        return (
+            self.bank_account.owner.username
+            + ", "
+            + self.bank_account.name
+            + ": "
+            + str(self.date)
+        )
 
 
 class PaymentRequest(Model):

@@ -7,31 +7,67 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('utils', '0002_currency'),
-        ('bank', '0007_bankaccount_currency'),
+        ("utils", "0002_currency"),
+        ("bank", "0007_bankaccount_currency"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='bankaccount',
-            name='currency',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='utils.currency'),
+            model_name="bankaccount",
+            name="currency",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT, to="utils.currency"
+            ),
         ),
         migrations.CreateModel(
-            name='PaymentRequest',
+            name="PaymentRequest",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.FloatField()),
-                ('original_bank_transaction', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bank.banktransaction')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("amount", models.FloatField()),
+                (
+                    "original_bank_transaction",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="bank.banktransaction",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Payment',
+            name="Payment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.FloatField()),
-                ('original_bank_transaction', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bank.banktransaction')),
-                ('payment_request', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='bank.paymentrequest')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("amount", models.FloatField()),
+                (
+                    "original_bank_transaction",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="bank.banktransaction",
+                    ),
+                ),
+                (
+                    "payment_request",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="bank.paymentrequest",
+                    ),
+                ),
             ],
         ),
     ]

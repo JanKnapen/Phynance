@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bank', '0004_alter_banktransaction_counter_party_iban'),
+        ("bank", "0004_alter_banktransaction_counter_party_iban"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='banktransaction',
-            name='amount',
+            model_name="banktransaction",
+            name="amount",
             field=models.FloatField(),
         ),
         migrations.AlterField(
-            model_name='banktransaction',
-            name='balance_after',
+            model_name="banktransaction",
+            name="balance_after",
             field=models.FloatField(),
         ),
         migrations.AlterField(
-            model_name='banktransaction',
-            name='counter_party_IBAN',
+            model_name="banktransaction",
+            name="counter_party_IBAN",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='banktransaction',
-            name='counter_party_name',
+            model_name="banktransaction",
+            name="counter_party_name",
             field=models.TextField(blank=True, null=True),
         ),
     ]
