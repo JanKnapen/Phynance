@@ -1,12 +1,13 @@
 import Grid from "@mui/material/Grid";
 import {MenuItem, Select, Tooltip} from "@mui/material";
-import {createElement, useContext} from "react";
+import {createElement, useContext, useState} from "react";
 import BankContext from "../../contexts/BankContext";
 import UtilsContext from "../../contexts/UtilsContext";
 
 function TransactionsTableRow({transaction, setTransactions}) {
     const {categories} = useContext(BankContext);
     const {MUIIcons} = useContext(UtilsContext);
+    const [originalTransactionAmount, _] = useState(transaction.amount); // eslint-disable-line
 
     const getMUIIcon = (category) => {
         const MUIIcon = MUIIcons.find(MUIIcon => MUIIcon.id === category.icon);
@@ -58,7 +59,7 @@ function TransactionsTableRow({transaction, setTransactions}) {
                 item
                 xs={1}
             >
-                {transaction.amount}
+                {originalTransactionAmount}
             </Grid>
             <Grid
                 item
