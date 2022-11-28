@@ -9,7 +9,6 @@ from django.db.models import (
     CharField,
     IntegerField,
     FloatField,
-    SET_NULL,
 )
 from rest_framework.exceptions import ValidationError
 
