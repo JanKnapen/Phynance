@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import BankContext from "../../../contexts/BankContext";
-import TransactionsTable from "../../transactionsTable/transactionsTable";
+import TransactionsTablev2 from "../../transactionsTable/transactionsTablev2";
 
 function CreateTransactionsDialogContent() {
     const {
@@ -9,11 +9,9 @@ function CreateTransactionsDialogContent() {
     } = useContext(BankContext);
 
     return (
-        <TransactionsTable
-            editable={true}
+        <TransactionsTablev2
             transactions={processedTransactions}
             setTransactions={setProcessedTransactions}
-            maxHeight={700}
         />
     )
 }

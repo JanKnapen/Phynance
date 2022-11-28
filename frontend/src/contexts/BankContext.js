@@ -4,7 +4,7 @@ import NotificationsContext from "./NotificationsContext";
 import UtilsContext from "./UtilsContext";
 import {useNavigate} from "react-router-dom";
 
-const   BankContext = createContext(null);
+const BankContext = createContext(null);
 
 export default BankContext;
 
@@ -36,6 +36,7 @@ export const BankProvider = ({children}) => {
     });
     const [transactions, setTransactions] = useState([]);
     const [processedTransactions, setProcessedTransactions] = useState([]);
+    const [paymentRequests, setPaymentRequests] = useState([]);
 
     const getBankAccountsInfo = (newAuthUser) => {
         const handleResponse = (response) => {
@@ -212,6 +213,8 @@ export const BankProvider = ({children}) => {
         processTransactions,
         processedTransactions,
         setProcessedTransactions,
+        paymentRequests,
+        setPaymentRequests,
         getTransactions,
         transactions,
         getOverviewPeriod,
