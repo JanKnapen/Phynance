@@ -93,7 +93,7 @@ function TransactionsTableRowExtraOptions({transaction, setTransactions}) {
     }
 
     const onPaymentRequestAmountConfirmed = event => {
-        if (event.target.value < 0 || event.target.value > transaction.amount) {
+        if (event.target.value < 0 || event.target.value > originalTransactionAmount) {
             setPaymentRequestAmount(originalTransactionAmount);
         } else {
             updatePaymentRequestAmount();
@@ -153,7 +153,7 @@ function TransactionsTableRowExtraOptions({transaction, setTransactions}) {
                         }}
                     >
                         <Checkbox
-                            disabled={transaction.amount < 0}
+                            disabled={originalTransactionAmount < 0}
                             onChange={togglePaymentRequestOption}
                         />
                     </Grid>
