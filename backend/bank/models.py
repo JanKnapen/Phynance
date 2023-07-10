@@ -42,7 +42,7 @@ class BankTransaction(Model):
     bank_account = ForeignKey(BankAccount, on_delete=CASCADE)
     date = DateField(blank=False, null=False)
     amount = FloatField(blank=False, null=False)
-    serial_number = IntegerField(blank=False, null=False)
+    serial_number = IntegerField(blank=False, null=False, primary_key=True)
     counter_party_IBAN = TextField(blank=True, null=True)
     counter_party_name = TextField(blank=True, null=True)
     balance_after = FloatField(blank=False, null=False)
@@ -69,5 +69,14 @@ class BankTransaction(Model):
 class PaymentRequest(Model):
     bank_account = ForeignKey(BankAccount, on_delete=CASCADE)
     amount = FloatField(blank=False, null=False)
-    amount_paid = FloatField(blank=False, null=False)
+    amount_paid = FloatField(blank=False, null=False, default=0)
     original_bank_transaction = ForeignKey(BankTransaction, on_delete=CASCADE)
+
+    def __str__(self):
+        return (
+            self.bank_account.owner.username
+            + ", "
+            + self.bank_account.name
+            + ": "
+            + str(self.original_bank_transaction.date)
+        )

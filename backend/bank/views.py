@@ -1,15 +1,17 @@
+from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 from rest_framework.viewsets import ModelViewSet
 
-from .models import BankAccount, BankCategory, BankTransaction
+from .models import BankAccount, BankCategory, BankTransaction, PaymentRequest
 
 from .serializers import (
     BankAccountSerializer,
     BankCategorySerializer,
-    BankTransactionSerializer,
+    BankTransactionSerializer, PaymentRequestSerializer,
 )
 from .utils import (
     select_info,
@@ -164,3 +166,29 @@ class BankTransactionViewSet(ModelViewSet):
             if not transaction_exists(transaction)
         ]
         return Response(new_transactions)
+
+
+class PaymentRequestViewSet(ModelViewSet):
+    queryset = PaymentRequest.objects.all()
+    serializer_class = PaymentRequestSerializer
+    authentication_classes = [
+        TokenAuthentication,
+    ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
+
+    def get_serializer(self, *args, **kwargs):
+        print(kwargs)
+        print(BankTransaction.objects.all())
+        print(kwargs.get("data", {})[0]["original_bank_transaction"])
+        print(BankTransaction.objects.filter(serial_number=kwargs.get("data", {})[0]["original_bank_transaction"]))
+        if isinstance(kwargs.get("data", {}), list):
+            kwargs["many"] = True
+        serializer_class = self.get_serializer_class()
+        kwargs.setdefault("context", self.get_serializer_context())
+        return serializer_class(*args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        return PaymentRequest.objects.filter(bank_account__owner=user)

@@ -7,13 +7,14 @@ from .views import (
     BankCategoryViewSet,
     BankTransactionViewSet,
     TransactionsPeriodViewSet,
-    OverviewPeriodViewSet,
+    OverviewPeriodViewSet, PaymentRequestViewSet,
 )
 
 router = DefaultRouter()
 router.register("accounts", BankAccountViewSet)
 router.register("categories", BankCategoryViewSet)
 router.register("transactions", BankTransactionViewSet)
+router.register("payment_requests", PaymentRequestViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

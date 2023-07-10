@@ -181,6 +181,10 @@ export const AxiosProvider = ({children}) => {
         postRequest('/bank/transactions/', transactions, handleResponse, handleError);
     }
 
+    const createPaymentRequestsRequest = async (paymentRequests, handleResponse, handleError) => {
+        postRequest('/bank/payment_requests/', paymentRequests, handleResponse, handleError);
+    }
+
     const getTransactionsRequest = async ({
                                               bankAccountId,
                                               period,
@@ -225,6 +229,7 @@ export const AxiosProvider = ({children}) => {
         getCurrenciesRequest,
         processTransactionsRequest,
         createTransactionsRequest,
+        createPaymentRequestsRequest,
         getTransactionsRequest,
         getOverviewPeriodRequest,
     };

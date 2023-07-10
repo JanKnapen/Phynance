@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import BankAccount, BankCategory, BankTransaction
+from .models import BankAccount, BankCategory, BankTransaction, PaymentRequest
 
 
 class BankAccountSerializer(ModelSerializer):
@@ -19,7 +19,6 @@ class BankTransactionSerializer(ModelSerializer):
     class Meta:
         model = BankTransaction
         fields = [
-            "id",
             "bank_account",
             "date",
             "amount",
@@ -29,4 +28,16 @@ class BankTransactionSerializer(ModelSerializer):
             "balance_after",
             "description",
             "category",
+        ]
+
+
+class PaymentRequestSerializer(ModelSerializer):
+    class Meta:
+        model = PaymentRequest
+        fields = [
+            "id",
+            "bank_account",
+            "amount",
+            "amount_paid",
+            "original_bank_transaction"
         ]
