@@ -48,6 +48,7 @@ class BankTransaction(Model):
     balance_after = FloatField(blank=False, null=False)
     description = TextField()
     category = ForeignKey(BankCategory, on_delete=PROTECT)
+    wbw_amount = FloatField(blank=False, null=False)
 
     def clean(self):
         if self.bank_account.owner != self.category.owner:
@@ -68,10 +69,5 @@ class BankTransaction(Model):
 class PaymentRequest(Model):
     bank_account = ForeignKey(BankAccount, on_delete=CASCADE)
     amount = FloatField(blank=False, null=False)
+    amount_paid = FloatField(blank=False, null=False)
     original_bank_transaction = ForeignKey(BankTransaction, on_delete=CASCADE)
-
-
-class Payment(Model):
-    amount = FloatField(blank=False, null=False)
-    original_bank_transaction = ForeignKey(BankTransaction, on_delete=CASCADE)
-    payment_request = ForeignKey(PaymentRequest, on_delete=CASCADE)
