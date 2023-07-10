@@ -31,7 +31,6 @@ function CreateTransactionsDialog({open, onClose, maxWidth}) {
                 handleSaveRequestError(error, 'transactions');
             }
             const processedTransactionsWithCategory = processedTransactions.filter(transaction => transaction.category != null);
-            console.log(processedTransactionsWithCategory);
             createTransactionsRequest(processedTransactionsWithCategory, handleResponse, handleError);
         }
     }
