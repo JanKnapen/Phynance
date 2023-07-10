@@ -19,8 +19,8 @@ function CreateTransactionsDialog({open, onClose, maxWidth}) {
     } = useContext(BankContext);
 
     const handleCreateTransactions = () => {
-        if (processedTransactions.some(transaction => transaction.category == null)) {
-            enqueueErrorSnackbar('Please select a category for each transaction.');
+        if (processedTransactions.every(transaction => transaction.category == null)) {
+            enqueueErrorSnackbar('Please select a category for at least one transaction.');
         } else {
             const handleResponse = () => {
                 enqueueSuccessSnackbar('Successfully uploaded new transactions');
@@ -30,7 +30,9 @@ function CreateTransactionsDialog({open, onClose, maxWidth}) {
             const handleError = (error) => {
                 handleSaveRequestError(error, 'transactions');
             }
-            createTransactionsRequest(processedTransactions, handleResponse, handleError);
+            const processedTransactionsWithCategory = processedTransactions.filter(transaction => transaction.category != null);
+            console.log(processedTransactionsWithCategory);
+            createTransactionsRequest(processedTransactionsWithCategory, handleResponse, handleError);
         }
     }
 

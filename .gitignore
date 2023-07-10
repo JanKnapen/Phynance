@@ -1,4 +1,4 @@
 .idea
 __pycache__/
 /backend/db.sqlite3
-/resources
+resources/*
