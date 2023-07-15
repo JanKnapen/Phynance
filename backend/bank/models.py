@@ -22,7 +22,7 @@ class BankAccount(Model):
     name = CharField(max_length=32, blank=False, null=False, unique=True)
     description = TextField(max_length=128, blank=False, null=False)
     IBAN = CharField(max_length=32, blank=False, null=False)
-    currency = ForeignKey(Currency, on_delete=PROTECT, default=Currency.objects.first().id)
+    currency = ForeignKey(Currency, on_delete=PROTECT)
 
     def __str__(self):
         return self.owner.username + ": " + self.name
@@ -32,7 +32,7 @@ class BankCategory(Model):
     owner = ForeignKey(User, on_delete=CASCADE)
     name = CharField(max_length=32, blank=False, null=False)
     description = TextField(max_length=128, blank=False, null=False)
-    icon = ForeignKey(MUIIcon, on_delete=PROTECT, default=MUIIcon.objects.first().id)
+    icon = ForeignKey(MUIIcon, on_delete=PROTECT)
 
     def __str__(self):
         return self.name
