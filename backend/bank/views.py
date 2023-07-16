@@ -179,10 +179,6 @@ class PaymentRequestViewSet(ModelViewSet):
     ]
 
     def get_serializer(self, *args, **kwargs):
-        print(kwargs)
-        print(BankTransaction.objects.all())
-        print(kwargs.get("data", {})[0]["original_bank_transaction"])
-        print(BankTransaction.objects.filter(serial_number=kwargs.get("data", {})[0]["original_bank_transaction"]))
         if isinstance(kwargs.get("data", {}), list):
             kwargs["many"] = True
         serializer_class = self.get_serializer_class()
