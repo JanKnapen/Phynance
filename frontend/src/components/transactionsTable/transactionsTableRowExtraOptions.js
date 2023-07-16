@@ -10,7 +10,7 @@ function TransactionsTableRowExtraOptions({transaction, setTransactions}) {
     } = useContext(BankContext);
     const [openExtraOptions, setOpenExtraOptions] = useState(false);
     const [isPaymentRequest, setIsPaymentRequest] = useState(false);
-    const [paymentRequestAmount, setPaymentRequestAmount] = useState(transaction.amount > 0 ? transaction.amount : null);
+    const [paymentRequestAmount, setPaymentRequestAmount] = useState(transaction.amount < 0 ? -transaction.amount : null);
     const [originalTransactionAmount, _] = useState(transaction.amount); // eslint-disable-line
 
     const updateTransactionAmount = (amount) => {
@@ -80,24 +80,19 @@ function TransactionsTableRowExtraOptions({transaction, setTransactions}) {
                 updateTransactionAmount(originalTransactionAmount);
             } else {
                 updatePaymentRequestAmount();
-                updateTransactionAmount(originalTransactionAmount - paymentRequestAmount);
+                updateTransactionAmount(originalTransactionAmount + paymentRequestAmount);
             }
             return !prevState;
         });
     }
 
-    const onPaymentRequestAmountChanged = event => {
-        if (event.target.value >= 0) {
-            setPaymentRequestAmount(event.target.value);
-        }
-    }
-
     const onPaymentRequestAmountConfirmed = event => {
-        if (event.target.value < 0 || event.target.value > originalTransactionAmount) {
-            setPaymentRequestAmount(originalTransactionAmount);
+        const inputValue = Number(event.target.value);
+        if (inputValue < 0 || inputValue > -originalTransactionAmount) {
+            setPaymentRequestAmount(-originalTransactionAmount);
         } else {
             updatePaymentRequestAmount();
-            updateTransactionAmount(originalTransactionAmount - paymentRequestAmount);
+            updateTransactionAmount(originalTransactionAmount + inputValue);
         }
     }
 
@@ -153,7 +148,7 @@ function TransactionsTableRowExtraOptions({transaction, setTransactions}) {
                         }}
                     >
                         <Checkbox
-                            disabled={originalTransactionAmount < 0}
+                            disabled={originalTransactionAmount > 0}
                             onChange={togglePaymentRequestOption}
                         />
                     </Grid>
@@ -180,7 +175,7 @@ function TransactionsTableRowExtraOptions({transaction, setTransactions}) {
                             disabled={!isPaymentRequest}
                             type='number'
                             value={paymentRequestAmount}
-                            onChange={onPaymentRequestAmountChanged}
+                            onChange={event => setPaymentRequestAmount(event.target.value)}
                             onBlur={onPaymentRequestAmountConfirmed}
                         />
                     </Grid>
